@@ -15,9 +15,9 @@ install:
   - composer install --no-interaction
 
 before_script:
+  - mysql -e 'CREATE DATABASE test;'
   - cp .env.travis .env
   - php artisan migrate
-  - mysql -e 'CREATE DATABASE test;'
 
 script:
   - vendor/bin/phpunit
