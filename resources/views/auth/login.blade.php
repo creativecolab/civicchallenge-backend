@@ -61,7 +61,7 @@
                         </div>
 
                         @if(Request::has('sso'))
-                            <input type="hidden" name="sso" value="{{ urlencode($_GET['sso']) }}">
+                            <input type="hidden" name="sso" value="{{ urlencode(Request::get('sso')) }}">
                         @endif
 
                         @if(Request::has('sig'))
