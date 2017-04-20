@@ -84,6 +84,7 @@ class LoginController extends Controller {
 		$userEmail       = $user->email;
 		$extraParameters = [
 			'name' => $user->name,
+			'require_activation' => true
 		];
 
 		// Build query

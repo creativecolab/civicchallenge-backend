@@ -64,7 +64,7 @@ class SSOTest extends TestCase {
 	 * Test if the redirect link is correct
 	 */
 	public function testSSORedirect() {
-		$query = "sso=bm9uY2U9Y2I2ODI1MWVlZmI1MjExZTU4YzAwZmYxMzk1ZjBjMGImZXh0ZXJuYWxfaWQ9MSZlbWFpbD10ZXN0JTQwZXhhbXBsZS5jb20mbmFtZT1UZXN0&sig=9c242bdfe32b6cfce6933d8ed71698d777a48aabe62ad69f92b853fccf4b557e";
+		$query = "sso=bm9uY2U9Y2I2ODI1MWVlZmI1MjExZTU4YzAwZmYxMzk1ZjBjMGImZXh0ZXJuYWxfaWQ9MSZlbWFpbD10ZXN0JTQwZXhhbXBsZS5jb20mbmFtZT1UZXN0JnJlcXVpcmVfYWN0aXZhdGlvbj0x&sig=1133ff685003085cfb13e781c88724b00e81cf56ef9a63f41ddfe29af7defc3b";
 
 		$response = $this->post( '/login',
 			[
