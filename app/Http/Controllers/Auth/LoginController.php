@@ -7,7 +7,7 @@ use Config;
 use Cviebrock\DiscoursePHP\SSOHelper;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
-use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
+use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 
 class LoginController extends Controller {
 	/*
@@ -60,7 +60,7 @@ class LoginController extends Controller {
 	 * @param Request $request
 	 * @param $user
 	 *
-	 * @return bool|\Illuminate\Http\RedirectResponse|UnauthorizedHttpException
+	 * @return string
 	 */
 	protected function processSSO( Request $request, $user ) {
 		// Set up SSO helper
@@ -73,7 +73,7 @@ class LoginController extends Controller {
 
 		// Validate payload
 		if ( ! ( $sso->validatePayload( $payload, $signature ) ) ) {
-			return new UnauthorizedHttpException( 'Bad SSO request!' );
+			throw new BadRequestHttpException( 'Bad SSO request!' );
 		}
 
 		// Get nonce
