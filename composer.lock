@@ -4,8 +4,53 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "aab7de99695bf9db40a7bb468b3158d5",
+    "content-hash": "eed9d67987761b5230c2e12ca9366ad1",
     "packages": [
+        {
+            "name": "cviebrock/discourse-php",
+            "version": "0.9.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/cviebrock/discourse-php.git",
+                "reference": "8644e966bf916dc90ca09e90d71260fac3c7226f"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/cviebrock/discourse-php/zipball/8644e966bf916dc90ca09e90d71260fac3c7226f",
+                "reference": "8644e966bf916dc90ca09e90d71260fac3c7226f",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Cviebrock\\DiscoursePHP\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Colin Viebrock",
+                    "email": "colin@viebrock.ca"
+                },
+                {
+                    "name": "Johan Jatko",
+                    "homepage": "http://jaetkow.se/"
+                }
+            ],
+            "description": "Helper class for building a single sign-on source for Discourse forums",
+            "homepage": "https://github.com/cviebrock/discourse-php",
+            "keywords": [
+                "discourse",
+                "forum"
+            ],
+            "time": "2016-08-28T00:41:37+00:00"
+        },
         {
             "name": "dnoegel/php-xdg-base-dir",
             "version": "0.1",

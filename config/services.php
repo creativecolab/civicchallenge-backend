@@ -35,4 +35,9 @@ return [
         'secret' => env('STRIPE_SECRET'),
     ],
 
+	'discourse' => [
+		'url' => env('DISCOURSE_URL'),
+		'secret' => env('DISCOURSE_SECRET'),
+	]
+
 ];

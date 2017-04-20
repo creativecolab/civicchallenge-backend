@@ -59,6 +59,14 @@
                                 </a>
                             </div>
                         </div>
+
+                        @if(Request::has('sso'))
+                            <input type="hidden" name="sso" value="{{ urlencode(Request::get('sso')) }}">
+                        @endif
+
+                        @if(Request::has('sig'))
+                            <input type="hidden" name="sig" value="{{ Request::get('sig') }}">
+                        @endif
                     </form>
                 </div>
             </div>
