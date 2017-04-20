@@ -19,7 +19,12 @@ class SSOTest extends TestCase {
 
 	public function setUp() {
 		parent::setUp();
-		$this->user = factory( User::class )->create();
+		$this->user = User::create( [
+			'name'           => 'Test',
+			'email'          => 'test@example.com',
+			'password'       => bcrypt( 'secret' ),
+			'remember_token' => str_random( 10 ),
+		] );
 	}
 
 	/**
@@ -28,15 +33,15 @@ class SSOTest extends TestCase {
 	public function testSSOLogin() {
 		$response = $this->post( '/login',
 			[
-				'email' => $this->user->email,
+				'email'    => $this->user->email,
 				'password' => 'secret',
-				'sso' => urlencode($this->sso),
-				'sig' => $this->sig
+				'sso'      => urlencode( $this->sso ),
+				'sig'      => $this->sig
 			]
 		);
 
 		$response->assertStatus( 302 );
-		$response->assertSee(Config::get('services.discourse.url')); // Check to see if the redirect is to our URL
+		$response->assertSee( Config::get( 'services.discourse.url' ) ); // Check to see if the redirect is to our URL
 	}
 
 	/**
@@ -45,13 +50,33 @@ class SSOTest extends TestCase {
 	public function testSSOLoginFailure() {
 		$response = $this->post( '/login',
 			[
-				'email' => $this->user->email,
+				'email'    => $this->user->email,
 				'password' => 'secret',
-				'sso' => urlencode($this->sso),
-				'sig' => '1234' // Bogus signature
+				'sso'      => urlencode( $this->sso ),
+				'sig'      => '1234' // Bogus signature
 			]
 		);
 
 		$response->assertStatus( 400 );
+	}
+
+	/**
+	 * Test if the redirect link is correct
+	 */
+	public function testSSORedirect() {
+		$query = "sso=bm9uY2U9Y2I2ODI1MWVlZmI1MjExZTU4YzAwZmYxMzk1ZjBjMGImZXh0ZXJuYWxfaWQ9MSZlbWFpbD10ZXN0JTQwZXhhbXBsZS5jb20mbmFtZT1UZXN0&sig=9c242bdfe32b6cfce6933d8ed71698d777a48aabe62ad69f92b853fccf4b557e";
+
+		$response = $this->post( '/login',
+			[
+				'email'    => $this->user->email,
+				'password' => 'secret',
+				'sso'      => urlencode( $this->sso ),
+				'sig'      => $this->sig
+			]
+		);
+
+		$expected = Config::get( 'services.discourse.url' ) . '/session/sso_login?' . $query;
+
+		$response->assertRedirect( $expected );
 	}
 }
