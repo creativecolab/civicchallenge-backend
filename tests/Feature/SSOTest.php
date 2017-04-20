@@ -24,8 +24,6 @@ class SSOTest extends TestCase {
 
 	/**
 	 * Test SSO login
-	 *
-	 * @return void
 	 */
 	public function testSSOLogin() {
 		$response = $this->post( '/login',
@@ -39,5 +37,21 @@ class SSOTest extends TestCase {
 
 		$response->assertStatus( 302 );
 		$response->assertSee(Config::get('services.discourse.url')); // Check to see if the redirect is to our URL
+	}
+
+	/**
+	 * Test if request will fail upon bad SSO request
+	 */
+	public function testSSOLoginFailure() {
+		$response = $this->post( '/login',
+			[
+				'email' => $this->user->email,
+				'password' => 'secret',
+				'sso' => urlencode($this->sso),
+				'sig' => '1234' // Bogus signature
+			]
+		);
+
+		$response->assertStatus( 400 );
 	}
 }
