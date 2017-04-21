@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Mail\EmailConfirmation;
 use App\User;
 use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use Mail;
 
 class RegisterController extends Controller
 {
@@ -39,7 +42,12 @@ class RegisterController extends Controller
         $this->middleware('guest');
     }
 
-    /**
+    protected function registered( Request $request, $user ) {
+    	// Send email confirmation
+	    Mail::to($user)->send(new EmailConfirmation($user));
+    }
+
+	/**
      * Get a validator for an incoming registration request.
      *
      * @param  array  $data
@@ -66,6 +74,7 @@ class RegisterController extends Controller
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => bcrypt($data['password']),
+	        'confirmation_code' => str_random(30)
         ]);
     }
 }
