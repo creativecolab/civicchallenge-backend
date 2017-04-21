@@ -1,51 +1,88 @@
-<p align="center"><img src="https://laravel.com/assets/img/components/logo-laravel.svg"></p>
+# D4SD Backend
+<a href="https://travis-ci.org/creativecolab/civicchallenge-backend"><img src="https://travis-ci.org/creativecolab/civicchallenge-backend.svg" alt="Build Status"></a>
 
-<p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/d/total.svg" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/v/stable.svg" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/license.svg" alt="License"></a>
-</p>
+Backend for [Design 4 San Diego](https://designsandigo.ucsd.edu).
 
-## About Laravel
+---
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable, creative experience to be truly fulfilling. Laravel attempts to take the pain out of development by easing common tasks used in the majority of web projects, such as:
+## Quickstart
+```
+mv .env.example .env
+composer install
+npm install && npm run production
+php artisan migrate
+php artisan serve
+```
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## Requirements
 
-Laravel is accessible, yet powerful, providing tools needed for large, robust applications. A superb combination of simplicity, elegance, and innovation give you tools you need to build any application with which you are tasked.
+* PHP
+* Composer
+* NodeJS + npm
 
-## Learning Laravel
+### Installing NodeJS & NPM
 
-Laravel has the most extensive and thorough documentation and video tutorial library of any modern web application framework. The [Laravel documentation](https://laravel.com/docs) is thorough, complete, and makes it a breeze to get started learning the framework.
+If you don't already have node and npm installed, visit [the node website](http://nodejs.org/) to download and install the proper package. npm comes standard with node as a package so no need to install it separately.
 
-If you're not in the mood to read, [Laracasts](https://laracasts.com) contains over 900 video tutorials on a range of topics including Laravel, modern PHP, unit testing, JavaScript, and more. Boost the skill level of yourself and your entire team by digging into our comprehensive video library.
+Using [nvm](https://github.com/creationix/nvm) is recommended to help manage node versions.
 
-## Laravel Sponsors
+### Installing npm packages
 
-We would like to extend our thanks to the following sponsors for helping fund on-going Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](http://patreon.com/taylorotwell):
+Use this command to install the required packages:
 
-- **[Vehikl](http://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[British Software Development](https://www.britishsoftware.co)**
-- **[Styde](https://styde.net)**
-- **[Codecourse](https://www.codecourse.com)**
-- [Fragrantica](https://www.fragrantica.com)
+`npm install`
 
-## Contributing
+### Installing PHP dependencies
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](http://laravel.com/docs/contributions).
+Use this command to install the required PHP packages:
 
-## Security Vulnerabilities
+`composer install`
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell at taylor@laravel.com. All security vulnerabilities will be promptly addressed.
+### Development Environment
 
-## License
+Using [Laravel Valet](https://laravel.com/docs/5.4/valet) is recommended to make your life easier. 
 
-The Laravel framework is open-sourced software licensed under the [MIT license](http://opensource.org/licenses/MIT).
+---
+
+## Installation
+
+### Set up your environment variables
+`mv .env.example .env`
+
+Edit the values in `.env` with your local values.
+
+### Install packages
+`composer install` - Install PHP packages
+
+`npm install` - Install node packages for frontend build
+
+### Migrate
+`php artisan migrate`
+
+### Build assets
+**For development**
+
+`npm run dev`
+
+**For production**
+
+`npm run prod`
+
+### Server
+If you're not using [Laravel Valet](https://laravel.com/docs/5.4/valet), configure the `public` folder to be your document root.
+
+You can also use Laravel's built-in server (not highly recommended):
+
+`php artisan server`
+
+This will allow you to access the server at `127.0.0.1:8000`.
+
+---
+
+## Testing
+
+This project is using Travis CI to check builds. Builds will be checked when commits are pushed.
+
+**Run tests**
+
+`phpunit`
