@@ -7,7 +7,7 @@ Backend for [Design 4 San Diego](https://designsandigo.ucsd.edu).
 
 ## Quickstart
 ```
-mv .env.example .env
+cp .env.example .env
 composer install
 npm install && npm run production
 php artisan migrate
@@ -19,6 +19,7 @@ php artisan serve
 * PHP
 * Composer
 * NodeJS + npm
+* MySQL
 
 ### Installing NodeJS & NPM
 
@@ -46,6 +47,58 @@ Using [Laravel Valet](https://laravel.com/docs/5.4/valet) is recommended to make
 
 ## Installation
 
+### Composer
+
+On macOS, make sure you have [Homebrew](http://brew.sh/) installed.
+
+```
+brew update
+brew tap homebrew/dupes
+brew tap homebrew/php
+brew install php71
+brew install composer
+```
+
+Make sure to place the `~/.composer/vendor/bin directory` in your PATH
+
+### Development Web Server
+
+Choose one method:
+
+#### Laravel Valet (Highly Recommended)
+
+> If you're using macOS, using [Laravel Valet](https://laravel.com/docs/5.4/valet) is highly recommended.
+
+##### Quickstart
+
+Make sure you have [Homebrew](http://brew.sh/) installed.
+
+```
+brew install
+brew update
+brew install homebrew/php/php71
+composer global require laravel/valet
+```
+
+#### PHP Development Server
+You can use Laravel's built-in server but it's not highly recommended:
+
+`php artisan server`
+
+This will allow you to access the server at `127.0.0.1:8000`.
+
+
+#### Other servers
+If you're using another web server (nginx, apache, etc.) configure the `public` folder to be your document root.
+
+
+### MySQL
+If you don't have MySQL already.
+
+```
+brew install mysql
+```
+
 ### Set up your environment variables
 `mv .env.example .env`
 
@@ -67,15 +120,6 @@ Edit the values in `.env` with your local values.
 **For production**
 
 `npm run prod`
-
-### Server
-If you're not using [Laravel Valet](https://laravel.com/docs/5.4/valet), configure the `public` folder to be your document root.
-
-You can also use Laravel's built-in server (not highly recommended):
-
-`php artisan server`
-
-This will allow you to access the server at `127.0.0.1:8000`.
 
 ---
 
