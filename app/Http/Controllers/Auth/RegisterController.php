@@ -2,10 +2,14 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Mail\EmailConfirmation;
 use App\User;
 use App\Http\Controllers\Controller;
+use Auth;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use Mail;
 
 class RegisterController extends Controller
 {
@@ -39,7 +43,31 @@ class RegisterController extends Controller
         $this->middleware('guest');
     }
 
-    /**
+	/**
+	 * Confirm user account
+	 *
+	 * @param Request $request
+	 * @param $id
+	 * @param $code
+	 *
+	 * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+	 */
+    public function confirm(Request $request, $id, $code)
+    {
+		$user = User::find($id)->whereConfirmationCode($code)->firstOrFail();
+		$user->confirmed = true;
+		$user->confirmation_code = null;
+		$user->save();
+
+	    return redirect($this->redirectPath());
+    }
+
+    protected function registered( Request $request, $user ) {
+    	// Send email confirmation
+	    Mail::to($user)->send(new EmailConfirmation($user));
+    }
+
+	/**
      * Get a validator for an incoming registration request.
      *
      * @param  array  $data
@@ -66,6 +94,7 @@ class RegisterController extends Controller
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => bcrypt($data['password']),
+	        'confirmation_code' => str_random(30)
         ]);
     }
 }
