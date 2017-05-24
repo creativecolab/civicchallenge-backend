@@ -13,7 +13,7 @@ use Illuminate\Http\Request;
 |
 */
 
-APIRoute::version('v1', function ($api) {
+APIRoute::version('v1', ['middleware' => 'api'], function ($api) {
 	APIRoute::resource('challenges', 'App\Http\Controllers\ChallengeController');
 });
 
