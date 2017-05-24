@@ -5,12 +5,19 @@ namespace App\Http\Controllers;
 use App\Challenge;
 use Illuminate\Http\Request;
 
+/**
+ * Microchallenges
+ * @package App\Http\Controllers
+ * @resource("Challenges", uri="/challenges")
+ */
 class ChallengeController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Database\Eloquent\Collection|static[]
+     *
+     * @get("/")
      */
     public function index()
     {
@@ -22,6 +29,9 @@ class ChallengeController extends Controller
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
+     *
+     * @post("/")
+     * @request({"name": "Name", "summary": "This is a challenge."})
      */
     public function store(Request $request)
     {
@@ -33,6 +43,8 @@ class ChallengeController extends Controller
      *
      * @param  \App\Challenge  $challenge
      * @return Challenge|\Illuminate\Http\Response
+     *
+	 * @get("/{id}")
      */
     public function show(Challenge $challenge)
     {
@@ -44,8 +56,11 @@ class ChallengeController extends Controller
 	 *
 	 * @param  \Illuminate\Http\Request $request
 	 * @param  \App\Challenge $challenge
-	 *
 	 * @return Challenge
+	 *
+	 * @put("/{id}")
+	 * @patch("/{id}")
+	 * @request({"name": "Name", "summary": "This is a challenge."})
 	 */
     public function update(Request $request, Challenge $challenge)
     {
@@ -61,6 +76,8 @@ class ChallengeController extends Controller
      *
      * @param  \App\Challenge  $challenge
      * @return \Illuminate\Http\Response
+     *
+     * @delete("/{id}")
      */
     public function destroy(Challenge $challenge)
     {
