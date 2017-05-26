@@ -16,6 +16,9 @@ class Challenge extends Model
 
 	protected $fillable = [
 		'name',
-		'summary'
+		'summary',
+		'description',
+		'thumbnail',
+		'phase'
 	];
 }
