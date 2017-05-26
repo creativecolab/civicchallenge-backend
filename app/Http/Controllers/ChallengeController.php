@@ -31,7 +31,7 @@ class ChallengeController extends Controller
      * @return \Illuminate\Http\Response
      *
      * @post("/")
-     * @request({"name": "Name", "summary": "This is a challenge."})
+     * @request({"name": "Name", "summary": "This is a challenge.", "description": "Challenge description"})
      */
     public function store(Request $request)
     {
@@ -60,7 +60,7 @@ class ChallengeController extends Controller
 	 *
 	 * @put("/{id}")
 	 * @patch("/{id}")
-	 * @request({"name": "Name", "summary": "This is a challenge."})
+	 * @request({"name": "Name", "summary": "This is a challenge.", "description": "Challenge description"})
 	 */
     public function update(Request $request, Challenge $challenge)
     {
