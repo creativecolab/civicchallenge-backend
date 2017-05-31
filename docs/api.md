@@ -255,3 +255,32 @@ Resources for Challenges. i.e. Student work, external resources
     + id: (integer, required) - ID of Resource
 
 + Response 204 (application/json)
+
+# Categories [/categories]
+Categories of Microchallenges
+
+## Display a listing of the resource. [GET /categories]
+
+
+## Store a newly created resource in storage. [POST /categories]
+
+
+## Display the specified resource. [GET /categories/{id}]
+
+
++ Parameters
+    + id: (integer, required) - ID of Category
+
+## Update the specified resource in storage. [POST /categories/{id}]
+
+
++ Parameters
+    + id: (integer, required) - ID of Category
+
+## Delete category. Any challenges within the category will have its category set to NULL. [DELETE /categories/{id}]
+
+
++ Parameters
+    + id: (integer, required) - ID of Category
+
++ Response 204 (application/json)
