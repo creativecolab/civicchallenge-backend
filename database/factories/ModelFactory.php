@@ -28,11 +28,12 @@ $factory->define(App\Challenge::class, function (Faker\Generator $faker) {
 		'name' => $faker->sentence(3),
 		'summary' => $faker->paragraph(),
 		'description' => $faker->paragraphs(3, true),
-		'phase' => rand(App\Challenge::PHASE_START, App\Challenge::PHASE_END)
+		'phase' => rand(App\Challenge::PHASE_START, App\Challenge::PHASE_END),
+		'category_id' => null
 	];
 });
 
-$factory->define(App\Resource::class, function (Faker\Generator $faker, $id) {
+$factory->define(App\Resource::class, function (Faker\Generator $faker) {
 	return [
 		'name' => $faker->sentence(3),
 		'url' => $faker->url,
@@ -40,5 +41,12 @@ $factory->define(App\Resource::class, function (Faker\Generator $faker, $id) {
 		'type' => $faker->fileExtension,
 		'challenge_id' => null,
 		'phase' => null
+	];
+});
+
+$factory->define(App\Category::class, function (Faker\Generator $faker) {
+	return [
+		'name' => $faker->sentence(3),
+		'description' => $faker->paragraph()
 	];
 });

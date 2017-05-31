@@ -18,5 +18,6 @@ APIRoute::version( 'v1', [ 'middleware' => 'api' ], function ( $api ) {
 	APIRoute::get( 'challenges/{challenge}/resources', 'App\Http\Controllers\ChallengeController@showResources' );
 	APIRoute::post( 'challenges/{challenge}/resources', 'App\Http\Controllers\ChallengeController@storeResource' );
 	APIRoute::resource('resources', 'App\Http\Controllers\ResourceController');
+	APIRoute::resource('categories', 'App\Http\Controllers\CategoryController');
 } );
 

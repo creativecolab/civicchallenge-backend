@@ -18,10 +18,15 @@ class Challenge extends Model {
 		'summary',
 		'description',
 		'thumbnail',
-		'phase'
+		'phase',
+		'category_id'
 	];
 
 	public function resources() {
 		return $this->hasMany('App\Resource');
+	}
+
+	public function category() {
+		return $this->belongsTo('App\Category');
 	}
 }
