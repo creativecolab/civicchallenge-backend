@@ -13,6 +13,11 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
-});
+APIRoute::version( 'v1', [ 'middleware' => 'api' ], function ( $api ) {
+	APIRoute::resource( 'challenges', 'App\Http\Controllers\ChallengeController' );
+	APIRoute::get( 'challenges/{challenge}/resources', 'App\Http\Controllers\ChallengeController@showResources' );
+	APIRoute::post( 'challenges/{challenge}/resources', 'App\Http\Controllers\ChallengeController@storeResource' );
+	APIRoute::resource('resources', 'App\Http\Controllers\ResourceController');
+	APIRoute::resource('categories', 'App\Http\Controllers\CategoryController');
+} );
+
