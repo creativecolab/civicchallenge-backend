@@ -40,3 +40,10 @@ Microchallenges
             }
 
 ## Remove the specified resource from storage. [DELETE /challenges/{id}]
+
+
+## Get resources belonging to challenge [GET /challenges/{id}/resources]
+
+
++ Parameters
+    + id: (integer, required) - ID of Challenge

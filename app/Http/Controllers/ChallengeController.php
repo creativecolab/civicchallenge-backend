@@ -100,4 +100,21 @@ class ChallengeController extends Controller
 
 	    return $this->response->noContent();
     }
+
+	/**
+	 * Get resources belonging to Challenge
+	 *
+	 * @param Challenge $challenge
+	 *
+	 * @return mixed
+	 *
+	 * @get("/{id}/resources")
+	 * @parameters({
+	 *     @parameter("id", description="ID of Challenge", required=true, type="integer")
+	 * })
+	 */
+    public function showResources(Challenge $challenge)
+    {
+        return $challenge->resources;
+    }
 }
