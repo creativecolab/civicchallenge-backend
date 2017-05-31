@@ -33,4 +33,8 @@ class Challenge extends Model {
 	public function questions() {
 		return $this->hasMany('App\Question');
 	}
+
+	public function insights() {
+		return $this->hasMany('App\Insight');
+	}
 }
