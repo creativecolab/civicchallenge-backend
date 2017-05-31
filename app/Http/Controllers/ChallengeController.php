@@ -11,7 +11,7 @@ use Illuminate\Http\Request;
  * @resource("Challenges", uri="/challenges")
  */
 class ChallengeController extends Controller {
-	use CreatesResources;
+	use CreatesResources, CreatesQuestions;
 
 	/**
 	 * Display a listing of the resource.
@@ -19,19 +19,27 @@ class ChallengeController extends Controller {
 	 * @param Request $request
 	 *
 	 * @return \Illuminate\Database\Eloquent\Collection|static[]
-	 * @get("/{?resources}")
+	 * @get("/{?resources,questions}")
 	 * @parameters({
-	 *     @parameter("resources", type="boolean", description="Include associated resources.", default="false")
+	 *     @parameter("resources", type="boolean", description="Include associated resources.", default="false"),
+	 *     @parameter("questions", type="boolean", description="Include associated questions.", default="false")
 	 * })
 	 */
 	public function index( Request $request ) {
 		$withResources = strtolower( $request->query( 'resources' ) );
+		$withQuestions = strtolower( $request->query( 'questions' ) );
+
+		$loadRelations = ['category'];
 
 		if ( $withResources == 'true' || $withResources == '1' ) {
-			$challenges = Challenge::with( [ 'category', 'resources' ] )->get();
-		} else {
-			$challenges = Challenge::with( [ 'category' ] )->get();
+			$loadRelations[] = 'resources';
 		}
+
+		if ( $withQuestions == 'true' || $withQuestions == '1' ) {
+			$loadRelations[] = 'questions';
+		}
+
+		$challenges = Challenge::with( $loadRelations )->get();
 
 		return $challenges;
 	}
@@ -54,18 +62,35 @@ class ChallengeController extends Controller {
 	/**
 	 * Display the specified resource.
 	 *
+	 * @param Request $request
 	 * @param  \App\Challenge $challenge
 	 *
 	 * @return Challenge|\Illuminate\Http\Response
-	 *
-	 * @get("/{id}")
+	 * @get("/{id}{?resources,questions}")
 	 * @response(200, body={"challenge":{"id":1,"name":"Consequatur voluptatem atque blanditiis.","summary":"In vel eaque ut reprehenderit voluptates.","thumbnail":"http://thumbnail.com/img.jpg","phase":2,"created_at":"2017-05-31 05:06:00","updated_at":"2017-05-31 05:06:00"}})
 	 * @parameters({
-	 *     @parameter("id", description="ID of Challenge", required=true, type="integer")
+	 *     @parameter("id", description="ID of Challenge", required=true, type="integer"),
+	 * 	   @parameter("resources", type="boolean", description="Include associated resources.", default="false"),
+	 *     @parameter("questions", type="boolean", description="Include associated questions.", default="false")
 	 * })
 	 */
-	public function show( Challenge $challenge ) {
+	public function show( Request $request, Challenge $challenge ) {
 		$challenge->load( [ 'category' ] );
+
+		$withResources = strtolower( $request->query( 'resources' ) );
+		$withQuestions = strtolower( $request->query( 'questions' ) );
+
+		$loadRelations = ['category'];
+
+		if ( $withResources == 'true' || $withResources == '1' ) {
+			$loadRelations[] = 'resources';
+		}
+
+		if ( $withQuestions == 'true' || $withQuestions == '1' ) {
+			$loadRelations[] = 'questions';
+		}
+
+		$challenge->load( $loadRelations );
 
 		return $challenge;
 	}
@@ -151,5 +176,38 @@ class ChallengeController extends Controller {
 	 */
 	public function storeResource( Request $request, Challenge $challenge ) {
 		return $this->createResource( $request, $challenge );
+	}
+
+	/**
+	 * Get Questions belonging to Challenge
+	 *
+	 * @param Challenge $challenge
+	 *
+	 * @return mixed
+	 *
+	 * @get("/{id}/questions")
+	 * @response(200)
+	 * @parameters({
+	 *     @parameter("id", description="ID of Challenge", required=true, type="integer")
+	 * })
+	 */
+	public function showQuestions( Challenge $challenge ) {
+		return $challenge->questions;
+	}
+
+	/**
+	 * Store new Question for Challenge
+	 *
+	 * @param Request $request
+	 * @param Challenge $challenge
+	 *
+	 * @return \App\Question
+	 *
+	 * @post("/{id}/questions")
+	 * @request({"text": "What?"})
+	 * @response(200, body={"question":{"id":1,"text":"What?","challenge_id":1,"phase":1,"created_at":"2017-05-31 17:00:27","updated_at":"2017-05-31 17:18:28"}})
+	 */
+	public function storeQuestion( Request $request, Challenge $challenge ) {
+		return $this->createQuestion( $request, $challenge );
 	}
 }
