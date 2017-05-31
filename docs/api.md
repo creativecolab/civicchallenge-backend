@@ -344,3 +344,91 @@ Categories of Microchallenges
     + id: (integer, required) - ID of Category
 
 + Response 204 (application/json)
+
+# Discussion Questions [/questions]
+Discussion Questions
+
+## Display a listing of the resource. [GET /questions]
+
+
++ Response 200 (application/json)
+
+## Store a newly created resource in storage. [POST /questions]
+
+
++ Request (application/json)
+    + Body
+
+            {
+                "text": "What?",
+                "challenge_id": 1
+            }
+
++ Response 200 (application/json)
+    + Body
+
+            {
+                "question": {
+                    "id": 1,
+                    "text": "What?",
+                    "challenge_id": 1,
+                    "phase": 1,
+                    "created_at": "2017-05-31 17:00:27",
+                    "updated_at": "2017-05-31 17:18:28"
+                }
+            }
+
+## Display the specified resource. [GET /questions/{id}]
+
+
++ Parameters
+    + id: (integer, required) - ID of Question
+
++ Response 200 (application/json)
+    + Body
+
+            {
+                "question": {
+                    "id": 1,
+                    "text": "What?",
+                    "challenge_id": 1,
+                    "phase": 1,
+                    "created_at": "2017-05-31 17:00:27",
+                    "updated_at": "2017-05-31 17:18:28"
+                }
+            }
+
+## Update the specified resource in storage. [PUT /questions/{id}]
+
+
++ Parameters
+    + id: (integer, required) - ID of Question
+
++ Request (application/json)
+    + Body
+
+            {
+                "text": "What?"
+            }
+
++ Response 200 (application/json)
+    + Body
+
+            {
+                "question": {
+                    "id": 1,
+                    "text": "What?",
+                    "challenge_id": 1,
+                    "phase": 1,
+                    "created_at": "2017-05-31 17:00:27",
+                    "updated_at": "2017-05-31 17:18:28"
+                }
+            }
+
+## Remove the specified resource from storage. [DELETE /questions/{id}]
+
+
++ Parameters
+    + id: (integer, required) - ID of Question
+
++ Response 204 (application/json)
