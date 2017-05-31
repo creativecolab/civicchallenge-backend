@@ -38,29 +38,14 @@ class LoginController extends Controller {
 	}
 
 	/**
-	 * Checks if request needs SSO handling
-	 *
-	 * @param Request $request
-	 * @param $user
-	 *
-	 * @return mixed
-	 */
-	protected function authenticated( Request $request, $user ) {
-		// Handle SSO request if needed
-		if ( $request->has( 'sso' ) && $request->has( 'sig' ) ) {
-			return redirect( $this->processSSO( $request, $user ) );
-		}
-
-		return true;
-	}
-
-	/**
 	 * Perform SSO functions for Discourse and return redirect URL
 	 *
 	 * @param Request $request
 	 * @param $user
 	 *
 	 * @return string
+	 *
+	 * @deprecated
 	 */
 	protected function processSSO( Request $request, $user ) {
 		// Set up SSO helper
