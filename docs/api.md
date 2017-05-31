@@ -259,17 +259,23 @@ Resources for Challenges. i.e. Student work, external resources
 # Categories [/categories]
 Categories of Microchallenges
 
-## Display a listing of the resource. [GET /categories]
+## Display a listing of the resource. [GET /categories{?challenges}]
 
+
++ Parameters
+    + challenges: (boolean, optional) - Include challenges under each category
+        + Default: false
 
 ## Store a newly created resource in storage. [POST /categories]
 
 
-## Display the specified resource. [GET /categories/{id}]
+## Display the specified resource. [GET /categories/{id}{?challenges}]
 
 
 + Parameters
     + id: (integer, required) - ID of Category
+    + challenges: (boolean, optional) - Include challenges under category
+        + Default: false
 
 ## Update the specified resource in storage. [POST /categories/{id}]
 

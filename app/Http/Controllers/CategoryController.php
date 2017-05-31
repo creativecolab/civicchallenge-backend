@@ -14,13 +14,25 @@ class CategoryController extends Controller {
 	/**
 	 * Display a listing of the resource.
 	 *
+	 * @param Request $request
+	 *
 	 * @return \Illuminate\Database\Eloquent\Collection|static[]
 	 *
-	 * @get("/")
+	 * @get("/{?challenges}")
+	 * @parameters({
+	 *     @parameter("challenges", type="boolean", description="Include challenges under each category", default="false")
+	 * })
 	 */
-	public function index() {
-		// TODO: Add parameter to list all challenges in categories
-		return Category::all();
+	public function index( Request $request ) {
+		$withChallenges = strtolower( $request->query( 'challenges' ) );
+
+		if ( $withChallenges == 'true' || $withChallenges == '1' ) {
+			$categories = Category::with( [ 'challenges' ] )->get();
+		} else {
+			$categories = Category::all();
+		}
+
+		return $categories;
 	}
 
 	/**
@@ -43,13 +55,19 @@ class CategoryController extends Controller {
 	 *
 	 * @return Category
 	 *
-	 * @get("/{id}")
+	 * @get("/{id}{?challenges}")
 	 * @parameters({
-	 *     @parameter("id", description="ID of Category", required=true, type="integer")
+	 *     @parameter("id", description="ID of Category", required=true, type="integer"),
+	 *     @parameter("challenges", type="boolean", description="Include challenges under category", default="false")
 	 * })
 	 */
-	public function show( Category $category ) {
-		// TODO: Add parameter to list all challenges in category
+	public function show( Request $request, Category $category ) {
+		$withChallenges = strtolower( $request->query( 'challenges' ) );
+
+		if ( $withChallenges == 'true' || $withChallenges == '1' ) {
+			$category->load( [ 'challenges' ] );
+		}
+
 		return $category;
 	}
 
