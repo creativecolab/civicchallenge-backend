@@ -58,3 +58,17 @@ $factory->define(App\Question::class, function (Faker\Generator $faker) {
 		'phase' => null
 	];
 });
+
+$factory->define(App\Insight::class, function (Faker\Generator $faker) {
+	return [
+		'text' => $faker->sentence(),
+		'user_id' => null,
+		'timestamp' => $faker->date(),
+		'thumbnail' => $faker->imageUrl(),
+		'type' => rand(App\Insight::TYPE_MIN, App\Insight::TYPE_MAX),
+		'question_id' => null,
+		'challenge_id' => null,
+		'phase' => null,
+		'slack_meta' => '{"var1": "content"}'
+	];
+});

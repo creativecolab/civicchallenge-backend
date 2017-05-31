@@ -15,4 +15,8 @@ class Question extends Model
     public function challenge() {
     	return $this->belongsTo('App\Challenge');
     }
+
+    public function insights() {
+    	return $this->hasMany('App\Insight');
+    }
 }

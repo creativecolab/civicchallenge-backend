@@ -19,17 +19,21 @@ class ChallengeController extends Controller {
 	 * @param Request $request
 	 *
 	 * @return \Illuminate\Database\Eloquent\Collection|static[]
-	 * @get("/{?resources,questions}")
+	 * @get("/{?resources,questions,insights,groupInsightsByQuestion}")
 	 * @parameters({
 	 *     @parameter("resources", type="boolean", description="Include associated resources.", default="false"),
-	 *     @parameter("questions", type="boolean", description="Include associated questions.", default="false")
+	 *     @parameter("questions", type="boolean", description="Include associated questions.", default="false"),
+	 *     @parameter("insights", type="boolean", description="Include associated insights.", default="false"),
+	 *     @parameter("groupInsightsByQuestion", type="boolean", description="Group associated insights by questions", default="false")
 	 * })
 	 */
 	public function index( Request $request ) {
-		$withResources = strtolower( $request->query( 'resources' ) );
-		$withQuestions = strtolower( $request->query( 'questions' ) );
+		$withResources            = strtolower( $request->query( 'resources' ) );
+		$withQuestions            = strtolower( $request->query( 'questions' ) );
+		$withInsights             = strtolower( $request->query( 'insights' ) );
+		$groupInsightsByQuestion = strtolower( $request->query( 'groupInsightsByQuestion' ) );
 
-		$loadRelations = ['category'];
+		$loadRelations = [ 'category' ];
 
 		if ( $withResources == 'true' || $withResources == '1' ) {
 			$loadRelations[] = 'resources';
@@ -37,6 +41,14 @@ class ChallengeController extends Controller {
 
 		if ( $withQuestions == 'true' || $withQuestions == '1' ) {
 			$loadRelations[] = 'questions';
+		}
+
+		if ( $withInsights == 'true' || $withInsights == '1' ) {
+			if ( $groupInsightsByQuestion == 'true' || $groupInsightsByQuestion == '1' ) {
+				$loadRelations[] = 'questions.insights';
+			} else {
+				$loadRelations[] = 'insights';
+			}
 		}
 
 		$challenges = Challenge::with( $loadRelations )->get();
@@ -80,7 +92,7 @@ class ChallengeController extends Controller {
 		$withResources = strtolower( $request->query( 'resources' ) );
 		$withQuestions = strtolower( $request->query( 'questions' ) );
 
-		$loadRelations = ['category'];
+		$loadRelations = [ 'category' ];
 
 		if ( $withResources == 'true' || $withResources == '1' ) {
 			$loadRelations[] = 'resources';
@@ -181,17 +193,24 @@ class ChallengeController extends Controller {
 	/**
 	 * Get Questions belonging to Challenge
 	 *
+	 * @param Request $request
 	 * @param Challenge $challenge
 	 *
 	 * @return mixed
-	 *
-	 * @get("/{id}/questions")
+	 * @get("/{id}/questions/{?insights}")
 	 * @response(200)
 	 * @parameters({
-	 *     @parameter("id", description="ID of Challenge", required=true, type="integer")
+	 *     @parameter("id", description="ID of Challenge", required=true, type="integer"),
+	 *     @parameter("insights", description="Include associated insights.", type="boolean")
 	 * })
 	 */
-	public function showQuestions( Challenge $challenge ) {
+	public function showQuestions( Request $request, Challenge $challenge ) {
+		$withInsights = strtolower( $request->query( 'insights' ) );
+
+		if ( $withInsights == 'true' || $withInsights == '1' ) {
+			return $challenge->questions()->with( 'insights' )->get();
+		}
+
 		return $challenge->questions;
 	}
 
@@ -206,8 +225,29 @@ class ChallengeController extends Controller {
 	 * @post("/{id}/questions")
 	 * @request({"text": "What?"})
 	 * @response(200, body={"question":{"id":1,"text":"What?","challenge_id":1,"phase":1,"created_at":"2017-05-31 17:00:27","updated_at":"2017-05-31 17:18:28"}})
+	 * @parameters({
+	 *     @parameter("id", description="ID of Challenge", required=true, type="integer")
+	 * })
 	 */
 	public function storeQuestion( Request $request, Challenge $challenge ) {
 		return $this->createQuestion( $request, $challenge );
+	}
+
+	/**
+	 * Get Insights for Challenge
+	 *
+	 * @param Request $request
+	 * @param Challenge $challenge
+	 *
+	 * @return mixed
+	 *
+	 * @get("/{id}/insights")
+	 * @response(200, body={"insights": {}})
+	 * @parameters({
+	 *     @parameter("id", description="ID of Challenge", required=true, type="integer")
+	 * })
+	 */
+	public function showInsights( Request $request, Challenge $challenge ) {
+		return $challenge->insights;
 	}
 }

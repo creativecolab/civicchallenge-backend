@@ -10,7 +10,7 @@
 		{
 			"name": "Challenges: Index",
 			"request": {
-				"url": "http://d4sd.dev/challenges?challenges=true&questions=true",
+				"url": "http://d4sd.dev/challenges?challenges=true&questions=true&insights=true&groupInsightsByQuestions=true",
 				"method": "GET",
 				"header": [],
 				"body": {},
@@ -44,6 +44,17 @@
 			"name": "Challenges: Show Questions",
 			"request": {
 				"url": "http://d4sd.dev/challenges/1/questions",
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Challenges: Show Insights",
+			"request": {
+				"url": "http://d4sd.dev/challenges/1/insights",
 				"method": "GET",
 				"header": [],
 				"body": {},
@@ -392,6 +403,108 @@
 				"body": {
 					"mode": "raw",
 					"raw": "{\n\t\"text\": \"Test\",\n\t\"challenge_id\": 1\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Insights: Index",
+			"request": {
+				"url": "http://d4sd.dev/insights",
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Insights: Show",
+			"request": {
+				"url": "http://d4sd.dev/insights/1",
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Insights: Update",
+			"request": {
+				"url": "http://d4sd.dev/insights/1",
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"type\": 2\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Insights: Delete",
+			"request": {
+				"url": "http://d4sd.dev/insights/4",
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Insights: Create",
+			"request": {
+				"url": "http://d4sd.dev/insights",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": " {\n    \"text\": \"Eos ipsa possimus nemo voluptas facilis in.\",\n    \"user_id\": 1,\n    \"timestamp\": \"1999-01-31 00:00:00\",\n    \"thumbnail\": \"http://lorempixel.com/640/480/?44834\",\n    \"type\": 0,\n    \"question_id\": 1,\n    \"challenge_id\": 1,\n    \"slack_meta\": \"{\\\"var1\\\": \\\"content\\\"}\"\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Insights: Create Multiple",
+			"request": {
+				"url": "http://d4sd.dev/insights",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\t\n\t\"insights\": [\n\t\t{\n\t \t\t\"text\": \"Test message 1\",\n\t\t    \"user_id\": 1,\n\t\t    \"timestamp\": \"1999-01-31 00:00:00\",\n\t\t    \"thumbnail\": \"http://lorempixel.com/640/480/?44834\",\n\t\t    \"type\": 0,\n\t\t    \"question_id\": 1,\n\t\t    \"challenge_id\": 1,\n\t\t    \"slack_meta\": \"{\\\"var1\\\": \\\"content\\\"}\"\n\t\t},\n\t\t{\n\t \t\t\"text\": \"Test message 2\",\n\t\t    \"user_id\": 1,\n\t\t    \"timestamp\": \"1999-01-31 00:00:00\",\n\t\t    \"thumbnail\": \"http://lorempixel.com/640/480/?44834\",\n\t\t    \"type\": 0,\n\t\t    \"question_id\": 1,\n\t\t    \"challenge_id\": 1,\n\t\t    \"slack_meta\": \"{\\\"var1\\\": \\\"content\\\"}\"\n\t\t}\n\t]\n}"
 				},
 				"description": ""
 			},

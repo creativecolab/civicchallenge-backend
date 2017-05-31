@@ -5,13 +5,17 @@ FORMAT: 1A
 # Challenges [/challenges]
 Microchallenges
 
-## Display a listing of the resource. [GET /challenges{?resources,questions}]
+## Display a listing of the resource. [GET /challenges{?resources,questions,insights,groupInsightsByQuestion}]
 
 
 + Parameters
     + resources: (boolean, optional) - Include associated resources.
         + Default: false
     + questions: (boolean, optional) - Include associated questions.
+        + Default: false
+    + insights: (boolean, optional) - Include associated insights.
+        + Default: false
+    + groupInsightsByQuestion: (boolean, optional) - Group associated insights by questions
         + Default: false
 
 ## Store a newly created resource in storage. [POST /challenges]
@@ -160,16 +164,20 @@ Microchallenges
                 }
             }
 
-## Get Questions belonging to Challenge [GET /challenges/{id}/questions]
+## Get Questions belonging to Challenge [GET /challenges/{id}/questions/{?insights}]
 
 
 + Parameters
     + id: (integer, required) - ID of Challenge
+    + insights: (boolean, optional) - Include associated insights.
 
 + Response 200 (application/json)
 
 ## Store new Question for Challenge [POST /challenges/{id}/questions]
 
+
++ Parameters
+    + id: (integer, required) - ID of Challenge
 
 + Request (application/json)
     + Body
@@ -190,6 +198,19 @@ Microchallenges
                     "created_at": "2017-05-31 17:00:27",
                     "updated_at": "2017-05-31 17:18:28"
                 }
+            }
+
+## Get Insights for Challenge [GET /challenges/{id}/insights]
+
+
++ Parameters
+    + id: (integer, required) - ID of Challenge
+
++ Response 200 (application/json)
+    + Body
+
+            {
+                "insights": []
             }
 
 # Resources [/resources]
@@ -468,5 +489,128 @@ Discussion Questions
 
 + Parameters
     + id: (integer, required) - ID of Question
+
++ Response 204 (application/json)
+
+# Insights [/insights]
+Insights i.e. Discussion, comments, prototypes, ideas
+
+## Display a listing of the resource. [GET /insights]
+
+
++ Response 200 (application/json)
+
+## Store a newly created resource in storage. [POST /insights]
+
+
++ Request (application/json)
+    + Body
+
+            {
+                "text": "Eos ipsa possimus nemo voluptas facilis in.",
+                "user_id": 1,
+                "timestamp": "1999-01-31 00:00:00",
+                "thumbnail": "http://lorempixel.com/640/480/?44834",
+                "type": 0,
+                "question_id": 1,
+                "challenge_id": 1,
+                "slack_meta": {
+                    "var1": "content"
+                }
+            }
+
++ Request (application/json)
+    + Body
+
+            {
+                "insights": []
+            }
+
++ Response 200 (application/json)
+    + Body
+
+            {
+                "insight": {
+                    "text": "Eos ipsa possimus nemo voluptas facilis in.",
+                    "user_id": 1,
+                    "timestamp": "1999-01-31 00:00:00",
+                    "thumbnail": "http:\/\/lorempixel.com\/640\/480\/?44834",
+                    "type": 0,
+                    "question_id": 1,
+                    "challenge_id": 1,
+                    "slack_meta": "",
+                    "phase": 0,
+                    "updated_at": "2017-05-31 19:58:08",
+                    "created_at": "2017-05-31 19:58:08",
+                    "id": 1261
+                }
+            }
+
++ Response 204 (application/json)
+
+## Display the specified resource. [GET /insights/{id}]
+
+
++ Parameters
+    + id: (integer, required) - ID of Insight
+
++ Response 200 (application/json)
+    + Body
+
+            {
+                "insight": {
+                    "text": "Eos ipsa possimus nemo voluptas facilis in.",
+                    "user_id": 1,
+                    "timestamp": "1999-01-31 00:00:00",
+                    "thumbnail": "http:\/\/lorempixel.com\/640\/480\/?44834",
+                    "type": 0,
+                    "question_id": 1,
+                    "challenge_id": 1,
+                    "slack_meta": "",
+                    "phase": 0,
+                    "updated_at": "2017-05-31 19:58:08",
+                    "created_at": "2017-05-31 19:58:08",
+                    "id": 1261
+                }
+            }
+
+## Update the specified resource in storage. [PUT /insights/{id}]
+
+
++ Parameters
+    + id: (integer, required) - ID of Insight
+
++ Request (application/json)
+    + Body
+
+            {
+                "type": 1
+            }
+
++ Response 200 (application/json)
+    + Body
+
+            {
+                "insight": {
+                    "text": "Eos ipsa possimus nemo voluptas facilis in.",
+                    "user_id": 1,
+                    "timestamp": "1999-01-31 00:00:00",
+                    "thumbnail": "http:\/\/lorempixel.com\/640\/480\/?44834",
+                    "type": 1,
+                    "question_id": 1,
+                    "challenge_id": 1,
+                    "slack_meta": "",
+                    "phase": 0,
+                    "updated_at": "2017-05-31 19:58:08",
+                    "created_at": "2017-05-31 19:58:08",
+                    "id": 1261
+                }
+            }
+
+## Remove the specified resource from storage. [DELETE /insights/{id}]
+
+
++ Parameters
+    + id: (integer, required) - ID of Insight
 
 + Response 204 (application/json)
