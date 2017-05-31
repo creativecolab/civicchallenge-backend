@@ -12,16 +12,29 @@ use Illuminate\Http\Request;
  */
 class ChallengeController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Database\Eloquent\Collection|static[]
-     *
-     * @get("/")
-     */
-    public function index()
+	/**
+	 * Display a listing of the resource.
+	 *
+	 * @param Request $request
+	 *
+	 * @return \Illuminate\Database\Eloquent\Collection|static[]
+	 * @get("/{?resources}")
+	 * @parameters({
+	 *     @parameter("resources", type="boolean", description="Include associated resources.", default="false")
+	 * })
+	 */
+    public function index(Request $request)
     {
-        return Challenge::all();
+    	$withResources = strtolower($request->query('resources'));
+
+    	if ($withResources == 'true' || $withResources == '1') {
+    	    $challenges = Challenge::with('resources')->get();
+	    }
+	    else {
+    		$challenges = Challenge::all();
+	    }
+
+        return $challenges;
     }
 
     /**

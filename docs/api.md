@@ -5,8 +5,12 @@ FORMAT: 1A
 # Challenges [/challenges]
 Microchallenges
 
-## Display a listing of the resource. [GET /challenges]
+## Display a listing of the resource. [GET /challenges{?resources}]
 
+
++ Parameters
+    + resources: (boolean, optional) - Include associated resources.
+        + Default: false
 
 ## Store a newly created resource in storage. [POST /challenges]
 
@@ -16,7 +20,8 @@ Microchallenges
 
             {
                 "name": "Name",
-                "summary": "This is a challenge."
+                "summary": "This is a challenge.",
+                "description": "Challenge description"
             }
 
 ## Display the specified resource. [GET /challenges/{id}]
@@ -30,7 +35,8 @@ Microchallenges
 
             {
                 "name": "Name",
-                "summary": "This is a challenge."
+                "summary": "This is a challenge.",
+                "description": "Challenge description"
             }
 
 ## Remove the specified resource from storage. [DELETE /challenges/{id}]
