@@ -10,8 +10,7 @@ use Illuminate\Http\Request;
  * @package App\Http\Controllers
  * @resource("Challenges", uri="/challenges")
  */
-class ChallengeController extends Controller
-{
+class ChallengeController extends Controller {
 	use CreatesResources;
 
 	/**
@@ -25,45 +24,48 @@ class ChallengeController extends Controller
 	 *     @parameter("resources", type="boolean", description="Include associated resources.", default="false")
 	 * })
 	 */
-    public function index(Request $request)
-    {
-    	$withResources = strtolower($request->query('resources'));
+	public function index( Request $request ) {
+		$withResources = strtolower( $request->query( 'resources' ) );
 
-    	if ($withResources == 'true' || $withResources == '1') {
-    	    $challenges = Challenge::with('resources')->get();
-	    }
-	    else {
-    		$challenges = Challenge::all();
-	    }
+		if ( $withResources == 'true' || $withResources == '1' ) {
+			$challenges = Challenge::with( 'resources' )->get();
+		} else {
+			$challenges = Challenge::all();
+		}
 
-        return $challenges;
-    }
+		return $challenges;
+	}
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     *
-     * @post("/")
-     * @request({"name": "Name", "summary": "This is a challenge.", "description": "Challenge description"})
+	/**
+	 * Store a newly created resource in storage.
+	 *
+	 * @param  \Illuminate\Http\Request $request
+	 *
+	 * @return \Illuminate\Http\Response
+	 *
+	 * @post("/")
+	 * @request({"name": "Name", "summary": "This is a challenge.", "description": "Challenge description"})
+	 * @response(200, body={"challenge":{"id":1,"name":"Consequatur voluptatem atque blanditiis.","summary":"In vel eaque ut reprehenderit voluptates.","thumbnail":"http://thumbnail.com/img.jpg","phase":2,"created_at":"2017-05-31 05:06:00","updated_at":"2017-05-31 05:06:00"}})
      */
-    public function store(Request $request)
-    {
-        return Challenge::create($request->all());
+    public function store( Request $request ) {
+	    return Challenge::create( $request->all() );
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Challenge  $challenge
+     * @param  \App\Challenge $challenge
+     *
      * @return Challenge|\Illuminate\Http\Response
      *
-	 * @get("/{id}")
+     * @get("/{id}")
+     * @response(200, body={"challenge":{"id":1,"name":"Consequatur voluptatem atque blanditiis.","summary":"In vel eaque ut reprehenderit voluptates.","thumbnail":"http://thumbnail.com/img.jpg","phase":2,"created_at":"2017-05-31 05:06:00","updated_at":"2017-05-31 05:06:00"}})
+     * @parameters({
+     *     @parameter("id", description="ID of Challenge", required=true, type="integer")
+     * })
      */
-    public function show(Challenge $challenge)
-    {
-        return $challenge;
+    public function show( Challenge $challenge ) {
+	    return $challenge;
     }
 
 	/**
@@ -71,34 +73,42 @@ class ChallengeController extends Controller
 	 *
 	 * @param  \Illuminate\Http\Request $request
 	 * @param  \App\Challenge $challenge
+	 *
 	 * @return Challenge
 	 *
 	 * @put("/{id}")
 	 * @patch("/{id}")
 	 * @request({"name": "Name", "summary": "This is a challenge.", "description": "Challenge description"})
+	 * @response(200, body={"challenge":{"id":1,"name":"Consequatur voluptatem atque blanditiis.","summary":"In vel eaque ut reprehenderit voluptates.","thumbnail":"http://thumbnail.com/img.jpg","phase":2,"created_at":"2017-05-31 05:06:00","updated_at":"2017-05-31 05:06:00"}})
+     * @parameters({
+	 *     @parameter("id", description="ID of Challenge", required=true, type="integer")
+	 * })
 	 */
-    public function update(Request $request, Challenge $challenge)
-    {
-        if (!$challenge->update($request->all())) {
-	        $this->response->errorInternal();
-        }
+    public function update( Request $request, Challenge $challenge ) {
+	    if ( ! $challenge->update( $request->all() ) ) {
+		    $this->response->errorInternal();
+	    }
 
-        return $challenge;
+	    return $challenge;
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Challenge  $challenge
+     * @param  \App\Challenge $challenge
+     *
      * @return \Illuminate\Http\Response
      *
      * @delete("/{id}")
+     * @response(204)
+     * @parameters({
+     *     @parameter("id", description="ID of Challenge", required=true, type="integer")
+     * })
      */
-    public function destroy(Challenge $challenge)
-    {
-        if (!$challenge->delete()) {
-        	$this->response->errorInternal();
-        }
+    public function destroy( Challenge $challenge ) {
+	    if ( ! $challenge->delete() ) {
+		    $this->response->errorInternal();
+	    }
 
 	    return $this->response->noContent();
     }
@@ -111,13 +121,13 @@ class ChallengeController extends Controller
 	 * @return mixed
 	 *
 	 * @get("/{id}/resources")
+	 * @response(200, body={"resource":{"name":"Test","url":"http:\/\/test.com","description":"Test description","type":"PDF","phase":2,"challenge_id":1,"updated_at":"2017-05-31 06:33:25","created_at":"2017-05-31 06:33:25","id":23}})
 	 * @parameters({
 	 *     @parameter("id", description="ID of Challenge", required=true, type="integer")
 	 * })
 	 */
-    public function showResources(Challenge $challenge)
-    {
-        return $challenge->resources;
+    public function showResources( Challenge $challenge ) {
+	    return $challenge->resources;
     }
 
 	/**
@@ -129,12 +139,13 @@ class ChallengeController extends Controller
 	 * @return \App\Resource
 	 *
 	 * @post("/{id}/resources")
+	 * @request({"name": "Test","url": "http://test.com","description": "Test description","type": "PDF"})
+	 * @response(200, body={"resource":{"name":"Test","url":"http:\/\/test.com","description":"Test description","type":"PDF","phase":2,"challenge_id":1,"updated_at":"2017-05-31 06:33:25","created_at":"2017-05-31 06:33:25","id":23}})
 	 * @parameters({
 	 *     @parameter("id", description="ID of Challenge", required=true, type="integer")
 	 * })
 	 */
-    public function storeResource(Request $request, Challenge $challenge)
-    {
-	    return $this->createResource($request, $challenge);
+    public function storeResource( Request $request, Challenge $challenge ) {
+	    return $this->createResource( $request, $challenge );
     }
 }
