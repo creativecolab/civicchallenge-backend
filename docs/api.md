@@ -269,6 +269,27 @@ Categories of Microchallenges
 ## Store a newly created resource in storage. [POST /categories]
 
 
++ Request (application/json)
+    + Body
+
+            {
+                "name": "Name",
+                "description": "Category description"
+            }
+
++ Response 200 (application/json)
+    + Body
+
+            {
+                "category": {
+                    "id": 1,
+                    "name": "Name",
+                    "description": "Category description",
+                    "created_at": "2017-05-31 07:35:50",
+                    "updated_at": "2017-05-31 07:35:50"
+                }
+            }
+
 ## Display the specified resource. [GET /categories/{id}{?challenges}]
 
 
@@ -277,11 +298,44 @@ Categories of Microchallenges
     + challenges: (boolean, optional) - Include challenges under category
         + Default: false
 
++ Response 200 (application/json)
+    + Body
+
+            {
+                "category": {
+                    "id": 1,
+                    "name": "Explicabo doloribus distinctio nulla.",
+                    "description": "Quas ad officia alias asperiores laborum hic aut ex.",
+                    "created_at": "2017-05-31 07:35:50",
+                    "updated_at": "2017-05-31 07:35:50"
+                }
+            }
+
 ## Update the specified resource in storage. [POST /categories/{id}]
 
 
 + Parameters
     + id: (integer, required) - ID of Category
+
++ Request (application/json)
+    + Body
+
+            {
+                "name": "Name"
+            }
+
++ Response 200 (application/json)
+    + Body
+
+            {
+                "category": {
+                    "id": 1,
+                    "name": "Name",
+                    "description": "Quas ad officia alias asperiores laborum hic aut ex.",
+                    "created_at": "2017-05-31 07:35:50",
+                    "updated_at": "2017-05-31 07:35:50"
+                }
+            }
 
 ## Delete category. Any challenges within the category will have its category set to NULL. [DELETE /categories/{id}]
 

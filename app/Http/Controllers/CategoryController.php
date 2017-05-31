@@ -43,6 +43,8 @@ class CategoryController extends Controller {
 	 * @return \Illuminate\Http\Response
 	 *
 	 * @post("/")
+	 * @request({"name": "Name", "description": "Category description"})
+	 * @response(200, body={"category":{"id":1,"name":"Name","description":"Category description","created_at":"2017-05-31 07:35:50","updated_at":"2017-05-31 07:35:50"}})
 	 */
 	public function store( Request $request ) {
 		return Category::create( $request->all() );
@@ -56,6 +58,7 @@ class CategoryController extends Controller {
 	 * @return Category
 	 *
 	 * @get("/{id}{?challenges}")
+	 * @response(200, body={"category":{"id":1,"name":"Explicabo doloribus distinctio nulla.","description":"Quas ad officia alias asperiores laborum hic aut ex.","created_at":"2017-05-31 07:35:50","updated_at":"2017-05-31 07:35:50"}})
 	 * @parameters({
 	 *     @parameter("id", description="ID of Category", required=true, type="integer"),
 	 *     @parameter("challenges", type="boolean", description="Include challenges under category", default="false")
@@ -80,6 +83,8 @@ class CategoryController extends Controller {
 	 * @return Category
 	 *
 	 * @post("/{id}")
+	 * @request({"name": "Name"})
+	 * @response(200, body={"category":{"id":1,"name":"Name","description":"Quas ad officia alias asperiores laborum hic aut ex.","created_at":"2017-05-31 07:35:50","updated_at":"2017-05-31 07:35:50"}})
 	 * @parameters({
 	 *     @parameter("id", description="ID of Category", required=true, type="integer")
 	 * })
