@@ -4,8 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Challenge extends Model
-{
+class Challenge extends Model {
 	const PHASE_ONE = 0;
 	const PHASE_TWO = 1;
 	const PHASE_THREE = 2;
@@ -21,4 +20,8 @@ class Challenge extends Model
 		'thumbnail',
 		'phase'
 	];
+
+	public function resources() {
+		return $this->hasMany('App\Resource');
+	}
 }
