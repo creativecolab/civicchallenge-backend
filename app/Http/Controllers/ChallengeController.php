@@ -28,9 +28,9 @@ class ChallengeController extends Controller {
 		$withResources = strtolower( $request->query( 'resources' ) );
 
 		if ( $withResources == 'true' || $withResources == '1' ) {
-			$challenges = Challenge::with( 'resources' )->get();
+			$challenges = Challenge::with( [ 'category', 'resources' ] )->get();
 		} else {
-			$challenges = Challenge::all();
+			$challenges = Challenge::with( [ 'category' ] )->get();
 		}
 
 		return $challenges;
@@ -46,27 +46,29 @@ class ChallengeController extends Controller {
 	 * @post("/")
 	 * @request({"name": "Name", "summary": "This is a challenge.", "description": "Challenge description"})
 	 * @response(200, body={"challenge":{"id":1,"name":"Consequatur voluptatem atque blanditiis.","summary":"In vel eaque ut reprehenderit voluptates.","thumbnail":"http://thumbnail.com/img.jpg","phase":2,"created_at":"2017-05-31 05:06:00","updated_at":"2017-05-31 05:06:00"}})
-     */
-    public function store( Request $request ) {
-	    return Challenge::create( $request->all() );
-    }
+	 */
+	public function store( Request $request ) {
+		return Challenge::create( $request->all() );
+	}
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Challenge $challenge
-     *
-     * @return Challenge|\Illuminate\Http\Response
-     *
-     * @get("/{id}")
-     * @response(200, body={"challenge":{"id":1,"name":"Consequatur voluptatem atque blanditiis.","summary":"In vel eaque ut reprehenderit voluptates.","thumbnail":"http://thumbnail.com/img.jpg","phase":2,"created_at":"2017-05-31 05:06:00","updated_at":"2017-05-31 05:06:00"}})
-     * @parameters({
-     *     @parameter("id", description="ID of Challenge", required=true, type="integer")
-     * })
-     */
-    public function show( Challenge $challenge ) {
-	    return $challenge;
-    }
+	/**
+	 * Display the specified resource.
+	 *
+	 * @param  \App\Challenge $challenge
+	 *
+	 * @return Challenge|\Illuminate\Http\Response
+	 *
+	 * @get("/{id}")
+	 * @response(200, body={"challenge":{"id":1,"name":"Consequatur voluptatem atque blanditiis.","summary":"In vel eaque ut reprehenderit voluptates.","thumbnail":"http://thumbnail.com/img.jpg","phase":2,"created_at":"2017-05-31 05:06:00","updated_at":"2017-05-31 05:06:00"}})
+	 * @parameters({
+	 *     @parameter("id", description="ID of Challenge", required=true, type="integer")
+	 * })
+	 */
+	public function show( Challenge $challenge ) {
+		$challenge->load( [ 'category' ] );
+
+		return $challenge;
+	}
 
 	/**
 	 * Update the specified resource in storage.
@@ -80,38 +82,40 @@ class ChallengeController extends Controller {
 	 * @patch("/{id}")
 	 * @request({"name": "Name", "summary": "This is a challenge.", "description": "Challenge description"})
 	 * @response(200, body={"challenge":{"id":1,"name":"Consequatur voluptatem atque blanditiis.","summary":"In vel eaque ut reprehenderit voluptates.","thumbnail":"http://thumbnail.com/img.jpg","phase":2,"created_at":"2017-05-31 05:06:00","updated_at":"2017-05-31 05:06:00"}})
-     * @parameters({
+	 * @parameters({
 	 *     @parameter("id", description="ID of Challenge", required=true, type="integer")
 	 * })
 	 */
-    public function update( Request $request, Challenge $challenge ) {
-	    if ( ! $challenge->update( $request->all() ) ) {
-		    $this->response->errorInternal();
-	    }
+	public function update( Request $request, Challenge $challenge ) {
+		if ( ! $challenge->update( $request->all() ) ) {
+			$this->response->errorInternal();
+		}
 
-	    return $challenge;
-    }
+		$challenge->load( 'category' );
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Challenge $challenge
-     *
-     * @return \Illuminate\Http\Response
-     *
-     * @delete("/{id}")
-     * @response(204)
-     * @parameters({
-     *     @parameter("id", description="ID of Challenge", required=true, type="integer")
-     * })
-     */
-    public function destroy( Challenge $challenge ) {
-	    if ( ! $challenge->delete() ) {
-		    $this->response->errorInternal();
-	    }
+		return $challenge;
+	}
 
-	    return $this->response->noContent();
-    }
+	/**
+	 * Remove the specified resource from storage.
+	 *
+	 * @param  \App\Challenge $challenge
+	 *
+	 * @return \Illuminate\Http\Response
+	 *
+	 * @delete("/{id}")
+	 * @response(204)
+	 * @parameters({
+	 *     @parameter("id", description="ID of Challenge", required=true, type="integer")
+	 * })
+	 */
+	public function destroy( Challenge $challenge ) {
+		if ( ! $challenge->delete() ) {
+			$this->response->errorInternal();
+		}
+
+		return $this->response->noContent();
+	}
 
 	/**
 	 * Get Resources belonging to Challenge
@@ -126,9 +130,9 @@ class ChallengeController extends Controller {
 	 *     @parameter("id", description="ID of Challenge", required=true, type="integer")
 	 * })
 	 */
-    public function showResources( Challenge $challenge ) {
-	    return $challenge->resources;
-    }
+	public function showResources( Challenge $challenge ) {
+		return $challenge->resources;
+	}
 
 	/**
 	 * Store new Resource for Challenge
@@ -145,7 +149,7 @@ class ChallengeController extends Controller {
 	 *     @parameter("id", description="ID of Challenge", required=true, type="integer")
 	 * })
 	 */
-    public function storeResource( Request $request, Challenge $challenge ) {
-	    return $this->createResource( $request, $challenge );
-    }
+	public function storeResource( Request $request, Challenge $challenge ) {
+		return $this->createResource( $request, $challenge );
+	}
 }
