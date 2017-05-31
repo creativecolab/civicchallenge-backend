@@ -5,13 +5,17 @@ FORMAT: 1A
 # Challenges [/challenges]
 Microchallenges
 
-## Display a listing of the resource. [GET /challenges{?resources,questions}]
+## Display a listing of the resource. [GET /challenges{?resources,questions,insights,groupInsightsByQuestion}]
 
 
 + Parameters
     + resources: (boolean, optional) - Include associated resources.
         + Default: false
     + questions: (boolean, optional) - Include associated questions.
+        + Default: false
+    + insights: (boolean, optional) - Include associated insights.
+        + Default: false
+    + groupInsightsByQuestion: (boolean, optional) - Group associated insights by questions
         + Default: false
 
 ## Store a newly created resource in storage. [POST /challenges]
@@ -160,16 +164,20 @@ Microchallenges
                 }
             }
 
-## Get Questions belonging to Challenge [GET /challenges/{id}/questions]
+## Get Questions belonging to Challenge [GET /challenges/{id}/questions/{?insights}]
 
 
 + Parameters
     + id: (integer, required) - ID of Challenge
+    + insights: (boolean, optional) - Include associated insights.
 
 + Response 200 (application/json)
 
 ## Store new Question for Challenge [POST /challenges/{id}/questions]
 
+
++ Parameters
+    + id: (integer, required) - ID of Challenge
 
 + Request (application/json)
     + Body
@@ -190,6 +198,19 @@ Microchallenges
                     "created_at": "2017-05-31 17:00:27",
                     "updated_at": "2017-05-31 17:18:28"
                 }
+            }
+
+## Get Insights for Challenge [GET /challenges/{id}/insights]
+
+
++ Parameters
+    + id: (integer, required) - ID of Challenge
+
++ Response 200 (application/json)
+    + Body
+
+            {
+                "insights": []
             }
 
 # Resources [/resources]
