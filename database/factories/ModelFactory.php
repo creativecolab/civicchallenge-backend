@@ -31,3 +31,14 @@ $factory->define(App\Challenge::class, function (Faker\Generator $faker) {
 		'phase' => rand(App\Challenge::PHASE_START, App\Challenge::PHASE_END)
 	];
 });
+
+$factory->define(App\Resource::class, function (Faker\Generator $faker, $id) {
+	return [
+		'name' => $faker->sentence(3),
+		'url' => $faker->url,
+		'description' => $faker->paragraph(),
+		'type' => $faker->fileExtension,
+		'challenge_id' => null,
+		'phase' => null
+	];
+});

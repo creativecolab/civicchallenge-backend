@@ -11,6 +11,9 @@ class ChallengesSeeder extends Seeder
      */
     public function run()
     {
-        factory(App\Challenge::class, 20)->create();
+        factory(App\Challenge::class, 20)->create()->each(function (App\Challenge $c) {
+        	$c->resources()
+	          ->save(factory(App\Resource::class)->make(['challenge_id' => $c->id, 'phase' => $c->phase]));
+        });
     }
 }
