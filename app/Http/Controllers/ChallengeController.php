@@ -12,6 +12,8 @@ use Illuminate\Http\Request;
  */
 class ChallengeController extends Controller
 {
+	use CreatesResources;
+
 	/**
 	 * Display a listing of the resource.
 	 *
@@ -102,7 +104,7 @@ class ChallengeController extends Controller
     }
 
 	/**
-	 * Get resources belonging to Challenge
+	 * Get Resources belonging to Challenge
 	 *
 	 * @param Challenge $challenge
 	 *
@@ -116,5 +118,23 @@ class ChallengeController extends Controller
     public function showResources(Challenge $challenge)
     {
         return $challenge->resources;
+    }
+
+	/**
+	 * Store new Resource for Challenge
+	 *
+	 * @param Request $request
+	 * @param Challenge $challenge
+	 *
+	 * @return \App\Resource
+	 *
+	 * @post("/{id}/resources")
+	 * @parameters({
+	 *     @parameter("id", description="ID of Challenge", required=true, type="integer")
+	 * })
+	 */
+    public function storeResource(Request $request, Challenge $challenge)
+    {
+	    return $this->createResource($request, $challenge);
     }
 }

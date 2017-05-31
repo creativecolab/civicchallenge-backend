@@ -13,6 +13,8 @@ use Illuminate\Http\Request;
  */
 class ResourceController extends Controller
 {
+	use CreatesResources;
+
     /**
      * Display a listing of the resource.
      *
@@ -37,15 +39,7 @@ class ResourceController extends Controller
     public function store(Request $request)
     {
 	    $challenge = Challenge::findOrFail($request->get('challenge_id'));
-	    
-    	$data = $request->all();
-    	$data['phase'] = $challenge->phase; // Take phase from Challenge
-    	
-    	$resource = new Resource($data);
-
-    	$challenge->resources()->save($resource);
-
-	    return $resource;
+	    return $this->createResource($request, $challenge);
     }
 
     /**

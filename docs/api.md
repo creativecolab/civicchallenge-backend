@@ -48,6 +48,12 @@ Microchallenges
 + Parameters
     + id: (integer, required) - ID of Challenge
 
+## Store new Resource for Challenge [POST /challenges/{id}/resources]
+
+
++ Parameters
+    + id: (integer, required) - ID of Challenge
+
 # Resources [/resources]
 Resources for Challenges
 
