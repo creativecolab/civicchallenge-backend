@@ -26,7 +26,7 @@ class CreateInsightsTable extends Migration
             $table->unsignedInteger('challenge_id');
             $table->foreign('challenge_id')->references('id')->on('challenges');
             $table->tinyInteger('phase')->nullable();
-            $table->text('slack_meta');
+            $table->text('slack_meta')->nullable();
             $table->timestamps();
         });
     }
