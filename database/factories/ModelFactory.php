@@ -50,3 +50,11 @@ $factory->define(App\Category::class, function (Faker\Generator $faker) {
 		'description' => $faker->paragraph()
 	];
 });
+
+$factory->define(App\Question::class, function (Faker\Generator $faker) {
+	return [
+		'text' => $faker->sentence(),
+		'challenge_id' => null,
+		'phase' => null
+	];
+});
