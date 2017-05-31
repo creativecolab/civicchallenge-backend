@@ -498,6 +498,13 @@ Insights i.e. Discussion, comments, prototypes, ideas
                 }
             }
 
++ Request (application/json)
+    + Body
+
+            {
+                "insights": []
+            }
+
 + Response 200 (application/json)
     + Body
 
@@ -517,6 +524,8 @@ Insights i.e. Discussion, comments, prototypes, ideas
                     "id": 1261
                 }
             }
+
++ Response 204 (application/json)
 
 ## Display the specified resource. [GET /insights/{id}]
 
