@@ -5,11 +5,13 @@ FORMAT: 1A
 # Challenges [/challenges]
 Microchallenges
 
-## Display a listing of the resource. [GET /challenges{?resources}]
+## Display a listing of the resource. [GET /challenges{?resources,questions}]
 
 
 + Parameters
     + resources: (boolean, optional) - Include associated resources.
+        + Default: false
+    + questions: (boolean, optional) - Include associated questions.
         + Default: false
 
 ## Store a newly created resource in storage. [POST /challenges]
@@ -39,11 +41,15 @@ Microchallenges
                 }
             }
 
-## Display the specified resource. [GET /challenges/{id}]
+## Display the specified resource. [GET /challenges/{id}{?resources,questions}]
 
 
 + Parameters
     + id: (integer, required) - ID of Challenge
+    + resources: (boolean, optional) - Include associated resources.
+        + Default: false
+    + questions: (boolean, optional) - Include associated questions.
+        + Default: false
 
 + Response 200 (application/json)
     + Body
@@ -151,6 +157,38 @@ Microchallenges
                     "updated_at": "2017-05-31 06:33:25",
                     "created_at": "2017-05-31 06:33:25",
                     "id": 23
+                }
+            }
+
+## Get Questions belonging to Challenge [GET /challenges/{id}/questions]
+
+
++ Parameters
+    + id: (integer, required) - ID of Challenge
+
++ Response 200 (application/json)
+
+## Store new Question for Challenge [POST /challenges/{id}/questions]
+
+
++ Request (application/json)
+    + Body
+
+            {
+                "text": "What?"
+            }
+
++ Response 200 (application/json)
+    + Body
+
+            {
+                "question": {
+                    "id": 1,
+                    "text": "What?",
+                    "challenge_id": 1,
+                    "phase": 1,
+                    "created_at": "2017-05-31 17:00:27",
+                    "updated_at": "2017-05-31 17:18:28"
                 }
             }
 
