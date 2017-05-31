@@ -22,5 +22,6 @@ APIRoute::version( 'v1', [ 'middleware' => 'api' ], function ( $api ) {
 	APIRoute::resource('resources', 'App\Http\Controllers\ResourceController');
 	APIRoute::resource('categories', 'App\Http\Controllers\CategoryController');
 	APIRoute::resource('questions', 'App\Http\Controllers\QuestionController');
+	APIRoute::resource('insights', 'App\Http\Controllers\InsightController');
 } );
 
