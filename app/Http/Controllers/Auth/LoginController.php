@@ -3,12 +3,19 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\User;
 use Config;
 use Cviebrock\DiscoursePHP\SSOHelper;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
+use Socialite;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 
+/**
+ * Login
+ * @package App\Http\Controllers\Auth
+ * @resource("Authentication", uri="/login")
+ */
 class LoginController extends Controller {
 	/*
 	|--------------------------------------------------------------------------
@@ -38,29 +45,14 @@ class LoginController extends Controller {
 	}
 
 	/**
-	 * Checks if request needs SSO handling
-	 *
-	 * @param Request $request
-	 * @param $user
-	 *
-	 * @return mixed
-	 */
-	protected function authenticated( Request $request, $user ) {
-		// Handle SSO request if needed
-		if ( $request->has( 'sso' ) && $request->has( 'sig' ) ) {
-			return redirect( $this->processSSO( $request, $user ) );
-		}
-
-		return true;
-	}
-
-	/**
 	 * Perform SSO functions for Discourse and return redirect URL
 	 *
 	 * @param Request $request
 	 * @param $user
 	 *
 	 * @return string
+	 *
+	 * @deprecated
 	 */
 	protected function processSSO( Request $request, $user ) {
 		// Set up SSO helper
@@ -83,7 +75,7 @@ class LoginController extends Controller {
 		$userId          = $user->id;
 		$userEmail       = $user->email;
 		$extraParameters = [
-			'name' => $user->name,
+			'name'               => $user->name,
 			'require_activation' => true
 		];
 
@@ -92,5 +84,47 @@ class LoginController extends Controller {
 		$url   = Config::get( 'services.discourse.url' ) . '/session/sso_login?' . $query;
 
 		return $url;
+	}
+
+	/**
+	 * Redirect to Slack login page
+	 *
+	 * @return mixed
+	 *
+	 * @get("/")
+	 * @response(302)
+	 */
+	public function redirectToProvider() {
+		return Socialite::driver( 'slack' )->stateless()->redirect();
+	}
+
+	/**
+	 * Redirect to homepage with token
+	 *
+	 * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+	 *
+	 * @get("/callback/{?code,state}")
+	 * @response(302)
+	 */
+	public function handleProviderCallback() {
+		$slackUser = Socialite::driver( 'slack' )->stateless()->user();
+
+		// Create user if doesn't exist
+		if ( ! $user = User::where( 'slack_id', $slackUser->getId() )->first() ) {
+			$user = User::create( [
+				'name'      => $user->getName(),
+				'email'     => $user->getEmail(),
+				'thumbnail' => $user->getAvatar(),
+				'slack_id'  => $user->getId()
+			] );
+		}
+
+		$query = http_build_query( [
+			'token'  => $slackUser->token,
+			'uid'    => $user->id,
+			'expiry' => $slackUser->expiresIn
+		] );
+
+		return redirect( '/?' . $query );
 	}
 }
