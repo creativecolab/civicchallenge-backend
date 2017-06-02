@@ -9,7 +9,7 @@ use Illuminate\Http\Request;
 /**
  * Insights i.e. Discussion, comments, prototypes, ideas
  * @package App\Http\Controllers
- * @resource("Insights", uri="/insights")
+ * @resource("Group Insights")
  */
 class InsightController extends Controller {
 	use CreatesInsights;

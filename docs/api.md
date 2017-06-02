@@ -2,10 +2,10 @@ FORMAT: 1A
 
 # D4SD API
 
-# Challenges [/challenges]
+# Group Challenges
 Microchallenges
 
-## Display a listing of the resource. [GET /challenges{?resources,questions,insights,groupInsightsByQuestion}]
+## Display a listing of the resource. [GET /{?resources,questions,insights,groupInsightsByQuestion}]
 
 
 + Parameters
@@ -18,7 +18,7 @@ Microchallenges
     + groupInsightsByQuestion: (boolean, optional) - Group associated insights by questions
         + Default: false
 
-## Store a newly created resource in storage. [POST /challenges]
+## Store a newly created resource in storage. [POST /]
 
 
 + Request (application/json)
@@ -45,7 +45,7 @@ Microchallenges
                 }
             }
 
-## Display the specified resource. [GET /challenges/{id}{?resources,questions}]
+## Display the specified resource. [GET /{id}{?resources,questions}]
 
 
 + Parameters
@@ -70,7 +70,7 @@ Microchallenges
                 }
             }
 
-## Update the specified resource in storage. [PUT /challenges/{id}]
+## Update the specified resource in storage. [PUT /{id}]
 
 
 + Parameters
@@ -100,7 +100,7 @@ Microchallenges
                 }
             }
 
-## Remove the specified resource from storage. [DELETE /challenges/{id}]
+## Remove the specified resource from storage. [DELETE /{id}]
 
 
 + Parameters
@@ -108,7 +108,7 @@ Microchallenges
 
 + Response 204 (application/json)
 
-## Get Resources belonging to Challenge [GET /challenges/{id}/resources]
+## Get Resources belonging to Challenge [GET /{id}/resources]
 
 
 + Parameters
@@ -131,7 +131,7 @@ Microchallenges
                 }
             }
 
-## Store new Resource for Challenge [POST /challenges/{id}/resources]
+## Store new Resource for Challenge [POST /{id}/resources]
 
 
 + Parameters
@@ -164,7 +164,7 @@ Microchallenges
                 }
             }
 
-## Get Questions belonging to Challenge [GET /challenges/{id}/questions/{?insights}]
+## Get Questions belonging to Challenge [GET /{id}/questions/{?insights}]
 
 
 + Parameters
@@ -173,7 +173,7 @@ Microchallenges
 
 + Response 200 (application/json)
 
-## Store new Question for Challenge [POST /challenges/{id}/questions]
+## Store new Question for Challenge [POST /{id}/questions]
 
 
 + Parameters
@@ -200,7 +200,7 @@ Microchallenges
                 }
             }
 
-## Get Insights for Challenge [GET /challenges/{id}/insights]
+## Get Insights for Challenge [GET /{id}/insights]
 
 
 + Parameters
@@ -213,13 +213,13 @@ Microchallenges
                 "insights": []
             }
 
-# Resources [/resources]
+# Group Challenge Resources
 Resources for Challenges. i.e. Student work, external resources
 
-## Display a listing of the resource. [GET /resources]
+## Display a listing of the resource. [GET /]
 
 
-## Store a newly created resource in storage. [POST /resources]
+## Store a newly created resource in storage. [POST /]
 
 
 + Request (application/json)
@@ -250,7 +250,7 @@ Resources for Challenges. i.e. Student work, external resources
                 }
             }
 
-## Display the specified resource. [GET /resources/{id}]
+## Display the specified resource. [GET /{id}]
 
 
 + Parameters
@@ -273,7 +273,7 @@ Resources for Challenges. i.e. Student work, external resources
                 }
             }
 
-## Update the specified resource in storage. [PUT /resources/{id}]
+## Update the specified resource in storage. [PUT /{id}]
 
 
 + Parameters
@@ -307,7 +307,7 @@ Resources for Challenges. i.e. Student work, external resources
                 }
             }
 
-## Remove the specified resource from storage. [DELETE /resources/{id}]
+## Remove the specified resource from storage. [DELETE /{id}]
 
 
 + Parameters
@@ -315,17 +315,17 @@ Resources for Challenges. i.e. Student work, external resources
 
 + Response 204 (application/json)
 
-# Categories [/categories]
+# Group Categories
 Categories of Microchallenges
 
-## Display a listing of the resource. [GET /categories{?challenges}]
+## Display a listing of the resource. [GET /{?challenges}]
 
 
 + Parameters
     + challenges: (boolean, optional) - Include challenges under each category
         + Default: false
 
-## Store a newly created resource in storage. [POST /categories]
+## Store a newly created resource in storage. [POST /]
 
 
 + Request (application/json)
@@ -349,7 +349,7 @@ Categories of Microchallenges
                 }
             }
 
-## Display the specified resource. [GET /categories/{id}{?challenges}]
+## Display the specified resource. [GET /{id}{?challenges}]
 
 
 + Parameters
@@ -370,7 +370,7 @@ Categories of Microchallenges
                 }
             }
 
-## Update the specified resource in storage. [POST /categories/{id}]
+## Update the specified resource in storage. [POST /{id}]
 
 
 + Parameters
@@ -396,7 +396,7 @@ Categories of Microchallenges
                 }
             }
 
-## Delete category. Any challenges within the category will have its category set to NULL. [DELETE /categories/{id}]
+## Delete category. Any challenges within the category will have its category set to NULL. [DELETE /{id}]
 
 
 + Parameters
@@ -404,15 +404,15 @@ Categories of Microchallenges
 
 + Response 204 (application/json)
 
-# Discussion Questions [/questions]
+# Group Discussion Questions
 Discussion Questions
 
-## Display a listing of the resource. [GET /questions]
+## Display a listing of the resource. [GET /]
 
 
 + Response 200 (application/json)
 
-## Store a newly created resource in storage. [POST /questions]
+## Store a newly created resource in storage. [POST /]
 
 
 + Request (application/json)
@@ -437,7 +437,7 @@ Discussion Questions
                 }
             }
 
-## Display the specified resource. [GET /questions/{id}]
+## Display the specified resource. [GET /{id}]
 
 
 + Parameters
@@ -457,7 +457,7 @@ Discussion Questions
                 }
             }
 
-## Update the specified resource in storage. [PUT /questions/{id}]
+## Update the specified resource in storage. [PUT /{id}]
 
 
 + Parameters
@@ -484,7 +484,7 @@ Discussion Questions
                 }
             }
 
-## Remove the specified resource from storage. [DELETE /questions/{id}]
+## Remove the specified resource from storage. [DELETE /{id}]
 
 
 + Parameters
@@ -492,15 +492,15 @@ Discussion Questions
 
 + Response 204 (application/json)
 
-# Insights [/insights]
+# Group Insights
 Insights i.e. Discussion, comments, prototypes, ideas
 
-## Display a listing of the resource. [GET /insights]
+## Display a listing of the resource. [GET /]
 
 
 + Response 200 (application/json)
 
-## Store a newly created resource in storage. [POST /insights]
+## Store a newly created resource in storage. [POST /]
 
 
 + Request (application/json)
@@ -548,7 +548,7 @@ Insights i.e. Discussion, comments, prototypes, ideas
 
 + Response 204 (application/json)
 
-## Display the specified resource. [GET /insights/{id}]
+## Display the specified resource. [GET /{id}]
 
 
 + Parameters
@@ -574,7 +574,7 @@ Insights i.e. Discussion, comments, prototypes, ideas
                 }
             }
 
-## Update the specified resource in storage. [PUT /insights/{id}]
+## Update the specified resource in storage. [PUT /{id}]
 
 
 + Parameters
@@ -607,7 +607,7 @@ Insights i.e. Discussion, comments, prototypes, ideas
                 }
             }
 
-## Remove the specified resource from storage. [DELETE /insights/{id}]
+## Remove the specified resource from storage. [DELETE /{id}]
 
 
 + Parameters

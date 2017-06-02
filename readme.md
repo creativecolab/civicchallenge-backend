@@ -79,6 +79,14 @@ This will allow you to access the server at `127.0.0.1:8000`.
 
 ---
 
+## [API Documentation](http://creativecolab.github.io/civicchallenge-backend)
+
+`npm run docs` - Generate `docs/index.html`
+
+`npm run docs:serve` - Serve docs at `http://localhost:3000`
+
+---
+
 ## Testing
 
 This project is using Travis CI to check builds. Builds will be checked when commits are pushed.
