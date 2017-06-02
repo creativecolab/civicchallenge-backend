@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 /**
  * Microchallenges
  * @package App\Http\Controllers
- * @resource("Challenges", uri="/challenges")
+ * @resource("Group Challenges")
  */
 class ChallengeController extends Controller {
 	use CreatesResources, CreatesQuestions;

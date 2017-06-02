@@ -9,7 +9,7 @@ use Illuminate\Http\Request;
 /**
  * Discussion Questions
  * @package App\Http\Controllers
- * @resource("Discussion Questions", uri="/questions")
+ * @resource("Group Discussion Questions")
  */
 class QuestionController extends Controller {
 	use CreatesQuestions;
