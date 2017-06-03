@@ -45,7 +45,8 @@ $factory->define(App\Resource::class, function (Faker\Generator $faker) {
 $factory->define(App\Category::class, function (Faker\Generator $faker) {
 	return [
 		'name' => $faker->sentence(3),
-		'description' => $faker->paragraph()
+		'description' => $faker->paragraph(),
+		'thumbnail' => $faker->imageUrl()
 	];
 });
 
