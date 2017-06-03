@@ -177,7 +177,8 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
 	    Dingo\Api\Provider\LaravelServiceProvider::class,
-	    \SocialiteProviders\Manager\ServiceProvider::class
+	    \SocialiteProviders\Manager\ServiceProvider::class,
+	    Barryvdh\Cors\ServiceProvider::class,
 
     ],
 
