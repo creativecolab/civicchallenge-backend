@@ -28,9 +28,9 @@ class ChallengeController extends Controller {
 	 * })
 	 */
 	public function index( Request $request ) {
-		$withResources            = strtolower( $request->query( 'resources' ) );
-		$withQuestions            = strtolower( $request->query( 'questions' ) );
-		$withInsights             = strtolower( $request->query( 'insights' ) );
+		$withResources           = strtolower( $request->query( 'resources' ) );
+		$withQuestions           = strtolower( $request->query( 'questions' ) );
+		$withInsights            = strtolower( $request->query( 'insights' ) );
 		$groupInsightsByQuestion = strtolower( $request->query( 'groupInsightsByQuestion' ) );
 
 		$loadRelations = [ 'category' ];
@@ -78,19 +78,21 @@ class ChallengeController extends Controller {
 	 * @param  \App\Challenge $challenge
 	 *
 	 * @return Challenge|\Illuminate\Http\Response
-	 * @get("/{id}{?resources,questions}")
+	 * @get("/{id}{?resources,questions,insights,groupInsightsByQuestion}")
 	 * @response(200, body={"challenge":{"id":1,"name":"Consequatur voluptatem atque blanditiis.","summary":"In vel eaque ut reprehenderit voluptates.","thumbnail":"http://thumbnail.com/img.jpg","phase":2,"created_at":"2017-05-31 05:06:00","updated_at":"2017-05-31 05:06:00"}})
 	 * @parameters({
 	 *     @parameter("id", description="ID of Challenge", required=true, type="integer"),
 	 * 	   @parameter("resources", type="boolean", description="Include associated resources.", default="false"),
-	 *     @parameter("questions", type="boolean", description="Include associated questions.", default="false")
+	 *     @parameter("questions", type="boolean", description="Include associated questions.", default="false"),
+	 *     @parameter("insights", type="boolean", description="Include associated insights.", default="false"),
+	 *     @parameter("groupInsightsByQuestion", type="boolean", description="Group associated insights by questions", default="false")
 	 * })
 	 */
 	public function show( Request $request, Challenge $challenge ) {
-		$challenge->load( [ 'category' ] );
-
-		$withResources = strtolower( $request->query( 'resources' ) );
-		$withQuestions = strtolower( $request->query( 'questions' ) );
+		$withResources           = strtolower( $request->query( 'resources' ) );
+		$withQuestions           = strtolower( $request->query( 'questions' ) );
+		$withInsights            = strtolower( $request->query( 'insights' ) );
+		$groupInsightsByQuestion = strtolower( $request->query( 'groupInsightsByQuestion' ) );
 
 		$loadRelations = [ 'category' ];
 
@@ -100,6 +102,14 @@ class ChallengeController extends Controller {
 
 		if ( $withQuestions == 'true' || $withQuestions == '1' ) {
 			$loadRelations[] = 'questions';
+		}
+
+		if ( $withInsights == 'true' || $withInsights == '1' ) {
+			if ( $groupInsightsByQuestion == 'true' || $groupInsightsByQuestion == '1' ) {
+				$loadRelations[] = 'questions.insights';
+			} else {
+				$loadRelations[] = 'insights';
+			}
 		}
 
 		$challenge->load( $loadRelations );

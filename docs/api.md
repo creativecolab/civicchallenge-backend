@@ -45,7 +45,7 @@ Microchallenges
                 }
             }
 
-## Display the specified resource. [GET /{id}{?resources,questions}]
+## Display the specified resource. [GET /{id}{?resources,questions,insights,groupInsightsByQuestion}]
 
 
 + Parameters
@@ -53,6 +53,10 @@ Microchallenges
     + resources: (boolean, optional) - Include associated resources.
         + Default: false
     + questions: (boolean, optional) - Include associated questions.
+        + Default: false
+    + insights: (boolean, optional) - Include associated insights.
+        + Default: false
+    + groupInsightsByQuestion: (boolean, optional) - Group associated insights by questions
         + Default: false
 
 + Response 200 (application/json)
