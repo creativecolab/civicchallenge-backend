@@ -21,24 +21,45 @@ class CategoryController extends Controller {
 	 * @get("/{?challenges}")
 	 * @parameters({
 	 *     @parameter("challenges", type="boolean", description="Include challenges under each category", default="false"),
-	 *     @parameter("questions", type="boolean", description="Include associated questions.", default="false")
+	 *     @parameter("questions", type="boolean", description="Include associated questions at current phase.", default="false"),
+	 *     @parameter("allPhases", type="boolean", description="Get relations from all phases.", default="false"),
 	 * })
 	 */
 	public function index( Request $request ) {
-		$withChallenges = strtolower( $request->query( 'challenges' ) );
-		$withQuestions  = strtolower( $request->query( 'questions' ) );
+		$withChallenges = filter_var( $request->query( 'challenges' ), FILTER_VALIDATE_BOOLEAN );
+		$withQuestions  = filter_var( $request->query( 'questions' ), FILTER_VALIDATE_BOOLEAN );
+		$allPhases      = filter_var( $request->query( 'allPhases' ), FILTER_VALIDATE_BOOLEAN );
 
 		$loadRelations = [];
 
-		if ( $withChallenges == 'true' || $withChallenges == '1' ) {
+		if ( $withChallenges ) {
 			$loadRelations[] = 'challenges';
 		}
 
-		if ( $withQuestions == 'true' || $withQuestions == '1' ) {
-			$loadRelations[] = 'challenges.questions';
-		}
+		if ( $allPhases ) {
+			if ( $withQuestions ) {
+				$loadRelations[] = 'challenges.questions';
+			}
 
-		return Category::with($loadRelations)->get();
+			return Category::with( $loadRelations )->get();
+		} else {
+			$categories = Category::with( $loadRelations )->get();
+
+			if ( $withChallenges && $withQuestions ) {
+				foreach ( $categories as $category ) {
+					foreach ( $category->challenges as $key => $challenge ) {
+						$phase = $challenge->phase;
+						$challenge->load( [
+							'questions' => function ( $query ) use ( $phase ) {
+								$query->where( 'phase', '=', $phase );
+							}
+						] );
+					}
+				}
+			}
+
+			return $categories;
+		}
 	}
 
 	/**
@@ -59,25 +80,52 @@ class CategoryController extends Controller {
 	/**
 	 * Display the specified resource.
 	 *
+	 * @param Request $request
 	 * @param  \App\Category $category
 	 *
 	 * @return Category
-	 *
 	 * @get("/{id}{?challenges}")
 	 * @response(200, body={"category":{"id":1,"name":"Explicabo doloribus distinctio nulla.","description":"Quas ad officia alias asperiores laborum hic aut ex.","created_at":"2017-05-31 07:35:50","updated_at":"2017-05-31 07:35:50"}})
 	 * @parameters({
 	 *     @parameter("id", description="ID of Category", required=true, type="integer"),
-	 *     @parameter("challenges", type="boolean", description="Include challenges under category", default="false")
+	 *     @parameter("challenges", type="boolean", description="Include challenges under category", default="false"),
+	 *     @parameter("questions", type="boolean", description="Include associated questions at current phase.", default="false"),
+	 *     @parameter("allPhases", type="boolean", description="Get relations from all phases.", default="false")
 	 * })
 	 */
 	public function show( Request $request, Category $category ) {
-		$withChallenges = strtolower( $request->query( 'challenges' ) );
+		$withChallenges = filter_var( $request->query( 'challenges' ), FILTER_VALIDATE_BOOLEAN );
+		$withQuestions  = filter_var( $request->query( 'questions' ), FILTER_VALIDATE_BOOLEAN );
+		$allPhases      = filter_var( $request->query( 'allPhases' ), FILTER_VALIDATE_BOOLEAN );
 
-		if ( $withChallenges == 'true' || $withChallenges == '1' ) {
-			$category->load( [ 'challenges' ] );
+		$loadRelations = [];
+
+		if ( $withChallenges ) {
+			$loadRelations[] = 'challenges';
 		}
 
-		return $category;
+		if ( $allPhases ) {
+			if ( $withQuestions ) {
+				$loadRelations[] = 'challenges.questions';
+			}
+		} else {
+			if ( $withChallenges && $withQuestions ) {
+				$category->load($loadRelations);
+
+				$loadRelations = []; // Reset because we've loaded
+
+				foreach ( $category->challenges as $key => $challenge ) {
+					$phase = $challenge->phase;
+					$challenge->load( [
+						'questions' => function ( $query ) use ( $phase ) {
+							$query->where( 'phase', '=', $phase );
+						}
+					] );
+				}
+			}
+		}
+
+		return $category->load( $loadRelations );
 	}
 
 	/**
