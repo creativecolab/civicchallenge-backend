@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Challenge;
+use DB;
 use Illuminate\Http\Request;
 
 /**
@@ -21,6 +22,7 @@ class ChallengeController extends Controller {
 	 * @return \Illuminate\Database\Eloquent\Collection|static[]
 	 * @get("/{?resources,questions,insights,groupInsightsByQuestion}")
 	 * @parameters({
+	 *     @parameter("allPhases", type="boolean", description="Get relations from all phases.", default="false"),
 	 *     @parameter("resources", type="boolean", description="Include associated resources.", default="false"),
 	 *     @parameter("questions", type="boolean", description="Include associated questions.", default="false"),
 	 *     @parameter("insights", type="boolean", description="Include associated insights.", default="false"),
@@ -28,32 +30,71 @@ class ChallengeController extends Controller {
 	 * })
 	 */
 	public function index( Request $request ) {
-		$withResources           = strtolower( $request->query( 'resources' ) );
-		$withQuestions           = strtolower( $request->query( 'questions' ) );
-		$withInsights            = strtolower( $request->query( 'insights' ) );
-		$groupInsightsByQuestion = strtolower( $request->query( 'groupInsightsByQuestion' ) );
+		$withResources           = filter_var( $request->query( 'resources' ), FILTER_VALIDATE_BOOLEAN );
+		$withQuestions           = filter_var( $request->query( 'questions' ), FILTER_VALIDATE_BOOLEAN );
+		$withInsights            = filter_var( $request->query( 'insights' ), FILTER_VALIDATE_BOOLEAN );
+		$groupInsightsByQuestion = filter_var( $request->query( 'groupInsightsByQuestion' ), FILTER_VALIDATE_BOOLEAN );
+		$allPhases               = filter_var( $request->query( 'allPhases' ), FILTER_VALIDATE_BOOLEAN );
 
-		$loadRelations = [ 'category' ];
+		$loadRelations = [];
 
-		if ( $withResources == 'true' || $withResources == '1' ) {
-			$loadRelations[] = 'resources';
-		}
+		if ( ! $allPhases ) {
+			$challenges = Challenge::with( 'category' )->get();
 
-		if ( $withQuestions == 'true' || $withQuestions == '1' ) {
-			$loadRelations[] = 'questions';
-		}
+			foreach ( $challenges as $key => $challenge ) {
+				$phase = $challenge->phase;
 
-		if ( $withInsights == 'true' || $withInsights == '1' ) {
-			if ( $groupInsightsByQuestion == 'true' || $groupInsightsByQuestion == '1' ) {
-				$loadRelations[] = 'questions.insights';
-			} else {
-				$loadRelations[] = 'insights';
+				$phaseFunction = function ( $query ) use ( $phase ) {
+					$query->where( 'phase', '=', $phase );
+				};
+
+				if ( $withResources ) {
+					$loadRelations['resources'] = $phaseFunction;
+				}
+
+				if ( $withQuestions ) {
+					if ( $withInsights && $groupInsightsByQuestion ) {
+						$loadRelations['questions'] = function ( $query ) use ( $phase, $phaseFunction ) {
+							$query->where( 'phase', '=', $phase );
+							$query->with( [ 'insights' => $phaseFunction ] );
+						};
+					} else {
+						$loadRelations['questions'] = $phaseFunction;
+					}
+				}
+
+				if ( $withInsights && ! $groupInsightsByQuestion ) {
+					$loadRelations[] = 'insights';
+				}
+
+				$challenge->load( $loadRelations );
+
+				$challenges[ $key ] = $challenge;
 			}
+
+			return $challenges;
+
+		} else {
+			$loadRelations[] = 'category';
+
+			if ( $withResources ) {
+				$loadRelations[] = 'resources';
+			}
+
+			if ( $withQuestions ) {
+				$loadRelations[] = 'questions';
+			}
+
+			if ( $withInsights ) {
+				if ( $groupInsightsByQuestion ) {
+					$loadRelations[] = 'questions.insights';
+				} else {
+					$loadRelations[] = 'insights';
+				}
+			}
+
+			return Challenge::with( $loadRelations )->get();
 		}
-
-		$challenges = Challenge::with( $loadRelations )->get();
-
-		return $challenges;
 	}
 
 	/**
@@ -82,6 +123,7 @@ class ChallengeController extends Controller {
 	 * @response(200, body={"challenge":{"id":1,"name":"Consequatur voluptatem atque blanditiis.","summary":"In vel eaque ut reprehenderit voluptates.","thumbnail":"http://thumbnail.com/img.jpg","phase":2,"created_at":"2017-05-31 05:06:00","updated_at":"2017-05-31 05:06:00"}})
 	 * @parameters({
 	 *     @parameter("id", description="ID of Challenge", required=true, type="integer"),
+	 *     @parameter("allPhases", type="boolean", description="Get relations from all phases.", default="false"),
 	 * 	   @parameter("resources", type="boolean", description="Include associated resources.", default="false"),
 	 *     @parameter("questions", type="boolean", description="Include associated questions.", default="false"),
 	 *     @parameter("insights", type="boolean", description="Include associated insights.", default="false"),
@@ -89,32 +131,59 @@ class ChallengeController extends Controller {
 	 * })
 	 */
 	public function show( Request $request, Challenge $challenge ) {
-		$withResources           = strtolower( $request->query( 'resources' ) );
-		$withQuestions           = strtolower( $request->query( 'questions' ) );
-		$withInsights            = strtolower( $request->query( 'insights' ) );
-		$groupInsightsByQuestion = strtolower( $request->query( 'groupInsightsByQuestion' ) );
+		$withResources           = filter_var( $request->query( 'resources' ), FILTER_VALIDATE_BOOLEAN );
+		$withQuestions           = filter_var( $request->query( 'questions' ), FILTER_VALIDATE_BOOLEAN );
+		$withInsights            = filter_var( $request->query( 'insights' ), FILTER_VALIDATE_BOOLEAN );
+		$groupInsightsByQuestion = filter_var( $request->query( 'groupInsightsByQuestion' ), FILTER_VALIDATE_BOOLEAN );
+		$allPhases               = filter_var( $request->query( 'allPhases' ), FILTER_VALIDATE_BOOLEAN );
 
 		$loadRelations = [ 'category' ];
 
-		if ( $withResources == 'true' || $withResources == '1' ) {
-			$loadRelations[] = 'resources';
-		}
+		if ( ! $allPhases ) {
+			$phase = $challenge->phase;
 
-		if ( $withQuestions == 'true' || $withQuestions == '1' ) {
-			$loadRelations[] = 'questions';
-		}
+			$phaseFunction = function ( $query ) use ( $phase ) {
+				$query->where( 'phase', '=', $phase );
+			};
 
-		if ( $withInsights == 'true' || $withInsights == '1' ) {
-			if ( $groupInsightsByQuestion == 'true' || $groupInsightsByQuestion == '1' ) {
-				$loadRelations[] = 'questions.insights';
-			} else {
-				$loadRelations[] = 'insights';
+			if ( $withResources ) {
+				$loadRelations['resources'] = $phaseFunction;
+			}
+
+			if ( $withQuestions ) {
+				if ( $withInsights && $groupInsightsByQuestion ) {
+					$loadRelations['questions'] = function ( $query ) use ( $phase, $phaseFunction ) {
+						$query->where( 'phase', '=', $phase );
+						$query->with( [ 'insights' => $phaseFunction ] );
+					};
+				} else {
+					$loadRelations['questions'] = $phaseFunction;
+				}
+			}
+
+			if ( $withInsights && ! $groupInsightsByQuestion ) {
+				$loadRelations['insights'] = $phaseFunction;
+			}
+
+		} else {
+			if ( $withResources ) {
+				$loadRelations[] = 'resources';
+			}
+
+			if ( $withQuestions ) {
+				$loadRelations[] = 'questions';
+			}
+
+			if ( $withInsights ) {
+				if ( $groupInsightsByQuestion ) {
+					$loadRelations[] = 'questions.insights';
+				} else {
+					$loadRelations[] = 'insights';
+				}
 			}
 		}
 
-		$challenge->load( $loadRelations );
-
-		return $challenge;
+		return $challenge->load( $loadRelations );
 	}
 
 	/**
