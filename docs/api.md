@@ -5,10 +5,12 @@ FORMAT: 1A
 # Group Challenges
 Microchallenges
 
-## Display a listing of the resource. [GET /{?resources,questions,insights,groupInsightsByQuestion}]
+## Display a listing of the resource. [GET /{?allPhases,resources,questions,insights,groupInsightsByQuestion}]
 
 
 + Parameters
+    + allPhases: (boolean, optional) - Get relations from all phases.
+        + Default: false
     + resources: (boolean, optional) - Include associated resources.
         + Default: false
     + questions: (boolean, optional) - Include associated questions.
@@ -45,11 +47,13 @@ Microchallenges
                 }
             }
 
-## Display the specified resource. [GET /{id}{?resources,questions,insights,groupInsightsByQuestion}]
+## Display the specified resource. [GET /{id}{?allPhases,resources,questions,insights,groupInsightsByQuestion}]
 
 
 + Parameters
     + id: (integer, required) - ID of Challenge
+    + allPhases: (boolean, optional) - Get relations from all phases.
+        + Default: false
     + resources: (boolean, optional) - Include associated resources.
         + Default: false
     + questions: (boolean, optional) - Include associated questions.
@@ -322,11 +326,15 @@ Resources for Challenges. i.e. Student work, external resources
 # Group Categories
 Categories of Microchallenges
 
-## Display a listing of the resource. [GET /{?challenges}]
+## Display a listing of the resource. [GET /{?challenges,questions,allPhases}]
 
 
 + Parameters
     + challenges: (boolean, optional) - Include challenges under each category
+        + Default: false
+    + questions: (boolean, optional) - Include associated questions at current phase.
+        + Default: false
+    + allPhases: (boolean, optional) - Get relations from all phases.
         + Default: false
 
 ## Store a newly created resource in storage. [POST /]
@@ -353,12 +361,16 @@ Categories of Microchallenges
                 }
             }
 
-## Display the specified resource. [GET /{id}{?challenges}]
+## Display the specified resource. [GET /{id}{?challenges,questions,allPhases}]
 
 
 + Parameters
     + id: (integer, required) - ID of Category
     + challenges: (boolean, optional) - Include challenges under category
+        + Default: false
+    + questions: (boolean, optional) - Include associated questions at current phase.
+        + Default: false
+    + allPhases: (boolean, optional) - Get relations from all phases.
         + Default: false
 
 + Response 200 (application/json)

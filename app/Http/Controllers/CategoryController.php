@@ -18,7 +18,7 @@ class CategoryController extends Controller {
 	 *
 	 * @return \Illuminate\Database\Eloquent\Collection|static[]
 	 *
-	 * @get("/{?challenges}")
+	 * @get("/{?challenges,questions,allPhases}")
 	 * @parameters({
 	 *     @parameter("challenges", type="boolean", description="Include challenges under each category", default="false"),
 	 *     @parameter("questions", type="boolean", description="Include associated questions at current phase.", default="false"),
@@ -84,7 +84,7 @@ class CategoryController extends Controller {
 	 * @param  \App\Category $category
 	 *
 	 * @return Category
-	 * @get("/{id}{?challenges}")
+	 * @get("/{id}{?challenges,questions,allPhases}")
 	 * @response(200, body={"category":{"id":1,"name":"Explicabo doloribus distinctio nulla.","description":"Quas ad officia alias asperiores laborum hic aut ex.","created_at":"2017-05-31 07:35:50","updated_at":"2017-05-31 07:35:50"}})
 	 * @parameters({
 	 *     @parameter("id", description="ID of Category", required=true, type="integer"),

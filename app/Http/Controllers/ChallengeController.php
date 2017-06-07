@@ -20,7 +20,7 @@ class ChallengeController extends Controller {
 	 * @param Request $request
 	 *
 	 * @return \Illuminate\Database\Eloquent\Collection|static[]
-	 * @get("/{?resources,questions,insights,groupInsightsByQuestion}")
+	 * @get("/{?allPhases,resources,questions,insights,groupInsightsByQuestion}")
 	 * @parameters({
 	 *     @parameter("allPhases", type="boolean", description="Get relations from all phases.", default="false"),
 	 *     @parameter("resources", type="boolean", description="Include associated resources.", default="false"),
@@ -119,7 +119,7 @@ class ChallengeController extends Controller {
 	 * @param  \App\Challenge $challenge
 	 *
 	 * @return Challenge|\Illuminate\Http\Response
-	 * @get("/{id}{?resources,questions,insights,groupInsightsByQuestion}")
+	 * @get("/{id}{?allPhases,resources,questions,insights,groupInsightsByQuestion}")
 	 * @response(200, body={"challenge":{"id":1,"name":"Consequatur voluptatem atque blanditiis.","summary":"In vel eaque ut reprehenderit voluptates.","thumbnail":"http://thumbnail.com/img.jpg","phase":2,"created_at":"2017-05-31 05:06:00","updated_at":"2017-05-31 05:06:00"}})
 	 * @parameters({
 	 *     @parameter("id", description="ID of Challenge", required=true, type="integer"),
