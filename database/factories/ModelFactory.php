@@ -27,6 +27,7 @@ $factory->define(App\Challenge::class, function (Faker\Generator $faker) {
 		'summary' => $faker->paragraph(),
 		'description' => $faker->paragraphs(3, true),
 		'phase' => rand(App\Challenge::PHASE_START, App\Challenge::PHASE_END),
+		'thumbnail' => $faker->imageUrl(),
 		'category_id' => null
 	];
 });
