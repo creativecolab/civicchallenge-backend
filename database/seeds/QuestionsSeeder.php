@@ -12,7 +12,7 @@ class QuestionsSeeder extends Seeder
     public function run()
     {
     	foreach (App\Challenge::all() as $challenge) {
-		    factory(App\Question::class, 3)->create(['challenge_id' => $challenge->id, 'phase' => $challenge->phase]);
+		    factory(App\Question::class, 2)->create(['challenge_id' => $challenge->id, 'phase' => $challenge->phase]);
 	    }
     }
 }

@@ -10,7 +10,7 @@ class ChallengesSeeder extends Seeder {
 	 */
 	public function run() {
 		foreach (App\Category::all() as $cat) {
-			factory( App\Challenge::class, 3 )->create(['category_id' => $cat->id])
+			factory( App\Challenge::class, 2 )->create(['category_id' => $cat->id])
 			                                  ->each( function ( App\Challenge $c ) {
 				                                  $c->resources()
 				                                    ->save( factory( App\Resource::class )->make( [
