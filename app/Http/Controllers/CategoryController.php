@@ -20,19 +20,25 @@ class CategoryController extends Controller {
 	 *
 	 * @get("/{?challenges}")
 	 * @parameters({
-	 *     @parameter("challenges", type="boolean", description="Include challenges under each category", default="false")
+	 *     @parameter("challenges", type="boolean", description="Include challenges under each category", default="false"),
+	 *     @parameter("questions", type="boolean", description="Include associated questions.", default="false")
 	 * })
 	 */
 	public function index( Request $request ) {
 		$withChallenges = strtolower( $request->query( 'challenges' ) );
+		$withQuestions  = strtolower( $request->query( 'questions' ) );
+
+		$loadRelations = [];
 
 		if ( $withChallenges == 'true' || $withChallenges == '1' ) {
-			$categories = Category::with( [ 'challenges' ] )->get();
-		} else {
-			$categories = Category::all();
+			$loadRelations[] = 'challenges';
 		}
 
-		return $categories;
+		if ( $withQuestions == 'true' || $withQuestions == '1' ) {
+			$loadRelations[] = 'challenges.questions';
+		}
+
+		return Category::with($loadRelations)->get();
 	}
 
 	/**
