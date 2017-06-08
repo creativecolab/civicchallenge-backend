@@ -25,4 +25,10 @@ Route::group( [
 ], function () {
 	Route::get( 'login', 'LoginController@adminRedirectToProvider' );
 	Route::get( 'login/callback', 'LoginController@adminHandleProviderCallback' );
+	CRUD::resource( 'category', 'CategoryCrudController' );
+	CRUD::resource( 'challenge', 'ChallengeCrudController' );
+	CRUD::resource( 'insight', 'InsightCrudController' );
+	CRUD::resource( 'question', 'QuestionCrudController' );
+	CRUD::resource( 'resource', 'ResourceCrudController' );
+	CRUD::resource( 'user', 'UserCrudController' );
 } );
