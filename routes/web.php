@@ -11,12 +11,18 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get( '/', function () {
+	return view( 'welcome' );
+} );
 
-Route::get('login', 'Auth\LoginController@redirectToProvider');
-Route::get('login/callback', 'Auth\LoginController@handleProviderCallback');
+Route::get( 'login', 'Auth\LoginController@redirectToProvider' );
+Route::get( 'login/callback', 'Auth\LoginController@handleProviderCallback' );
 
-Route::get('admin/login', 'Auth\LoginController@adminRedirectToProvider');
-Route::get('admin/login/callback', 'Auth\LoginController@adminHandleProviderCallback');
+Route::group( [
+	'prefix'     => config( 'backpack.base.route_prefix', 'admin' ),
+	'middleware' => 'admin',
+	'namespace'  => 'Admin'
+], function () {
+	Route::get( 'login', 'LoginController@adminRedirectToProvider' );
+	Route::get( 'login/callback', 'LoginController@adminHandleProviderCallback' );
+} );
