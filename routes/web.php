@@ -17,3 +17,6 @@ Route::get('/', function () {
 
 Route::get('login', 'Auth\LoginController@redirectToProvider');
 Route::get('login/callback', 'Auth\LoginController@handleProviderCallback');
+
+Route::get('admin/login', 'Auth\LoginController@adminRedirectToProvider');
+Route::get('admin/login/callback', 'Auth\LoginController@adminHandleProviderCallback');
