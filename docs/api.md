@@ -511,8 +511,11 @@ Discussion Questions
 # Group Insights
 Insights i.e. Discussion, comments, prototypes, ideas
 
-## Display a listing of the resource. [GET /]
+## Display a listing of the resource. [GET /{?types}]
 
+
++ Parameters
+    + types: (array|number, optional) - Filter by type (0 = NORMAL, 1 = CURATED, 2 = HIGHLIGHT)
 
 + Response 200 (application/json)
 

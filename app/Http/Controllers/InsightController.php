@@ -17,13 +17,24 @@ class InsightController extends Controller {
 	/**
 	 * Display a listing of the resource.
 	 *
-	 * @return \Illuminate\Database\Eloquent\Collection|static[]
+	 * @param Request $request
 	 *
-	 * @get("/")
+	 * @return \Illuminate\Database\Eloquent\Collection|static[]
+	 * @get("/{?types}")
 	 * @response(200)
+	 * @parameters({
+	 *     @parameter("types", type="array|number", description="Filter by type (0 = NORMAL, 1 = CURATED, 2 = HIGHLIGHT)"),
+	 * })
 	 */
-	public function index() {
-		return Insight::all();
+	public function index(Request $request) {
+		$types = explode(',', $request->get('types'));
+
+		if (!empty($types)) {
+			return Insight::whereIn('type', $types)->get();
+		}
+		else {
+			return Insight::all();
+		}
 	}
 
 	/**
