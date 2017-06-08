@@ -11,9 +11,24 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get( '/', function () {
+	return view( 'welcome' );
+} );
 
-Route::get('login', 'Auth\LoginController@redirectToProvider');
-Route::get('login/callback', 'Auth\LoginController@handleProviderCallback');
+Route::get( 'login', 'Auth\LoginController@redirectToProvider' );
+Route::get( 'login/callback', 'Auth\LoginController@handleProviderCallback' );
+
+Route::group( [
+	'prefix'     => config( 'backpack.base.route_prefix', 'admin' ),
+	'middleware' => 'admin',
+	'namespace'  => 'Admin'
+], function () {
+	Route::get( 'login', 'LoginController@adminRedirectToProvider' );
+	Route::get( 'login/callback', 'LoginController@adminHandleProviderCallback' );
+	CRUD::resource( 'category', 'CategoryCrudController' );
+	CRUD::resource( 'challenge', 'ChallengeCrudController' );
+	CRUD::resource( 'insight', 'InsightCrudController' );
+	CRUD::resource( 'question', 'QuestionCrudController' );
+	CRUD::resource( 'resource', 'ResourceCrudController' );
+	CRUD::resource( 'user', 'UserCrudController' );
+} );

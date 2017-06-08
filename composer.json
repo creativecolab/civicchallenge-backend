@@ -6,6 +6,8 @@
     "type": "project",
     "require": {
         "php": ">=5.6.4",
+        "backpack/base": "^0.7.19",
+        "backpack/crud": "^3.2",
         "barryvdh/laravel-cors": "^0.9.2",
         "cviebrock/discourse-php": "^0.9.2",
         "dingo/api": "1.0.x@dev",
@@ -15,9 +17,11 @@
         "socialiteproviders/slack": "^3.0"
     },
     "require-dev": {
+        "backpack/generators": "^1.1",
         "barryvdh/laravel-ide-helper": "^2.3",
         "doctrine/dbal": "^2.5",
         "fzaninotto/faker": "~1.4",
+        "laracasts/generators": "dev-master",
         "mockery/mockery": "0.9.*",
         "phpunit/phpunit": "~5.7"
     },

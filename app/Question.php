@@ -2,10 +2,13 @@
 
 namespace App;
 
+use Backpack\CRUD\CrudTrait;
 use Illuminate\Database\Eloquent\Model;
 
 class Question extends Model
 {
+	use CrudTrait;
+
     protected $fillable = [
         'text',
 	    'challenge_id',

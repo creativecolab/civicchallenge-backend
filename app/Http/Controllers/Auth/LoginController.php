@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\User;
+use Auth;
 use Config;
 use Cviebrock\DiscoursePHP\SSOHelper;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
@@ -112,10 +113,10 @@ class LoginController extends Controller {
 		// Create user if doesn't exist
 		if ( ! $user = User::where( 'slack_id', $slackUser->getId() )->first() ) {
 			$user = User::create( [
-				'name'      => $user->getName(),
-				'email'     => $user->getEmail(),
-				'thumbnail' => $user->getAvatar(),
-				'slack_id'  => $user->getId()
+				'name'      => $slackUser->getName(),
+				'email'     => $slackUser->getEmail(),
+				'thumbnail' => $slackUser->getAvatar(),
+				'slack_id'  => $slackUser->getId()
 			] );
 		}
 
