@@ -2,9 +2,12 @@
 
 namespace App;
 
+use Backpack\CRUD\CrudTrait;
 use Illuminate\Database\Eloquent\Model;
 
 class Challenge extends Model {
+	use CrudTrait;
+
 	const PHASE_ONE = 0;
 	const PHASE_TWO = 1;
 	const PHASE_THREE = 2;

@@ -2,10 +2,13 @@
 
 namespace App;
 
+use Backpack\CRUD\CrudTrait;
 use Illuminate\Database\Eloquent\Model;
 
 class Insight extends Model
 {
+	use CrudTrait;
+
 	const TYPE_NORMAL = 0;
 	const TYPE_CURATED = 1;
 	const TYPE_HIGHLIGHT = 2;
