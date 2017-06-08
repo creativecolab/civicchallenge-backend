@@ -179,6 +179,8 @@ return [
 	    Dingo\Api\Provider\LaravelServiceProvider::class,
 	    \SocialiteProviders\Manager\ServiceProvider::class,
 	    Barryvdh\Cors\ServiceProvider::class,
+	    Backpack\Base\BaseServiceProvider::class,
+	    Backpack\CRUD\CrudServiceProvider::class,
 
     ],
 
