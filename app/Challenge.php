@@ -20,6 +20,7 @@ class Challenge extends Model {
 		'name',
 		'summary',
 		'description',
+		'long_description',
 		'thumbnail',
 		'phase',
 		'category_id'

@@ -17,8 +17,9 @@ class CreateChallengesTable extends Migration
         Schema::create('challenges', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
-            $table->text('summary');
-            $table->text('description');
+            $table->text('summary')->nullable();
+            $table->text('description')->nullable();
+	        $table->text('long_description')->nullable();
             $table->string('thumbnail')->nullable();
             $table->tinyInteger('phase')->default(Challenge::PHASE_START);
             $table->timestamps();
