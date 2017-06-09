@@ -96,6 +96,7 @@ return [
     | specify a specific custom language line for a given attribute rule.
     |
     */
+    'numberList' => 'The :attribute must be a comma-separated string of numbers',
 
     'custom' => [
         'attribute-name' => [

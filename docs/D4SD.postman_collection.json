@@ -10,7 +10,45 @@
 		{
 			"name": "Challenges: Index",
 			"request": {
-				"url": "http://d4sd.dev/challenges?challenges=true&questions=true&insights=true&groupInsightsByQuestions=true",
+				"url": {
+					"raw": "http://d4sd.dev/challenges?questions=1&insights=1&insightTypes=2&groupInsightsByQuestion=0",
+					"protocol": "http",
+					"auth": {},
+					"host": [
+						"d4sd",
+						"dev"
+					],
+					"path": [
+						"challenges"
+					],
+					"query": [
+						{
+							"key": "questions",
+							"value": "1",
+							"equals": true,
+							"description": ""
+						},
+						{
+							"key": "insights",
+							"value": "1",
+							"equals": true,
+							"description": ""
+						},
+						{
+							"key": "insightTypes",
+							"value": "2",
+							"equals": true,
+							"description": ""
+						},
+						{
+							"key": "groupInsightsByQuestion",
+							"value": "0",
+							"equals": true,
+							"description": ""
+						}
+					],
+					"variable": []
+				},
 				"method": "GET",
 				"header": [],
 				"body": {},
@@ -21,7 +59,46 @@
 		{
 			"name": "Challenges: Show",
 			"request": {
-				"url": "http://d4sd.dev/challenges/1?resources=true&questions=true",
+				"url": {
+					"raw": "http://d4sd.dev/challenges/1?resources=1&questions=1&insights=1&insightTypes=1",
+					"protocol": "http",
+					"auth": {},
+					"host": [
+						"d4sd",
+						"dev"
+					],
+					"path": [
+						"challenges",
+						"1"
+					],
+					"query": [
+						{
+							"key": "resources",
+							"value": "1",
+							"equals": true,
+							"description": ""
+						},
+						{
+							"key": "questions",
+							"value": "1",
+							"equals": true,
+							"description": ""
+						},
+						{
+							"key": "insights",
+							"value": "1",
+							"equals": true,
+							"description": ""
+						},
+						{
+							"key": "insightTypes",
+							"value": "1",
+							"equals": true,
+							"description": ""
+						}
+					],
+					"variable": []
+				},
 				"method": "GET",
 				"header": [],
 				"body": {},
@@ -76,7 +153,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\t\"name\": \"Test\",\n\t\"url\": \"http://test.com\",\n\t\"description\": \"Test description\",\n\t\"type\": \"PDF\"\n}"
+					"raw": "{\n  \"name\": \"Test\",\n  \"url\": \"http://test.com\",\n  \"description\": \"Test description\",\n  \"type\": \"PDF\"\n}"
 				},
 				"description": ""
 			},
@@ -96,7 +173,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\t\"text\": \"Test\"\n}"
+					"raw": "{\n  \"text\": \"Test\"\n}"
 				},
 				"description": ""
 			},
@@ -116,7 +193,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\t\"name\": \"Hello\"\n}"
+					"raw": "{\n  \"name\": \"Hello\"\n}"
 				},
 				"description": ""
 			},
@@ -125,7 +202,7 @@
 		{
 			"name": "Challenges: Delete",
 			"request": {
-				"url": "http://d4sd.dev/challenges/4",
+				"url": "http://d4sd.dev/challenges/1",
 				"method": "DELETE",
 				"header": [
 					{
@@ -156,7 +233,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\t\"name\": \"Test\",\n\t\"summary\": \"Test summary\"\n}"
+					"raw": "{\n  \"name\": \"Test\",\n  \"summary\": \"Test summary\"\n}"
 				},
 				"description": ""
 			},
@@ -198,7 +275,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\t\"name\": \"Hello\"\n}"
+					"raw": "{\n  \"name\": \"Hello\"\n}"
 				},
 				"description": ""
 			},
@@ -238,7 +315,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\t\"name\": \"Test\",\n\t\"url\": \"http://test.com\",\n\t\"description\": \"Test description\",\n\t\"type\": \"PDF\",\n\t\"challenge_id\": 1\n}"
+					"raw": "{\n  \"name\": \"Test\",\n  \"url\": \"http://test.com\",\n  \"description\": \"Test description\",\n  \"type\": \"PDF\",\n  \"challenge_id\": 1\n}"
 				},
 				"description": ""
 			},
@@ -247,7 +324,33 @@
 		{
 			"name": "Categories: Index",
 			"request": {
-				"url": "http://d4sd.dev/categories",
+				"url": {
+					"raw": "http://d4sd.dev/categories?challenges=1&questions=1",
+					"protocol": "http",
+					"auth": {},
+					"host": [
+						"d4sd",
+						"dev"
+					],
+					"path": [
+						"categories"
+					],
+					"query": [
+						{
+							"key": "challenges",
+							"value": "1",
+							"equals": true,
+							"description": ""
+						},
+						{
+							"key": "questions",
+							"value": "1",
+							"equals": true,
+							"description": ""
+						}
+					],
+					"variable": []
+				},
 				"method": "GET",
 				"header": [],
 				"body": {},
@@ -258,7 +361,34 @@
 		{
 			"name": "Categories: Show",
 			"request": {
-				"url": "http://d4sd.dev/categories/1",
+				"url": {
+					"raw": "http://d4sd.dev/categories/1?challenges=1&questions=1",
+					"protocol": "http",
+					"auth": {},
+					"host": [
+						"d4sd",
+						"dev"
+					],
+					"path": [
+						"categories",
+						"1"
+					],
+					"query": [
+						{
+							"key": "challenges",
+							"value": "1",
+							"equals": true,
+							"description": ""
+						},
+						{
+							"key": "questions",
+							"value": "1",
+							"equals": true,
+							"description": ""
+						}
+					],
+					"variable": []
+				},
 				"method": "GET",
 				"header": [],
 				"body": {},
@@ -280,7 +410,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\t\"name\": \"Hello\"\n}"
+					"raw": "{\n  \"name\": \"Hello\"\n}"
 				},
 				"description": ""
 			},
@@ -320,7 +450,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\t\"name\": \"Test\",\n\t\"description\": \"Test description\"\n}"
+					"raw": "{\n  \"name\": \"Test\",\n  \"description\": \"Test description\"\n}"
 				},
 				"description": ""
 			},
@@ -362,7 +492,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\t\"text\": \"Test?\"\n}"
+					"raw": "{\n  \"text\": \"Test?\"\n}"
 				},
 				"description": ""
 			},
@@ -402,7 +532,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\t\"text\": \"Test\",\n\t\"challenge_id\": 1\n}"
+					"raw": "{\n  \"text\": \"Test\",\n  \"challenge_id\": 1\n}"
 				},
 				"description": ""
 			},
@@ -444,7 +574,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\t\"type\": 2\n}"
+					"raw": "{\n  \"type\": 2\n}"
 				},
 				"description": ""
 			},
@@ -504,7 +634,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\t\n\t\"insights\": [\n\t\t{\n\t \t\t\"text\": \"Test message 1\",\n\t\t    \"user_id\": 1,\n\t\t    \"timestamp\": \"1999-01-31 00:00:00\",\n\t\t    \"thumbnail\": \"http://lorempixel.com/640/480/?44834\",\n\t\t    \"type\": 0,\n\t\t    \"question_id\": 1,\n\t\t    \"challenge_id\": 1,\n\t\t    \"slack_meta\": \"{\\\"var1\\\": \\\"content\\\"}\"\n\t\t},\n\t\t{\n\t \t\t\"text\": \"Test message 2\",\n\t\t    \"user_id\": 1,\n\t\t    \"timestamp\": \"1999-01-31 00:00:00\",\n\t\t    \"thumbnail\": \"http://lorempixel.com/640/480/?44834\",\n\t\t    \"type\": 0,\n\t\t    \"question_id\": 1,\n\t\t    \"challenge_id\": 1,\n\t\t    \"slack_meta\": \"{\\\"var1\\\": \\\"content\\\"}\"\n\t\t}\n\t]\n}"
+					"raw": "{  \n  \"insights\": [\n    {\n       \"text\": \"Test message 1\",\n        \"user_id\": 1,\n        \"timestamp\": \"1999-01-31 00:00:00\",\n        \"thumbnail\": \"http://lorempixel.com/640/480/?44834\",\n        \"type\": 0,\n        \"question_id\": 1,\n        \"challenge_id\": 1,\n        \"slack_meta\": \"{\\\"var1\\\": \\\"content\\\"}\"\n    },\n    {\n       \"text\": \"Test message 2\",\n        \"user_id\": 1,\n        \"timestamp\": \"1999-01-31 00:00:00\",\n        \"thumbnail\": \"http://lorempixel.com/640/480/?44834\",\n        \"type\": 0,\n        \"question_id\": 1,\n        \"challenge_id\": 1,\n        \"slack_meta\": \"{\\\"var1\\\": \\\"content\\\"}\"\n    }\n  ]\n}"
 				},
 				"description": ""
 			},

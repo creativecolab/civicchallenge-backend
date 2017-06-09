@@ -10,17 +10,17 @@ Microchallenges
 
 + Parameters
     + allPhases: (boolean, optional) - Get relations from all phases.
-        + Default: false
+        + Default: 0
     + resources: (boolean, optional) - Include associated resources.
-        + Default: false
+        + Default: 0
     + questions: (boolean, optional) - Include associated questions.
-        + Default: false
+        + Default: 0
     + insights: (boolean, optional) - Include associated insights.
-        + Default: false
+        + Default: 0
     + insightTypes: (array|number, optional) - Filter by type (0 = NORMAL, 1 = CURATED, 2 = HIGHLIGHT)
         + Default: 1,2
     + groupInsightsByQuestion: (boolean, optional) - Group associated insights by questions
-        + Default: false
+        + Default: 0
 
 ## Store a newly created resource in storage. [POST /]
 
@@ -55,17 +55,17 @@ Microchallenges
 + Parameters
     + id: (integer, required) - ID of Challenge
     + allPhases: (boolean, optional) - Get relations from all phases.
-        + Default: false
+        + Default: 0
     + resources: (boolean, optional) - Include associated resources.
-        + Default: false
+        + Default: 0
     + questions: (boolean, optional) - Include associated questions.
-        + Default: false
+        + Default: 0
     + insights: (boolean, optional) - Include associated insights.
-        + Default: false
+        + Default: 0
     + insightTypes: (array|number, optional) - Filter by type (0 = NORMAL, 1 = CURATED, 2 = HIGHLIGHT)
         + Default: 1,2
     + groupInsightsByQuestion: (boolean, optional) - Group associated insights by questions
-        + Default: false
+        + Default: 0
 
 + Response 200 (application/json)
     + Body

@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Schema;
+use Validator;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -15,6 +16,10 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
 	    Schema::defaultStringLength(191);
+
+	    Validator::extend('numberList', function($attribute, $value, $parameters, $validator) {
+	    	return preg_match('/^\d+(?:,\d+)*$/', $value);
+	    });
     }
 
     /**

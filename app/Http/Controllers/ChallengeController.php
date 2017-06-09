@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Challenge;
+use App\Http\Requests\Api\GetChallengeRequest;
 use DB;
 use Illuminate\Http\Request;
 
@@ -17,26 +18,26 @@ class ChallengeController extends Controller {
 	/**
 	 * Display a listing of the resource.
 	 *
-	 * @param Request $request
+	 * @param GetChallengeRequest $request
 	 *
 	 * @return \Illuminate\Database\Eloquent\Collection|static[]
 	 * @get("/{?allPhases,resources,questions,insights,groupInsightsByQuestion}")
 	 * @parameters({
-	 *     @parameter("allPhases", type="boolean", description="Get relations from all phases.", default="false"),
-	 *     @parameter("resources", type="boolean", description="Include associated resources.", default="false"),
-	 *     @parameter("questions", type="boolean", description="Include associated questions.", default="false"),
-	 *     @parameter("insights", type="boolean", description="Include associated insights.", default="false"),
+	 *     @parameter("allPhases", type="boolean", description="Get relations from all phases.", default=0),
+	 *     @parameter("resources", type="boolean", description="Include associated resources.", default=0),
+	 *     @parameter("questions", type="boolean", description="Include associated questions.", default=0),
+	 *     @parameter("insights", type="boolean", description="Include associated insights.", default=0),
 	 *     @parameter("insightTypes", type="array|number", description="Filter by type (0 = NORMAL, 1 = CURATED, 2 = HIGHLIGHT)", default="1,2"),
-	 *     @parameter("groupInsightsByQuestion", type="boolean", description="Group associated insights by questions", default="false")
+	 *     @parameter("groupInsightsByQuestion", type="boolean", description="Group associated insights by questions", default=0)
 	 * })
 	 */
-	public function index( Request $request ) {
-		$withResources           = filter_var( $request->query( 'resources' ), FILTER_VALIDATE_BOOLEAN );
-		$withQuestions           = filter_var( $request->query( 'questions' ), FILTER_VALIDATE_BOOLEAN );
-		$withInsights            = filter_var( $request->query( 'insights' ), FILTER_VALIDATE_BOOLEAN );
-		$groupInsightsByQuestion = filter_var( $request->query( 'groupInsightsByQuestion' ), FILTER_VALIDATE_BOOLEAN );
-		$allPhases               = filter_var( $request->query( 'allPhases' ), FILTER_VALIDATE_BOOLEAN );
-		$insightTypes            = explode( ',', $request->query( 'insightTypes', '1,2' ) );
+	public function index( GetChallengeRequest $request ) {
+		$withResources           = $request->get('resources');
+		$withQuestions           = $request->get('questions');
+		$withInsights            = $request->get('insights');
+		$groupInsightsByQuestion = $request->get('groupInsightsByQuestion');
+		$allPhases               = $request->get('allPhases');
+		$insightTypes            = explode( ',', $request->get( 'insightTypes', '1,2' ) );
 
 		$loadRelations = [];
 
@@ -142,7 +143,7 @@ class ChallengeController extends Controller {
 	/**
 	 * Display the specified resource.
 	 *
-	 * @param Request $request
+	 * @param GetChallengeRequest $request
 	 * @param  \App\Challenge $challenge
 	 *
 	 * @return Challenge|\Illuminate\Http\Response
@@ -150,21 +151,21 @@ class ChallengeController extends Controller {
 	 * @response(200, body={"challenge":{"id":1,"name":"Consequatur voluptatem atque blanditiis.","summary":"In vel eaque ut reprehenderit voluptates.","thumbnail":"http://thumbnail.com/img.jpg","phase":2,"created_at":"2017-05-31 05:06:00","updated_at":"2017-05-31 05:06:00"}})
 	 * @parameters({
 	 *     @parameter("id", description="ID of Challenge", required=true, type="integer"),
-	 *     @parameter("allPhases", type="boolean", description="Get relations from all phases.", default="false"),
-	 * 	   @parameter("resources", type="boolean", description="Include associated resources.", default="false"),
-	 *     @parameter("questions", type="boolean", description="Include associated questions.", default="false"),
-	 *     @parameter("insights", type="boolean", description="Include associated insights.", default="false"),
+	 *     @parameter("allPhases", type="boolean", description="Get relations from all phases.", default=0),
+	 * 	   @parameter("resources", type="boolean", description="Include associated resources.", default=0),
+	 *     @parameter("questions", type="boolean", description="Include associated questions.", default=0),
+	 *     @parameter("insights", type="boolean", description="Include associated insights.", default=0),
 	 *     @parameter("insightTypes", type="array|number", description="Filter by type (0 = NORMAL, 1 = CURATED, 2 = HIGHLIGHT)", default="1,2"),
-	 *     @parameter("groupInsightsByQuestion", type="boolean", description="Group associated insights by questions", default="false")
+	 *     @parameter("groupInsightsByQuestion", type="boolean", description="Group associated insights by questions", default=0)
 	 * })
 	 */
-	public function show( Request $request, Challenge $challenge ) {
-		$withResources           = filter_var( $request->query( 'resources' ), FILTER_VALIDATE_BOOLEAN );
-		$withQuestions           = filter_var( $request->query( 'questions' ), FILTER_VALIDATE_BOOLEAN );
-		$withInsights            = filter_var( $request->query( 'insights' ), FILTER_VALIDATE_BOOLEAN );
-		$groupInsightsByQuestion = filter_var( $request->query( 'groupInsightsByQuestion' ), FILTER_VALIDATE_BOOLEAN );
-		$allPhases               = filter_var( $request->query( 'allPhases' ), FILTER_VALIDATE_BOOLEAN );
-		$insightTypes            = explode( ',', $request->query( 'insightTypes', '1,2') );
+	public function show( GetChallengeRequest $request, Challenge $challenge ) {
+		$withResources           = $request->get('resources');
+		$withQuestions           = $request->get('questions');
+		$withInsights            = $request->get('insights');
+		$groupInsightsByQuestion = $request->get('groupInsightsByQuestion');
+		$allPhases               = $request->get('allPhases');
+		$insightTypes            = explode( ',', $request->get( 'insightTypes', '1,2' ) );
 
 		$loadRelations = [ 'category' ];
 
