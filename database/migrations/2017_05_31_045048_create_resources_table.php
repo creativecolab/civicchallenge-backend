@@ -17,8 +17,8 @@ class CreateResourcesTable extends Migration
             $table->increments('id');
             $table->string('name');
             $table->string('url');
-            $table->text('description');
-            $table->string('type');
+            $table->text('description')->nullable();
+            $table->string('type')->default('url');
             $table->unsignedInteger('challenge_id');
             $table->foreign('challenge_id')->references('id')->on('challenges');
             $table->tinyInteger('phase');
