@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Challenge;
 use App\Insight;
+use DB;
 use Illuminate\Http\Request;
 
 /**
@@ -19,22 +20,33 @@ class InsightController extends Controller {
 	 *
 	 * @param Request $request
 	 *
-	 * @return \Illuminate\Database\Eloquent\Collection|static[]
-	 * @get("/{?types}")
+	 * @return \Illuminate\Support\Collection
+	 * @get("/{?types,challenge}")
 	 * @response(200)
 	 * @parameters({
 	 *     @parameter("types", type="array|number", description="Filter by type (0 = NORMAL, 1 = CURATED, 2 = HIGHLIGHT)"),
+	 *     @parameter("challenge", type="number", description="Get insights from challenge ID."),
 	 * })
 	 */
 	public function index(Request $request) {
 		$types = explode(',', $request->get('types'));
+		$challenge = $request->get('challenge');
 
-		if (!empty($types)) {
-			return Insight::whereIn('type', $types)->get();
-		}
-		else {
+		if (!$types && !$challenge) {
 			return Insight::all();
 		}
+
+		$insights = DB::table('insights');
+
+		if (!empty($types)) {
+			$insights = $insights->whereIn('type', $types);
+		}
+
+		if ($challenge) {
+			$insights = $insights->where('challenge_id', '=', $challenge);
+		}
+
+		return $insights->get();
 	}
 
 	/**

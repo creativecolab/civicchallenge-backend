@@ -517,11 +517,12 @@ Discussion Questions
 # Group Insights
 Insights i.e. Discussion, comments, prototypes, ideas
 
-## Display a listing of the resource. [GET /{?types}]
+## Display a listing of the resource. [GET /{?types,challenge}]
 
 
 + Parameters
     + types: (array|number, optional) - Filter by type (0 = NORMAL, 1 = CURATED, 2 = HIGHLIGHT)
+    + challenge: (number, optional) - Get insights from challenge ID.
 
 + Response 200 (application/json)
 

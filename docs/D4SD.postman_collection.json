@@ -45,6 +45,13 @@
 							"value": "0",
 							"equals": true,
 							"description": ""
+						},
+						{
+							"key": "phase",
+							"value": "1",
+							"equals": true,
+							"description": "",
+							"disabled": true
 						}
 					],
 					"variable": []
@@ -95,6 +102,13 @@
 							"value": "1",
 							"equals": true,
 							"description": ""
+						},
+						{
+							"key": "phase",
+							"value": "1",
+							"equals": true,
+							"description": "",
+							"disabled": true
 						}
 					],
 					"variable": []
@@ -541,7 +555,33 @@
 		{
 			"name": "Insights: Index",
 			"request": {
-				"url": "http://d4sd.dev/insights",
+				"url": {
+					"raw": "http://d4sd.dev/insights?types=2&challenge=1",
+					"protocol": "http",
+					"auth": {},
+					"host": [
+						"d4sd",
+						"dev"
+					],
+					"path": [
+						"insights"
+					],
+					"query": [
+						{
+							"key": "types",
+							"value": "2",
+							"equals": true,
+							"description": ""
+						},
+						{
+							"key": "challenge",
+							"value": "1",
+							"equals": true,
+							"description": ""
+						}
+					],
+					"variable": []
+				},
 				"method": "GET",
 				"header": [],
 				"body": {},
