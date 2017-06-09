@@ -176,7 +176,11 @@ return [
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
-	    Dingo\Api\Provider\LaravelServiceProvider::class
+	    Dingo\Api\Provider\LaravelServiceProvider::class,
+	    \SocialiteProviders\Manager\ServiceProvider::class,
+	    Barryvdh\Cors\ServiceProvider::class,
+	    Backpack\Base\BaseServiceProvider::class,
+	    Backpack\CRUD\CrudServiceProvider::class,
 
     ],
 
@@ -228,7 +232,8 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
 
 	    'API' => Dingo\Api\Facade\API::class,
-	    'APIRoute' => Dingo\Api\Facade\Route::class
+	    'APIRoute' => Dingo\Api\Facade\Route::class,
+        'Socialite' => Laravel\Socialite\Facades\Socialite::class,
 
     ],
 

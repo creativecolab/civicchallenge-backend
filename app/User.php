@@ -2,12 +2,13 @@
 
 namespace App;
 
+use Backpack\CRUD\CrudTrait;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
 {
-    use Notifiable;
+    use Notifiable, CrudTrait;
 
     /**
      * The attributes that are mass assignable.
@@ -15,7 +16,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password', 'confirmation_code'
+        'name', 'email', 'slack_id'
     ];
 
     /**
@@ -26,4 +27,8 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    public function insights() {
+    	return $this->hasMany('App\Insight');
+    }
 }

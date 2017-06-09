@@ -123,6 +123,14 @@ Edit the values in `.env` with your local values.
 
 ---
 
+## [API Documentation](http://creativecolab.github.io/civicchallenge-backend)
+
+`npm run docs` - Generate `docs/index.html`
+
+`npm run docs:serve` - Serve docs at `http://localhost:3000`
+
+---
+
 ## Testing
 
 This project is using Travis CI to check builds. Builds will be checked when commits are pushed.

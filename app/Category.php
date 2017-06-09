@@ -2,12 +2,16 @@
 
 namespace App;
 
+use Backpack\CRUD\CrudTrait;
 use Illuminate\Database\Eloquent\Model;
 
 class Category extends Model {
+	use CrudTrait;
+
 	protected $fillable = [
 		'name',
-		'description'
+		'description',
+		'thumbnail'
 	];
 
 	public function challenges() {

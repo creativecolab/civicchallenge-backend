@@ -2,9 +2,12 @@
 
 namespace App;
 
+use Backpack\CRUD\CrudTrait;
 use Illuminate\Database\Eloquent\Model;
 
 class Challenge extends Model {
+	use CrudTrait;
+
 	const PHASE_ONE = 0;
 	const PHASE_TWO = 1;
 	const PHASE_THREE = 2;
@@ -28,5 +31,13 @@ class Challenge extends Model {
 
 	public function category() {
 		return $this->belongsTo('App\Category');
+	}
+
+	public function questions() {
+		return $this->hasMany('App\Question');
+	}
+
+	public function insights() {
+		return $this->hasMany('App\Insight');
 	}
 }

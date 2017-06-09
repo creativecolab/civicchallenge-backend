@@ -11,11 +11,34 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get( '/', function () {
+	return view( 'welcome' );
+} );
 
-Auth::routes();
-Route::get('/confirm/{id}/{code}', 'Auth\RegisterController@confirm');
+Route::get( 'login', 'Auth\LoginController@redirectToProvider' );
+Route::get( 'login/callback', 'Auth\LoginController@handleProviderCallback' );
 
-Route::get('/home', 'HomeController@index');
+Route::group( [
+	'prefix'     => config( 'backpack.base.route_prefix', 'admin' ),
+	'namespace'  => 'Admin'
+], function () {
+	Route::get( 'login', 'LoginController@adminRedirectToProvider' );
+	Route::get( 'login/callback', 'LoginController@adminHandleProviderCallback' );
+
+	Route::group( ['middleware' => ['admin', 'adminOnly']], function() {
+		CRUD::resource( 'category', 'CategoryCrudController' );
+		CRUD::resource( 'challenge', 'ChallengeCrudController' );
+		CRUD::resource( 'insight', 'InsightCrudController' );
+		CRUD::resource( 'question', 'QuestionCrudController' );
+		CRUD::resource( 'resource', 'ResourceCrudController' );
+		CRUD::resource( 'user', 'UserCrudController' );
+	});
+} );
+
+Route::group(
+	['prefix' => 'admin', 'middleware' => ['admin', 'adminOnly']],
+	function() {
+		Route::get('/', '\Backpack\Base\app\Http\Controllers\AdminController@redirect');
+		Route::get('dashboard', '\Backpack\Base\app\Http\Controllers\AdminController@dashboard');
+	}
+);

@@ -9,7 +9,7 @@ use Illuminate\Http\Request;
 /**
  * Resources for Challenges. i.e. Student work, external resources
  * @package App\Http\Controllers
- * @resource("Resources", uri="/resources")
+ * @resource("Group Challenge Resources")
  */
 class ResourceController extends Controller {
 	use CreatesResources;
