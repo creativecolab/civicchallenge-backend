@@ -17,6 +17,8 @@ Microchallenges
         + Default: false
     + insights: (boolean, optional) - Include associated insights.
         + Default: false
+    + insightTypes: (array|number, optional) - Filter by type (0 = NORMAL, 1 = CURATED, 2 = HIGHLIGHT)
+        + Default: 1,2
     + groupInsightsByQuestion: (boolean, optional) - Group associated insights by questions
         + Default: false
 
@@ -60,6 +62,8 @@ Microchallenges
         + Default: false
     + insights: (boolean, optional) - Include associated insights.
         + Default: false
+    + insightTypes: (array|number, optional) - Filter by type (0 = NORMAL, 1 = CURATED, 2 = HIGHLIGHT)
+        + Default: 1,2
     + groupInsightsByQuestion: (boolean, optional) - Group associated insights by questions
         + Default: false
 

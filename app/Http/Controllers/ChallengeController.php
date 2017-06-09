@@ -26,6 +26,7 @@ class ChallengeController extends Controller {
 	 *     @parameter("resources", type="boolean", description="Include associated resources.", default="false"),
 	 *     @parameter("questions", type="boolean", description="Include associated questions.", default="false"),
 	 *     @parameter("insights", type="boolean", description="Include associated insights.", default="false"),
+	 *     @parameter("insightTypes", type="array|number", description="Filter by type (0 = NORMAL, 1 = CURATED, 2 = HIGHLIGHT)", default="1,2"),
 	 *     @parameter("groupInsightsByQuestion", type="boolean", description="Group associated insights by questions", default="false")
 	 * })
 	 */
@@ -35,6 +36,7 @@ class ChallengeController extends Controller {
 		$withInsights            = filter_var( $request->query( 'insights' ), FILTER_VALIDATE_BOOLEAN );
 		$groupInsightsByQuestion = filter_var( $request->query( 'groupInsightsByQuestion' ), FILTER_VALIDATE_BOOLEAN );
 		$allPhases               = filter_var( $request->query( 'allPhases' ), FILTER_VALIDATE_BOOLEAN );
+		$insightTypes            = explode( ',', $request->query( 'insightTypes', '1,2' ) );
 
 		$loadRelations = [];
 
@@ -54,9 +56,16 @@ class ChallengeController extends Controller {
 
 				if ( $withQuestions ) {
 					if ( $withInsights && $groupInsightsByQuestion ) {
-						$loadRelations['questions'] = function ( $query ) use ( $phase, $phaseFunction ) {
+						$loadRelations['questions'] = function ( $query ) use ( $phase, $phaseFunction, $insightTypes ) {
 							$query->where( 'phase', '=', $phase );
-							$query->with( [ 'insights' => $phaseFunction ] );
+							$query->with( [
+								'insights' => function ( $query ) use ( $phase, $phaseFunction, $insightTypes ) {
+									if ( ! empty( $insightTypes ) ) {
+										$query->whereIn( 'type', $insightTypes );
+									}
+									return $phaseFunction($query);
+								}
+							] );
 						};
 					} else {
 						$loadRelations['questions'] = $phaseFunction;
@@ -64,7 +73,17 @@ class ChallengeController extends Controller {
 				}
 
 				if ( $withInsights && ! $groupInsightsByQuestion ) {
-					$loadRelations[] = 'insights';
+					if (!empty($insightTypes)) {
+						$loadRelations['insights'] = function ($query) use ($phaseFunction, $insightTypes) {
+							if ( ! empty( $insightTypes ) ) {
+								$query->whereIn( 'type', $insightTypes );
+							}
+							return $phaseFunction($query);
+						};
+					}
+					else {
+						$loadRelations['insights'] = $phaseFunction;
+					}
 				}
 
 				$challenge->load( $loadRelations );
@@ -87,9 +106,17 @@ class ChallengeController extends Controller {
 
 			if ( $withInsights ) {
 				if ( $groupInsightsByQuestion ) {
-					$loadRelations[] = 'questions.insights';
+					$insightRelation = 'questions.insights';
 				} else {
-					$loadRelations[] = 'insights';
+					$insightRelation = 'insights';
+				}
+
+				if ( ! empty( $insightTypes ) ) {
+					$loadRelations[ $insightRelation ] = function ( $query ) use ( $insightTypes ) {
+						$query->whereIn( 'type', $insightTypes );
+					};
+				} else {
+					$loadRelations[] = $insightRelation;
 				}
 			}
 
@@ -127,6 +154,7 @@ class ChallengeController extends Controller {
 	 * 	   @parameter("resources", type="boolean", description="Include associated resources.", default="false"),
 	 *     @parameter("questions", type="boolean", description="Include associated questions.", default="false"),
 	 *     @parameter("insights", type="boolean", description="Include associated insights.", default="false"),
+	 *     @parameter("insightTypes", type="array|number", description="Filter by type (0 = NORMAL, 1 = CURATED, 2 = HIGHLIGHT)", default="1,2"),
 	 *     @parameter("groupInsightsByQuestion", type="boolean", description="Group associated insights by questions", default="false")
 	 * })
 	 */
@@ -136,6 +164,7 @@ class ChallengeController extends Controller {
 		$withInsights            = filter_var( $request->query( 'insights' ), FILTER_VALIDATE_BOOLEAN );
 		$groupInsightsByQuestion = filter_var( $request->query( 'groupInsightsByQuestion' ), FILTER_VALIDATE_BOOLEAN );
 		$allPhases               = filter_var( $request->query( 'allPhases' ), FILTER_VALIDATE_BOOLEAN );
+		$insightTypes            = explode( ',', $request->query( 'insightTypes', '1,2') );
 
 		$loadRelations = [ 'category' ];
 
@@ -152,9 +181,16 @@ class ChallengeController extends Controller {
 
 			if ( $withQuestions ) {
 				if ( $withInsights && $groupInsightsByQuestion ) {
-					$loadRelations['questions'] = function ( $query ) use ( $phase, $phaseFunction ) {
+					$loadRelations['questions'] = function ( $query ) use ( $phase, $phaseFunction, $insightTypes ) {
 						$query->where( 'phase', '=', $phase );
-						$query->with( [ 'insights' => $phaseFunction ] );
+						$query->with( [
+							'insights' => function ( $query ) use ( $phase, $phaseFunction, $insightTypes ) {
+								if ( ! empty( $insightTypes ) ) {
+									$query->whereIn( 'type', $insightTypes );
+								}
+								return $phaseFunction($query);
+							}
+						] );
 					};
 				} else {
 					$loadRelations['questions'] = $phaseFunction;
@@ -162,7 +198,17 @@ class ChallengeController extends Controller {
 			}
 
 			if ( $withInsights && ! $groupInsightsByQuestion ) {
-				$loadRelations['insights'] = $phaseFunction;
+				if (!empty($insightTypes)) {
+					$loadRelations['insights'] = function ($query) use ($phaseFunction, $insightTypes) {
+						if ( ! empty( $insightTypes ) ) {
+							$query->whereIn( 'type', $insightTypes );
+						}
+						return $phaseFunction($query);
+					};
+				}
+				else {
+					$loadRelations['insights'] = $phaseFunction;
+				}
 			}
 
 		} else {
@@ -176,9 +222,17 @@ class ChallengeController extends Controller {
 
 			if ( $withInsights ) {
 				if ( $groupInsightsByQuestion ) {
-					$loadRelations[] = 'questions.insights';
+					$insightRelation = 'questions.insights';
 				} else {
-					$loadRelations[] = 'insights';
+					$insightRelation = 'insights';
+				}
+
+				if ( ! empty( $insightTypes ) ) {
+					$loadRelations[ $insightRelation ] = function ( $query ) use ( $insightTypes ) {
+						$query->whereIn( 'type', $insightTypes );
+					};
+				} else {
+					$loadRelations[] = $insightRelation;
 				}
 			}
 		}
