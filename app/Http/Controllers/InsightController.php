@@ -21,20 +21,18 @@ class InsightController extends Controller {
 	 * @param Request $request
 	 *
 	 * @return \Illuminate\Support\Collection
-	 * @get("/{?types,challenge}")
+	 * @get("/{?types,challenge,phase}")
 	 * @response(200)
 	 * @parameters({
 	 *     @parameter("types", type="array|number", description="Filter by type (0 = NORMAL, 1 = CURATED, 2 = HIGHLIGHT)"),
 	 *     @parameter("challenge", type="number", description="Get insights from challenge ID."),
+	 *     @parameter("phase", type="number", description="Get insights from specific phase"),
 	 * })
 	 */
 	public function index(Request $request) {
 		$types = explode(',', $request->get('types'));
 		$challenge = $request->get('challenge');
-
-		if (!$types && !$challenge) {
-			return Insight::all();
-		}
+		$phase = $request->get('phase');
 
 		$insights = DB::table('insights');
 
@@ -44,6 +42,10 @@ class InsightController extends Controller {
 
 		if ($challenge) {
 			$insights = $insights->where('challenge_id', '=', $challenge);
+		}
+
+		if (isset($phase)) {
+			$insights = $insights->where('phase', '=', $phase);
 		}
 
 		return $insights->get();
