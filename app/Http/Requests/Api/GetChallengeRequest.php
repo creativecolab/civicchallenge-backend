@@ -24,6 +24,7 @@ class GetChallengeRequest extends FormRequest
     public function rules()
     {
         return [
+        	'phase' => 'numeric',
             'allPhases' => 'boolean',
 	        'resources' => 'boolean',
 	        'questions' => 'boolean|required_with:groupInsightsByQuestion',

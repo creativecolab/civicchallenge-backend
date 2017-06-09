@@ -21,9 +21,10 @@ class ChallengeController extends Controller {
 	 * @param GetChallengeRequest $request
 	 *
 	 * @return \Illuminate\Database\Eloquent\Collection|static[]
-	 * @get("/{?allPhases,resources,questions,insights,groupInsightsByQuestion}")
+	 * @get("/{?phase,allPhases,resources,questions,insights,insightTypes,groupInsightsByQuestion}")
 	 * @parameters({
-	 *     @parameter("allPhases", type="boolean", description="Get relations from all phases.", default=0),
+	 *     @parameter("phase", type="number", description="Get challenges from specific phase."),
+	 *     @parameter("allPhases", type="boolean", description="Get relations for each challenge from all phases.", default=0),
 	 *     @parameter("resources", type="boolean", description="Include associated resources.", default=0),
 	 *     @parameter("questions", type="boolean", description="Include associated questions.", default=0),
 	 *     @parameter("insights", type="boolean", description="Include associated insights.", default=0),
@@ -32,20 +33,27 @@ class ChallengeController extends Controller {
 	 * })
 	 */
 	public function index( GetChallengeRequest $request ) {
-		$withResources           = $request->get('resources');
-		$withQuestions           = $request->get('questions');
-		$withInsights            = $request->get('insights');
-		$groupInsightsByQuestion = $request->get('groupInsightsByQuestion');
-		$allPhases               = $request->get('allPhases');
+		$withResources           = $request->get( 'resources' );
+		$withQuestions           = $request->get( 'questions' );
+		$withInsights            = $request->get( 'insights' );
+		$groupInsightsByQuestion = $request->get( 'groupInsightsByQuestion' );
+		$allPhases               = $request->get( 'allPhases' );
+		$phase                   = $request->get( 'phase' );
 		$insightTypes            = explode( ',', $request->get( 'insightTypes', '1,2' ) );
 
 		$loadRelations = [];
 
 		if ( ! $allPhases ) {
-			$challenges = Challenge::with( 'category' )->get();
+			$challenges = Challenge::with('category');
+
+			if ($phase) {
+				$challenges->where('phase', '=', $phase);
+			}
+
+			$challenges = $challenges->get();
 
 			foreach ( $challenges as $key => $challenge ) {
-				$phase = $challenge->phase;
+				$phase = isset($phase) ? $phase : $challenge->phase;
 
 				$phaseFunction = function ( $query ) use ( $phase ) {
 					$query->where( 'phase', '=', $phase );
@@ -147,10 +155,11 @@ class ChallengeController extends Controller {
 	 * @param  \App\Challenge $challenge
 	 *
 	 * @return Challenge|\Illuminate\Http\Response
-	 * @get("/{id}{?allPhases,resources,questions,insights,groupInsightsByQuestion}")
+	 * @get("/{id}{?phase,allPhases,resources,questions,insights,insightTypes,groupInsightsByQuestion}")
 	 * @response(200, body={"challenge":{"id":1,"name":"Consequatur voluptatem atque blanditiis.","summary":"In vel eaque ut reprehenderit voluptates.","thumbnail":"http://thumbnail.com/img.jpg","phase":2,"created_at":"2017-05-31 05:06:00","updated_at":"2017-05-31 05:06:00"}})
 	 * @parameters({
 	 *     @parameter("id", description="ID of Challenge", required=true, type="integer"),
+	 *     @parameter("phase", type="number", description="Get relations from specific phase."),
 	 *     @parameter("allPhases", type="boolean", description="Get relations from all phases.", default=0),
 	 * 	   @parameter("resources", type="boolean", description="Include associated resources.", default=0),
 	 *     @parameter("questions", type="boolean", description="Include associated questions.", default=0),
@@ -160,17 +169,18 @@ class ChallengeController extends Controller {
 	 * })
 	 */
 	public function show( GetChallengeRequest $request, Challenge $challenge ) {
-		$withResources           = $request->get('resources');
-		$withQuestions           = $request->get('questions');
-		$withInsights            = $request->get('insights');
-		$groupInsightsByQuestion = $request->get('groupInsightsByQuestion');
-		$allPhases               = $request->get('allPhases');
+		$withResources           = $request->get( 'resources' );
+		$withQuestions           = $request->get( 'questions' );
+		$withInsights            = $request->get( 'insights' );
+		$groupInsightsByQuestion = $request->get( 'groupInsightsByQuestion' );
+		$allPhases               = $request->get( 'allPhases' );
+		$phase                   = $request->get( 'phase' );
 		$insightTypes            = explode( ',', $request->get( 'insightTypes', '1,2' ) );
 
 		$loadRelations = [ 'category' ];
 
 		if ( ! $allPhases ) {
-			$phase = $challenge->phase;
+			$phase = isset($phase) ? $phase : $challenge->phase;
 
 			$phaseFunction = function ( $query ) use ( $phase ) {
 				$query->where( 'phase', '=', $phase );

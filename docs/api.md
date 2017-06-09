@@ -5,11 +5,12 @@ FORMAT: 1A
 # Group Challenges
 Microchallenges
 
-## Display a listing of the resource. [GET /{?allPhases,resources,questions,insights,groupInsightsByQuestion}]
+## Display a listing of the resource. [GET /{?phase,allPhases,resources,questions,insights,insightTypes,groupInsightsByQuestion}]
 
 
 + Parameters
-    + allPhases: (boolean, optional) - Get relations from all phases.
+    + phase: (number, optional) - Get challenges from specific phase.
+    + allPhases: (boolean, optional) - Get relations for each challenge from all phases.
         + Default: 0
     + resources: (boolean, optional) - Include associated resources.
         + Default: 0
@@ -49,11 +50,12 @@ Microchallenges
                 }
             }
 
-## Display the specified resource. [GET /{id}{?allPhases,resources,questions,insights,groupInsightsByQuestion}]
+## Display the specified resource. [GET /{id}{?phase,allPhases,resources,questions,insights,insightTypes,groupInsightsByQuestion}]
 
 
 + Parameters
     + id: (integer, required) - ID of Challenge
+    + phase: (number, optional) - Get relations from specific phase.
     + allPhases: (boolean, optional) - Get relations from all phases.
         + Default: 0
     + resources: (boolean, optional) - Include associated resources.
