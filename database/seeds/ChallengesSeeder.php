@@ -5,49 +5,54 @@ use Illuminate\Database\Seeder;
 class ChallengesSeeder extends Seeder {
 	const STAGING_DATA = [
 		[
-			'name'         => 'Cultural Spaces',
+			'name'        => 'Enhancing Rider Feedback Systems',
 			'category_id' => 1,
-			'phase'        => App\Challenge::PHASE_START
+			'phase'       => App\Challenge::PHASE_START
 		],
 		[
-			'name'         => 'Homelessness',
-			'category_id' => 1,
-			'phase'        => App\Challenge::PHASE_START
-		],
-		[
-			'name'         => 'Walking and Biking Safely',
-			'category_id' => 1,
-			'phase'        => App\Challenge::PHASE_START
-		],
-		[
-			'name'         => 'Crossing the Border',
+			'name'        => 'Cultural Spaces',
 			'category_id' => 2,
-			'phase'        => App\Challenge::PHASE_START
+			'phase'       => App\Challenge::PHASE_START
 		],
 		[
-			'name'         => 'Parking and Population Growth',
+			'name'        => 'Homelessness',
+			'category_id' => 2,
+			'phase'       => App\Challenge::PHASE_START
+		],
+		[
+			'name'        => 'Walking and Biking Safely',
+			'category_id' => 2,
+			'phase'       => App\Challenge::PHASE_START
+		],
+		[
+			'name'        => 'Crossing the Border',
 			'category_id' => 3,
-			'phase'        => App\Challenge::PHASE_START
+			'phase'       => App\Challenge::PHASE_START
 		],
 		[
-			'name'         => 'Ageing and Mobility',
+			'name'        => 'Parking and Population Growth',
 			'category_id' => 4,
-			'phase'        => App\Challenge::PHASE_START
+			'phase'       => App\Challenge::PHASE_START
 		],
 		[
-			'name'         => 'Accessibility',
+			'name'        => 'Ageing and Mobility',
 			'category_id' => 5,
-			'phase'        => App\Challenge::PHASE_START
+			'phase'       => App\Challenge::PHASE_START
 		],
 		[
-			'name'         => 'Experiencing Traffic',
+			'name'        => 'Accessibility',
 			'category_id' => 6,
-			'phase'        => App\Challenge::PHASE_START
+			'phase'       => App\Challenge::PHASE_START
 		],
 		[
-			'name'         => 'Autonomous Vehicles',
+			'name'        => 'Experiencing Traffic',
 			'category_id' => 7,
-			'phase'        => App\Challenge::PHASE_START
+			'phase'       => App\Challenge::PHASE_START
+		],
+		[
+			'name'        => 'Autonomous Vehicles',
+			'category_id' => 8,
+			'phase'       => App\Challenge::PHASE_START
 		]
 	];
 
