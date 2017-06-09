@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Challenge;
+use App\Http\Requests\Api\GetInsightRequest;
 use App\Insight;
 use DB;
 use Illuminate\Http\Request;
@@ -18,7 +19,7 @@ class InsightController extends Controller {
 	/**
 	 * Display a listing of the resource.
 	 *
-	 * @param Request $request
+	 * @param GetInsightRequest $request
 	 *
 	 * @return \Illuminate\Support\Collection
 	 * @get("/{?types,challenge,phase}")
@@ -29,7 +30,7 @@ class InsightController extends Controller {
 	 *     @parameter("phase", type="number", description="Get insights from specific phase"),
 	 * })
 	 */
-	public function index(Request $request) {
+	public function index(GetInsightRequest $request) {
 		$types = explode(',', $request->get('types'));
 		$challenge = $request->get('challenge');
 		$phase = $request->get('phase');
