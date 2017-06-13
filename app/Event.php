@@ -10,6 +10,6 @@ class Event extends Model
         'name',
         'date',
         'description',
-        'link'
+        'url'
     ];
 }
