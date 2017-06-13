@@ -73,3 +73,11 @@ $factory->define(App\Insight::class, function (Faker\Generator $faker) {
 		'slack_meta' => '{"var1": "content"}'
 	];
 });
+
+$factory->define(App\Event::class, function (Faker\Generator $faker) {
+	return [
+		'name' => $faker->sentence(3),
+		'date' => $faker->dateTimeBetween('now', '+2 years'),
+		'description' => $faker->paragraph()
+	];
+});

@@ -641,3 +641,47 @@ Insights i.e. Discussion, comments, prototypes, ideas
     + id: (integer, required) - ID of Insight
 
 + Response 204 (application/json)
+
+# Group Events
+Events
+
+## Display a listing of the resource. [GET /]
+
+
++ Response 200 (application/json)
+    + Body
+
+            {
+                "events": [
+                    {
+                        "id": 1,
+                        "name": "Name",
+                        "date": "2018-12-03 11:33:37",
+                        "description": "Desc."
+                    },
+                    {
+                        "id": 2,
+                        "name": "Name",
+                        "date": "2018-12-03 11:33:37",
+                        "description": "Desc."
+                    }
+                ]
+            }
+
+## Display the specified resource. [GET /{id}]
+
+
++ Parameters
+    + id: (integer, required) - ID of Challenge
+
++ Response 200 (application/json)
+    + Body
+
+            {
+                "event": {
+                    "id": 1,
+                    "name”:”Event Name”,”date": "2018-12-03 11:33:37",
+                    "description”:”Description,”created_at": "2017-06-13 16:35:34",
+                    "updated_at": "2017-06-13 16:35:34"
+                }
+            }
