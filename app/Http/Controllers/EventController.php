@@ -7,7 +7,7 @@ use App\Event;
 /**
  * Events
  * @package App\Http\Controllers
- * @resource("Group Events")
+ * @resource("Events", uri="/events")
  */
 class EventController extends Controller {
 	/**

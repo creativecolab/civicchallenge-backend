@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 /**
  * Categories of Microchallenges
  * @package App\Http\Controllers
- * @resource("Group Categories")
+ * @resource("Categories", uri="/categories")
  */
 class CategoryController extends Controller {
 	/**

@@ -11,7 +11,7 @@ use Illuminate\Http\Request;
 /**
  * Insights i.e. Discussion, comments, prototypes, ideas
  * @package App\Http\Controllers
- * @resource("Group Insights")
+ * @resource("Insights", uri="/insights")
  */
 class InsightController extends Controller {
 	use CreatesInsights;
