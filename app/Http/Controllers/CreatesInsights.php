@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Challenge;
 use App\Insight;
+use App\User;
 use Illuminate\Http\Request;
 
 trait CreatesInsights {
@@ -28,8 +29,13 @@ trait CreatesInsights {
 			$data['challenge_id'] = $challenge->id;
 		}
 
-		if ( $request->has('ts') ) {
+		if ( $request->has( 'ts' ) ) {
 			$data['timestamp'] = $data['ts'];
+		}
+
+		// Convert Slack ID to user ID
+		if ( $request->has( 'slack_id' ) ) {
+			$data['user_id'] = User::where( 'slack_id', $data['slack_id'] )->first()->id;
 		}
 
 		$insight = new Insight( $data );
@@ -60,6 +66,11 @@ trait CreatesInsights {
 
 			if ( isset( $insight['ts'] ) ) {
 				$insight['timestamp'] = $insight['ts'];
+			}
+
+			// Convert Slack ID to user ID
+			if ( isset( $insight['slack_id'] ) ) {
+				$insight['user_id'] = User::findWhere( 'slack_id', $insight['slack_id'] );
 			}
 
 			$insights[ $key ] = $insight;
