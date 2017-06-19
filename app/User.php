@@ -3,6 +3,7 @@
 namespace App;
 
 use Backpack\CRUD\CrudTrait;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
@@ -16,7 +17,10 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'slack_id'
+        'name',
+	    'email',
+	    'slack_id',
+	    'survey',
     ];
 
     /**
@@ -25,10 +29,22 @@ class User extends Authenticatable
      * @var array
      */
     protected $hidden = [
-        'password', 'remember_token',
+        'password'
     ];
 
     public function insights() {
     	return $this->hasMany('App\Insight');
     }
+
+	public static function findBySlackOrUserID($id) {
+		// Try to find by user ID first and then try Slack ID
+		try {
+			$user = static::findOrFail($id);
+		}
+		catch (ModelNotFoundException $e) {
+			$user = static::where('slack_id', '=', $id)->firstOrFail();
+		}
+
+		return $user;
+	}
 }

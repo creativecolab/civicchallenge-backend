@@ -13,7 +13,6 @@
 				"url": {
 					"raw": "http://d4sd.dev/challenges?questions=1&insights=1&insightTypes=2&groupInsightsByQuestion=0",
 					"protocol": "http",
-					"auth": {},
 					"host": [
 						"d4sd",
 						"dev"
@@ -69,7 +68,6 @@
 				"url": {
 					"raw": "http://d4sd.dev/challenges/1?resources=1&questions=1&insights=1&insightTypes=1",
 					"protocol": "http",
-					"auth": {},
 					"host": [
 						"d4sd",
 						"dev"
@@ -341,7 +339,6 @@
 				"url": {
 					"raw": "http://d4sd.dev/categories?challenges=1&questions=1",
 					"protocol": "http",
-					"auth": {},
 					"host": [
 						"d4sd",
 						"dev"
@@ -378,7 +375,6 @@
 				"url": {
 					"raw": "http://d4sd.dev/categories/1?challenges=1&questions=1",
 					"protocol": "http",
-					"auth": {},
 					"host": [
 						"d4sd",
 						"dev"
@@ -558,7 +554,6 @@
 				"url": {
 					"raw": "http://d4sd.dev/insights?types=2&challenge=1",
 					"protocol": "http",
-					"auth": {},
 					"host": [
 						"d4sd",
 						"dev"
@@ -643,7 +638,7 @@
 		{
 			"name": "Insights: Create",
 			"request": {
-				"url": "http://d4sd.dev/insights",
+				"url": "https://d4sd.dev/insights",
 				"method": "POST",
 				"header": [
 					{
@@ -654,7 +649,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": " {\n    \"text\": \"Eos ipsa possimus nemo voluptas facilis in.\",\n    \"user_id\": 1,\n    \"timestamp\": \"1999-01-31 00:00:00\",\n    \"thumbnail\": \"http://lorempixel.com/640/480/?44834\",\n    \"type\": 0,\n    \"question_id\": 1,\n    \"challenge_id\": 1,\n    \"slack_meta\": \"{\\\"var1\\\": \\\"content\\\"}\"\n}"
+					"raw": " {\n    \"text\": \"Eos ipsa possimus nemo voluptas facilis in.\",\n    \"slack_id\": \"UrH6vj8\",\n    \"ts\": \"1497548130.815296\",\n    \"thumbnail\": \"http://lorempixel.com/640/480/?44834\",\n    \"type\": 0,\n    \"question_id\": 1,\n    \"challenge_id\": 1,\n    \"slack_meta\": \"{\\\"var1\\\": \\\"content\\\"}\"\n}"
 				},
 				"description": ""
 			},
@@ -675,6 +670,70 @@
 				"body": {
 					"mode": "raw",
 					"raw": "{  \n  \"insights\": [\n    {\n       \"text\": \"Test message 1\",\n        \"user_id\": 1,\n        \"timestamp\": \"1999-01-31 00:00:00\",\n        \"thumbnail\": \"http://lorempixel.com/640/480/?44834\",\n        \"type\": 0,\n        \"question_id\": 1,\n        \"challenge_id\": 1,\n        \"slack_meta\": \"{\\\"var1\\\": \\\"content\\\"}\"\n    },\n    {\n       \"text\": \"Test message 2\",\n        \"user_id\": 1,\n        \"timestamp\": \"1999-01-31 00:00:00\",\n        \"thumbnail\": \"http://lorempixel.com/640/480/?44834\",\n        \"type\": 0,\n        \"question_id\": 1,\n        \"challenge_id\": 1,\n        \"slack_meta\": \"{\\\"var1\\\": \\\"content\\\"}\"\n    }\n  ]\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Events: Index",
+			"request": {
+				"url": "http://d4sd.dev/events",
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Events: Show",
+			"request": {
+				"url": "http://d4sd.dev/events/1",
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Users: Index",
+			"request": {
+				"url": "http://d4sd.dev/users",
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Users: Show",
+			"request": {
+				"url": "http://d4sd.dev/users/1",
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Users: Update",
+			"request": {
+				"url": "http://d4sd.dev/users/1",
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"survey\": \"{\\\"var1\\\": \\\"value1\\\"}\"\n}"
 				},
 				"description": ""
 			},
