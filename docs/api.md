@@ -685,3 +685,57 @@ Events
                     "updated_at": "2017-06-13 16:35:34"
                 }
             }
+
+# Users [/users]
+Users
+
+## Display a listing of the resource. [GET /users]
+
+
++ Response 200 (application/json)
+    + Body
+
+            {
+                "users": [
+                    {
+                        "id": 1,
+                        "slack_id": "UrH6vj8",
+                        "name": "Wilma Hickle",
+                        "email": "kallie68@example.org",
+                        "thumbnail": null,
+                        "admin": 0,
+                        "created_at": "2017-06-13 17:57:56",
+                        "updated_at": "2017-06-13 17:57:56"
+                    }
+                ]
+            }
+
+## Update the specified resource in storage. [PUT /users/{id}]
+
+
++ Parameters
+    + id: (integer, required) - ID of User
+
++ Request (application/json)
+    + Body
+
+            {
+                "survey": ""
+            }
+
++ Response 200 (application/json)
+    + Body
+
+            {
+                "user": {
+                    "id": 1,
+                    "slack_id": "UuwXqgS",
+                    "name": "Lambert Feest",
+                    "email": "uwintheiser@example.com",
+                    "thumbnail": null,
+                    "admin": 0,
+                    "survey": "",
+                    "created_at": "2017-06-19 20:06:49",
+                    "updated_at": "2017-06-19 20:13:45"
+                }
+            }
