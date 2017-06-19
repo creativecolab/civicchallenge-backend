@@ -30,6 +30,12 @@ class Insight extends Model
 	    'slack_meta'
     ];
 
+    protected $dates = [
+    	'created_at',
+	    'updated_at',
+	    'timestamp'
+    ];
+
     public function question() {
     	return $this->belongsTo('App\Question');
     }
