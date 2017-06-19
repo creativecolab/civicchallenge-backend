@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\UserRequest;
 use App\User;
-use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 
 /**
@@ -38,7 +37,7 @@ class UserController extends Controller {
 	 * })
 	 */
 	public function show( $id ) {
-		return $this->findBySlackOrUserID($id);
+		return User::findBySlackOrUserID($id);
 	}
 
 	/**
@@ -58,22 +57,10 @@ class UserController extends Controller {
 	 * })
 	 */
 	public function update( UserRequest $request, $id ) {
-		$user = $this->findBySlackOrUserID($id);
+		$user = User::findBySlackOrUserID($id);
 
 		if ( ! $user->update( $request->all() ) ) {
 			$this->response->errorInternal();
-		}
-
-		return $user;
-	}
-
-	protected function findBySlackOrUserID($id) {
-		// Try to find by user ID first and then try Slack ID
-		try {
-			$user = User::findOrFail($id);
-		}
-		catch (ModelNotFoundException $e) {
-			$user = User::where('slack_id', '=', $id)->firstOrFail();
 		}
 
 		return $user;
