@@ -20,6 +20,7 @@ class Insight extends Model
     protected $fillable = [
 		'text',
 	    'user_id',
+	    'channel_id',
 	    'timestamp',
 	    'thumbnail',
 	    'type',

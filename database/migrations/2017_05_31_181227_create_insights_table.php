@@ -18,6 +18,7 @@ class CreateInsightsTable extends Migration
             $table->text('text');
             $table->unsignedInteger('user_id')->nullable();
             $table->foreign('user_id')->references('id')->on('users');
+            $table->string('channel_id')->nullable();
             $table->dateTime('timestamp');
             $table->text('thumbnail')->nullable()->default(null);
             $table->unsignedTinyInteger('type')->default(App\Insight::TYPE_DEFAULT);
