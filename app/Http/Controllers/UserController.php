@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\UserRequest;
 use App\User;
 use Illuminate\Http\Request;
 
@@ -26,11 +27,10 @@ class UserController extends Controller {
 	/**
 	 * Update the specified resource in storage.
 	 *
-	 * @param  \Illuminate\Http\Request $request
+	 * @param UserRequest|Request $request
 	 * @param  \App\User $user
 	 *
 	 * @return User
-	 *
 	 * @put("/{id}")
 	 * @post("/{id}")
 	 * @request({"survey": ""})
@@ -39,7 +39,7 @@ class UserController extends Controller {
 	 *      @parameter("id", description="ID of User", required=true, type="integer"),
 	 * })
 	 */
-	public function update( Request $request, User $user ) {
+	public function update( UserRequest $request, User $user ) {
 		if ( ! $user->update( $request->all() ) ) {
 			$this->response->errorInternal();
 		}

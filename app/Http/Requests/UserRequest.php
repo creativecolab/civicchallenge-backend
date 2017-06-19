@@ -2,8 +2,6 @@
 
 namespace App\Http\Requests;
 
-use App\Http\Requests\Request;
-
 class UserRequest extends \Backpack\CRUD\app\Http\Requests\CrudRequest
 {
     /**
@@ -13,8 +11,10 @@ class UserRequest extends \Backpack\CRUD\app\Http\Requests\CrudRequest
      */
     public function authorize()
     {
+    	// TODO: Re-enable when doing authentication/authorization
         // only allow updates if the user is logged in
-        return \Auth::check();
+		// return \Auth::check();
+	    return true;
     }
 
     /**
@@ -25,7 +25,9 @@ class UserRequest extends \Backpack\CRUD\app\Http\Requests\CrudRequest
     public function rules()
     {
         return [
-            // 'name' => 'required|min:5|max:255'
+	        'slack_id' => 'string|size:7',
+	        'email' => 'email',
+	        'survey' => 'json'
         ];
     }
 
