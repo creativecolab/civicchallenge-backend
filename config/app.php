@@ -171,16 +171,17 @@ return [
         /*
          * Application Service Providers...
          */
+	    Dingo\Api\Provider\LaravelServiceProvider::class,
         App\Providers\AppServiceProvider::class,
         App\Providers\AuthServiceProvider::class,
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
-	    Dingo\Api\Provider\LaravelServiceProvider::class,
 	    \SocialiteProviders\Manager\ServiceProvider::class,
 	    Barryvdh\Cors\ServiceProvider::class,
 	    Backpack\Base\BaseServiceProvider::class,
 	    Backpack\CRUD\CrudServiceProvider::class,
+	    App\Providers\TransformerServiceProvider::class,
 
     ],
 
