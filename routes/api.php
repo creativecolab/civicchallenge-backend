@@ -26,5 +26,6 @@ APIRoute::version( 'v1', [ 'middleware' => 'api' ], function ( $api ) {
 	APIRoute::resource('insights', 'App\Http\Controllers\InsightController');
 	APIRoute::resource('events', 'App\Http\Controllers\EventController', ['only' => ['index','show']]);
 	APIRoute::resource('users', 'App\Http\Controllers\UserController', ['only' => ['index','show','update']]);
+	APIRoute::post('users/{id}/thumbnail', 'App\Http\Controllers\UserController@uploadThumbnail');
 } );
 

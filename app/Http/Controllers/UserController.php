@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Http\Requests\UserRequest;
 use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Http\UploadedFile;
+use Storage;
 
 /**
  * Users
@@ -37,7 +39,7 @@ class UserController extends Controller {
 	 * })
 	 */
 	public function show( $id ) {
-		return User::findBySlackOrUserID($id);
+		return User::findBySlackOrUserID( $id );
 	}
 
 	/**
@@ -57,9 +59,28 @@ class UserController extends Controller {
 	 * })
 	 */
 	public function update( UserRequest $request, $id ) {
-		$user = User::findBySlackOrUserID($id);
+		$user = User::findBySlackOrUserID( $id );
 
 		if ( ! $user->update( $request->all() ) ) {
+			$this->response->errorInternal();
+		}
+
+		return $user;
+	}
+
+	public function uploadThumbnail( Request $request, $id ) {
+		$user = User::findBySlackOrUserID( $id );
+
+		if ( ! $request->hasFile( 'thumbnail' ) ) {
+			$this->response->errorBadRequest();
+		}
+
+		$file = $request->file( 'thumbnail' );
+		$filename = uniqid( $user->id ) . '.' . $file->getClientOriginalExtension();
+
+		$data['thumbnail'] = $file->storeAs( 'users/thumbnails', $filename, 'public' );
+
+		if ( ! $user->update( $data ) ) {
 			$this->response->errorInternal();
 		}
 
