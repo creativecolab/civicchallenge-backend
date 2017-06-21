@@ -432,6 +432,10 @@ Discussion Questions
 ## Display a listing of the resource. [GET /questions]
 
 
++ Parameters
+    + challenge: (number, optional) - Get insights from challenge ID.
+    + phase: (number, optional) - Get insights from specific phase
+
 + Response 200 (application/json)
 
 ## Store a newly created resource in storage. [POST /questions]

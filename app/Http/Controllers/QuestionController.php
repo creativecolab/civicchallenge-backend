@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Challenge;
+use App\Http\Requests\Api\GetQuestionRequest;
 use App\Question;
+use DB;
 use Illuminate\Http\Request;
 
 /**
@@ -17,14 +19,37 @@ class QuestionController extends Controller {
 	/**
 	 * Display a listing of the resource.
 	 *
-	 * @return \Illuminate\Database\Eloquent\Collection|static[]
+	 * @param GetQuestionRequest $request
+	 *
+	 * @return \Illuminate\Support\Collection
 	 * @internal param Request $request
 	 *
 	 * @get("/")
 	 * @response(200)
+	 * @parameters({
+	 *     @parameter("challenge", type="number", description="Get insights from challenge ID."),
+	 *     @parameter("phase", type="number", description="Get insights from specific phase"),
+	 * })
 	 */
-	public function index() {
-		return Question::all();
+	public function index(GetQuestionRequest $request) {
+		$challenge = $request->get('challenge');
+		$phase = $request->get('phase');
+
+		if (!$challenge && !$phase) {
+			return Question::all();
+		}
+
+		$questions = DB::table('questions');
+
+		if ($challenge) {
+			$questions = $questions->where('challenge_id', '=', $challenge);
+		}
+
+		if (isset($phase)) {
+			$questions = $questions->where('phase', '=', $phase);
+		}
+
+		return $questions->get();
 	}
 
 	/**
