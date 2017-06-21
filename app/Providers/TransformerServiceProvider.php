@@ -6,6 +6,13 @@ use Illuminate\Support\ServiceProvider;
 
 class TransformerServiceProvider extends ServiceProvider {
 	public function register() {
-		app(\Dingo\Api\Transformer\Factory::class)->register('App\User', 'App\Transformers\UserTransformer');
+		$transformers = [
+			'App\Category' => 'App\Transformers\CategoryTransformer',
+			'App\User' => 'App\Transformers\UserTransformer',
+		];
+
+		foreach ($transformers as $class => $transformer) {
+			app(\Dingo\Api\Transformer\Factory::class)->register($class, $transformer);
+		}
 	}
 }
