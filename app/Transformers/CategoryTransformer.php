@@ -14,7 +14,6 @@ class CategoryTransformer extends TransformerAbstract {
 	 */
 	protected $availableIncludes = [
 		'challenges',
-//		'questions',
 	];
 
 	/**

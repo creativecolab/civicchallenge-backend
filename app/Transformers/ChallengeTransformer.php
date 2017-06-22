@@ -13,7 +13,7 @@ class ChallengeTransformer extends TransformerAbstract {
 	 * @var array
 	 */
 	protected $availableIncludes = [
-//		'questions',
+		'questions',
 	];
 
 	/**
@@ -34,6 +34,10 @@ class ChallengeTransformer extends TransformerAbstract {
 			'createdAt'       => $challenge->created_at->timestamp,
 			'updatedAt'       => $challenge->updated_at->timestamp,
 		];
+	}
+
+	public function includeQuestions( Challenge $challenge ) {
+		return $this->collection( $challenge->questions, new QuestionTransformer );
 	}
 
 }
