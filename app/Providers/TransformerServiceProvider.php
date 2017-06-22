@@ -9,6 +9,7 @@ class TransformerServiceProvider extends ServiceProvider {
 		$transformers = [
 			'App\Category'  => 'App\Transformers\CategoryTransformer',
 			'App\Challenge' => 'App\Transformers\ChallengeTransformer',
+			'App\Event'     => 'App\Transformers\EventTransformer',
 			'App\Question'  => 'App\Transformers\QuestionTransformer',
 			'App\User'      => 'App\Transformers\UserTransformer',
 		];

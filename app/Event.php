@@ -12,4 +12,10 @@ class Event extends Model
         'description',
         'url'
     ];
+
+    protected $dates = [
+        'date',
+	    'created_at',
+	    'updated_at',
+    ];
 }
