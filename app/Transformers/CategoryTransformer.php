@@ -7,6 +7,15 @@ use League\Fractal\TransformerAbstract;
 use Storage;
 
 class CategoryTransformer extends TransformerAbstract {
+	/**
+	 * List of resources possible to include
+	 *
+	 * @var array
+	 */
+	protected $availableIncludes = [
+		'challenges',
+//		'questions',
+	];
 
 	/**
 	 * Turn this item object into a generic array
@@ -24,6 +33,12 @@ class CategoryTransformer extends TransformerAbstract {
 			'createdAt'   => $category->created_at->timestamp,
 			'updatedAt'   => $category->updated_at->timestamp,
 		];
+	}
+
+	public function includeChallenges( Category $category ) {
+		$challenges = $category->challenges;
+
+		return $this->collection($challenges, new ChallengeTransformer);
 	}
 
 }
