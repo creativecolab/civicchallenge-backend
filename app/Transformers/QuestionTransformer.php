@@ -13,6 +13,7 @@ class QuestionTransformer extends TransformerAbstract {
 	 */
 	protected $availableIncludes = [
 		'challenge',
+		'insights',
 	];
 
 	/**
@@ -35,6 +36,10 @@ class QuestionTransformer extends TransformerAbstract {
 
 	public function includeChallenge( Question $question ) {
 		return $this->item( $question->challenge, new ChallengeTransformer );
+	}
+
+	public function includeInsights( Question $question ) {
+		return $this->collection( $question->insights, new InsightTransformer );
 	}
 
 }
