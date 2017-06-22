@@ -12,6 +12,7 @@ class TransformerServiceProvider extends ServiceProvider {
 			'App\Event'     => 'App\Transformers\EventTransformer',
 			'App\Insight'   => 'App\Transformers\InsightTransformer',
 			'App\Question'  => 'App\Transformers\QuestionTransformer',
+			'App\Resource'  => 'App\Transformers\ResourceTransformer',
 			'App\User'      => 'App\Transformers\UserTransformer',
 		];
 

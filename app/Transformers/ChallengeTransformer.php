@@ -13,6 +13,7 @@ class ChallengeTransformer extends TransformerAbstract {
 	 * @var array
 	 */
 	protected $availableIncludes = [
+		'resources',
 		'questions',
 	];
 
@@ -34,6 +35,10 @@ class ChallengeTransformer extends TransformerAbstract {
 			'createdAt'       => $challenge->created_at->timestamp,
 			'updatedAt'       => $challenge->updated_at->timestamp,
 		];
+	}
+
+	public function includeResources( Challenge $challenge ) {
+		return $this->collection( $challenge->resources, new ResourceTransformer );
 	}
 
 	public function includeQuestions( Challenge $challenge ) {
