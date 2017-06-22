@@ -14,7 +14,9 @@ class ChallengeTransformer extends TransformerAbstract {
 	 */
 	protected $availableIncludes = [
 		'resources',
+		'category',
 		'questions',
+		'insights',
 	];
 
 	/**
@@ -41,8 +43,16 @@ class ChallengeTransformer extends TransformerAbstract {
 		return $this->collection( $challenge->resources, new ResourceTransformer );
 	}
 
+	public function includeCategory( Challenge $challenge ) {
+		return $this->item( $challenge->category, new CategoryTransformer );
+	}
+
 	public function includeQuestions( Challenge $challenge ) {
 		return $this->collection( $challenge->questions, new QuestionTransformer );
+	}
+
+	public function includeInsights( Challenge $challenge ) {
+		return $this->collection( $challenge->insights, new InsightTransformer );
 	}
 
 }
