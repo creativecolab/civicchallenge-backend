@@ -21,7 +21,7 @@ class ChallengeController extends Controller {
 	 * @param GetChallengeRequest $request
 	 *
 	 * @return \Illuminate\Database\Eloquent\Collection|static[]
-	 * @get("/{?phase,allPhases,resources,questions,insights,insightTypes,groupInsightsByQuestion}")
+	 * @get("/{?phase,allPhases,resources,questions,insights,insightTypes,groupInsightsByQuestion,include}")
 	 * @parameters({
 	 *     @parameter("phase", type="number", description="Get challenges from specific phase."),
 	 *     @parameter("allPhases", type="boolean", description="Get relations for each challenge from all phases.", default=0),
@@ -29,7 +29,13 @@ class ChallengeController extends Controller {
 	 *     @parameter("questions", type="boolean", description="Include associated questions.", default=0),
 	 *     @parameter("insights", type="boolean", description="Include associated insights.", default=0),
 	 *     @parameter("insightTypes", type="array|number", description="Filter by type (0 = NORMAL, 1 = CURATED, 2 = HIGHLIGHT)", default="1,2"),
-	 *     @parameter("groupInsightsByQuestion", type="boolean", description="Group associated insights by questions", default=0)
+	 *     @parameter("groupInsightsByQuestion", type="boolean", description="Group associated insights by questions", default=0),
+	 *     @parameter("include", type="enum[string]", description="Relations to include", members={
+	 *          @member(value="category"),
+	 *          @member(value="resources"),
+	 *          @member(value="questions"),
+	 *          @member(value="insights"),
+	 *     }),
 	 * })
 	 */
 	public function index( GetChallengeRequest $request ) {
@@ -155,7 +161,7 @@ class ChallengeController extends Controller {
 	 * @param  \App\Challenge $challenge
 	 *
 	 * @return Challenge|\Illuminate\Http\Response
-	 * @get("/{id}{?phase,allPhases,resources,questions,insights,insightTypes,groupInsightsByQuestion}")
+	 * @get("/{id}{?phase,allPhases,resources,questions,insights,insightTypes,groupInsightsByQuestion,include}")
 	 * @response(200, body={"challenge":{"id":1,"name":"Consequatur voluptatem atque blanditiis.","summary":"In vel eaque ut reprehenderit voluptates.","thumbnail":"http://thumbnail.com/img.jpg","phase":2,"created_at":"2017-05-31 05:06:00","updated_at":"2017-05-31 05:06:00"}})
 	 * @parameters({
 	 *     @parameter("id", description="ID of Challenge", required=true, type="integer"),
@@ -165,7 +171,13 @@ class ChallengeController extends Controller {
 	 *     @parameter("questions", type="boolean", description="Include associated questions.", default=0),
 	 *     @parameter("insights", type="boolean", description="Include associated insights.", default=0),
 	 *     @parameter("insightTypes", type="array|number", description="Filter by type (0 = NORMAL, 1 = CURATED, 2 = HIGHLIGHT)", default="1,2"),
-	 *     @parameter("groupInsightsByQuestion", type="boolean", description="Group associated insights by questions", default=0)
+	 *     @parameter("groupInsightsByQuestion", type="boolean", description="Group associated insights by questions", default=0),
+	 *     @parameter("include", type="enum[string]", description="Relations to include", members={
+	 *          @member(value="category"),
+	 *          @member(value="resources"),
+	 *          @member(value="questions"),
+	 *          @member(value="insights"),
+	 *     }),
 	 * })
 	 */
 	public function show( GetChallengeRequest $request, Challenge $challenge ) {
