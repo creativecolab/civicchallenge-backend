@@ -18,11 +18,15 @@ class CategoryController extends Controller {
 	 *
 	 * @return \Illuminate\Database\Eloquent\Collection|static[]
 	 *
-	 * @get("/{?challenges,questions,allPhases}")
+	 * @get("/{?include}")
 	 * @parameters({
 	 *     @parameter("challenges", type="boolean", description="Include challenges under each category", default="false"),
 	 *     @parameter("questions", type="boolean", description="Include associated questions at current phase.", default="false"),
 	 *     @parameter("allPhases", type="boolean", description="Get relations from all phases.", default="false"),
+	 *     @parameter("include", type="enum[string]", description="Relations to include", members={
+	 *          @member(value="challenges"),
+	 *          @member(value="challenges.questions")
+	 *     }),
 	 * })
 	 */
 	public function index( Request $request ) {
@@ -84,13 +88,17 @@ class CategoryController extends Controller {
 	 * @param  \App\Category $category
 	 *
 	 * @return Category
-	 * @get("/{id}{?challenges,questions,allPhases}")
+	 * @get("/{id}{?challenges,questions,allPhases,include}")
 	 * @response(200, body={"category":{"id":1,"name":"Explicabo doloribus distinctio nulla.","description":"Quas ad officia alias asperiores laborum hic aut ex.","created_at":"2017-05-31 07:35:50","updated_at":"2017-05-31 07:35:50"}})
 	 * @parameters({
 	 *     @parameter("id", description="ID of Category", required=true, type="integer"),
 	 *     @parameter("challenges", type="boolean", description="Include challenges under category", default="false"),
 	 *     @parameter("questions", type="boolean", description="Include associated questions at current phase.", default="false"),
-	 *     @parameter("allPhases", type="boolean", description="Get relations from all phases.", default="false")
+	 *     @parameter("allPhases", type="boolean", description="Get relations from all phases.", default="false"),
+	 *     @parameter("include", type="enum[string]", description="Relations to include", members={
+	 *          @member(value="challenges"),
+	 *          @member(value="challenges.questions")
+	 *     }),
 	 * })
 	 */
 	public function show( Request $request, Category $category ) {

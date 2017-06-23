@@ -22,6 +22,12 @@ Microchallenges
         + Default: 1,2
     + groupInsightsByQuestion: (boolean, optional) - Group associated insights by questions
         + Default: 0
+    + include: (enum[enum[string]], optional) - Relations to include
+        + Members
+            + `category` - 
+            + `resources` - 
+            + `questions` - 
+            + `insights` - 
 
 ## Store a newly created resource in storage. [POST /challenges]
 
@@ -68,6 +74,12 @@ Microchallenges
         + Default: 1,2
     + groupInsightsByQuestion: (boolean, optional) - Group associated insights by questions
         + Default: 0
+    + include: (enum[enum[string]], optional) - Relations to include
+        + Members
+            + `category` - 
+            + `resources` - 
+            + `questions` - 
+            + `insights` - 
 
 + Response 200 (application/json)
     + Body
@@ -204,7 +216,7 @@ Microchallenges
     + Body
 
             {
-                "question": {
+                "data": {
                     "id": 1,
                     "text": "What?",
                     "challenge_id": 1,
@@ -269,6 +281,9 @@ Resources for Challenges. i.e. Student work, external resources
 
 + Parameters
     + id: (integer, required) - ID of Resource
+    + include: (enum[enum[string]], optional) - Relations to include
+        + Members
+            + `challenge` - 
 
 + Response 200 (application/json)
     + Body
@@ -332,7 +347,7 @@ Resources for Challenges. i.e. Student work, external resources
 # Categories [/categories]
 Categories of Microchallenges
 
-## Display a listing of the resource. [GET /categories{?challenges,questions,allPhases}]
+## Display a listing of the resource. [GET /categories{?include}]
 
 
 + Parameters
@@ -342,6 +357,10 @@ Categories of Microchallenges
         + Default: false
     + allPhases: (boolean, optional) - Get relations from all phases.
         + Default: false
+    + include: (enum[enum[string]], optional) - Relations to include
+        + Members
+            + `challenges` - 
+            + `challenges.questions` - 
 
 ## Store a newly created resource in storage. [POST /categories]
 
@@ -378,6 +397,10 @@ Categories of Microchallenges
         + Default: false
     + allPhases: (boolean, optional) - Get relations from all phases.
         + Default: false
+    + include: (enum[enum[string]], optional) - Relations to include
+        + Members
+            + `challenges` - 
+            + `challenges.questions` - 
 
 + Response 200 (application/json)
     + Body
@@ -435,6 +458,10 @@ Discussion Questions
 + Parameters
     + challenge: (number, optional) - Get insights from challenge ID.
     + phase: (number, optional) - Get insights from specific phase
+    + include: (enum[enum[string]], optional) - Relations to include
+        + Members
+            + `insights` - 
+            + `challenge` - 
 
 + Response 200 (application/json)
 
@@ -468,6 +495,10 @@ Discussion Questions
 
 + Parameters
     + id: (integer, required) - ID of Question
+    + include: (enum[enum[string]], optional) - Relations to include
+        + Members
+            + `insights` - 
+            + `challenge` - 
 
 + Response 200 (application/json)
     + Body
@@ -528,6 +559,11 @@ Insights i.e. Discussion, comments, prototypes, ideas
     + types: (array|number, optional) - Filter by type (0 = NORMAL, 1 = CURATED, 2 = HIGHLIGHT)
     + challenge: (number, optional) - Get insights from challenge ID.
     + phase: (number, optional) - Get insights from specific phase
+    + include: (enum[enum[string]], optional) - Relations to include
+        + Members
+            + `user` - 
+            + `question` - 
+            + `challenge` - 
 
 + Response 200 (application/json)
 
@@ -584,6 +620,11 @@ Insights i.e. Discussion, comments, prototypes, ideas
 
 + Parameters
     + id: (integer, required) - ID of Insight
+    + include: (enum[enum[string]], optional) - Relations to include
+        + Members
+            + `user` - 
+            + `question` - 
+            + `challenge` - 
 
 + Response 200 (application/json)
     + Body

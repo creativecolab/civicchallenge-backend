@@ -24,11 +24,15 @@ class QuestionController extends Controller {
 	 * @return \Illuminate\Support\Collection
 	 * @internal param Request $request
 	 *
-	 * @get("/")
+	 * @get("/{?challenge,phase,include}")
 	 * @response(200)
 	 * @parameters({
 	 *     @parameter("challenge", type="number", description="Get insights from challenge ID."),
 	 *     @parameter("phase", type="number", description="Get insights from specific phase"),
+	 *     @parameter("include", type="enum[string]", description="Relations to include", members={
+	 *          @member(value="insights"),
+	 *          @member(value="challenge"),
+	 *     }),
 	 * })
 	 */
 	public function index(GetQuestionRequest $request) {
@@ -76,10 +80,14 @@ class QuestionController extends Controller {
 	 *
 	 * @return Question
 	 *
-	 * @get("/{id}")
+	 * @get("/{id}{?include}")
 	 * @response(200, body={"question":{"id":1,"text":"What?","challenge_id":1,"phase":1,"created_at":"2017-05-31 17:00:27","updated_at":"2017-05-31 17:18:28"}})
 	 * @parameters({
-	 *     @parameter("id", description="ID of Question", required=true, type="integer")
+	 *     @parameter("id", description="ID of Question", required=true, type="integer"),
+	 *     @parameter("include", type="enum[string]", description="Relations to include", members={
+	 *          @member(value="insights"),
+	 *          @member(value="challenge"),
+	 *     }),
 	 * })
 	 */
 	public function show( Question $question ) {
