@@ -527,7 +527,7 @@ Insights i.e. Discussion, comments, prototypes, ideas
     + types: (array|number, optional) - Filter by type (0 = NORMAL, 1 = CURATED, 2 = HIGHLIGHT)
     + challenge: (number, optional) - Get insights from challenge ID.
     + phase: (number, optional) - Get insights from specific phase
-    + include: (enum[enum[string]], optional) - Relations to include
+    + include: (enum[string], optional) - Relations to include
         + Members
             + `user` - 
             + `question` - 
@@ -588,7 +588,7 @@ Insights i.e. Discussion, comments, prototypes, ideas
 
 + Parameters
     + id: (integer, required) - ID of Insight
-    + include: (enum[enum[string]], optional) - Relations to include
+    + include: (enum[string], optional) - Relations to include
         + Members
             + `user` - 
             + `question` - 

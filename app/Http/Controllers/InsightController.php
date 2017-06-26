@@ -30,7 +30,7 @@ class InsightController extends Controller {
 	 *     @parameter("types", type="array|number", description="Filter by type (0 = NORMAL, 1 = CURATED, 2 = HIGHLIGHT)"),
 	 *     @parameter("challenge", type="number", description="Get insights from challenge ID."),
 	 *     @parameter("phase", type="number", description="Get insights from specific phase"),
-	 *     @parameter("include", type="enum[string]", description="Relations to include", members={
+	 *     @parameter("include", type="string", description="Relations to include", members={
 	 *          @member(value="user"),
 	 *          @member(value="question"),
 	 *          @member(value="challenge"),
@@ -98,7 +98,7 @@ class InsightController extends Controller {
 	 * @get("/{id}{?include}")
 	 * @response(200, body={"insight":{"text":"Eos ipsa possimus nemo voluptas facilis in.","user_id":1,"timestamp":"1999-01-31 00:00:00","thumbnail":"http:\/\/lorempixel.com\/640\/480\/?44834", "type": 0,"question_id":1,"challenge_id":1,"slack_meta":"","phase":0,"updated_at":"2017-05-31 19:58:08","created_at":"2017-05-31 19:58:08","id":1261}}) @parameters({
 	 *     @parameter("id", description="ID of Insight", required=true, type="integer"),
-	 *     @parameter("include", type="enum[string]", description="Relations to include", members={
+	 *     @parameter("include", type="string", description="Relations to include", members={
 	 *          @member(value="user"),
 	 *          @member(value="question"),
 	 *          @member(value="challenge"),
