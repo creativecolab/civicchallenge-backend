@@ -12,22 +12,12 @@ Microchallenges
     + phase: (number, optional) - Get challenges from specific phase.
     + allPhases: (boolean, optional) - Get relations for each challenge from all phases.
         + Default: 0
-    + resources: (boolean, optional) - Include associated resources.
-        + Default: 0
-    + questions: (boolean, optional) - Include associated questions.
-        + Default: 0
-    + insights: (boolean, optional) - Include associated insights.
-        + Default: 0
-    + insightTypes: (array|number, optional) - Filter by type (0 = NORMAL, 1 = CURATED, 2 = HIGHLIGHT)
-        + Default: 1,2
-    + groupInsightsByQuestion: (boolean, optional) - Group associated insights by questions
-        + Default: 0
-    + include: (enum[enum[string]], optional) - Relations to include
+    + include: (enum[string], optional) - Relations to include
         + Members
             + `category` - 
             + `resources` - 
             + `questions` - 
-            + `insights` - 
+            + `insights{?:type()}` - Filter by type (0 = NORMAL, 1 = CURATED, 2 = HIGHLIGHT). Default is 1 and 2
 
 ## Store a newly created resource in storage. [POST /challenges]
 
@@ -56,7 +46,7 @@ Microchallenges
                 }
             }
 
-## Display the specified resource. [GET /challenges/{id}{?phase,allPhases,resources,questions,insights,insightTypes,groupInsightsByQuestion,include}]
+## Display the specified resource. [GET /challenges/{id}{?phase,allPhases,include}]
 
 
 + Parameters
@@ -64,22 +54,12 @@ Microchallenges
     + phase: (number, optional) - Get relations from specific phase.
     + allPhases: (boolean, optional) - Get relations from all phases.
         + Default: 0
-    + resources: (boolean, optional) - Include associated resources.
-        + Default: 0
-    + questions: (boolean, optional) - Include associated questions.
-        + Default: 0
-    + insights: (boolean, optional) - Include associated insights.
-        + Default: 0
-    + insightTypes: (array|number, optional) - Filter by type (0 = NORMAL, 1 = CURATED, 2 = HIGHLIGHT)
-        + Default: 1,2
-    + groupInsightsByQuestion: (boolean, optional) - Group associated insights by questions
-        + Default: 0
-    + include: (enum[enum[string]], optional) - Relations to include
+    + include: (enum[string], optional) - Relations to include
         + Members
             + `category` - 
             + `resources` - 
             + `questions` - 
-            + `insights` - 
+            + `insights{?:type()}` - Filter by type (0 = NORMAL, 1 = CURATED, 2 = HIGHLIGHT). Default is 1 and 2.
 
 + Response 200 (application/json)
     + Body
