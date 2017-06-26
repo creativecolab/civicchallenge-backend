@@ -426,7 +426,7 @@ Discussion Questions
 + Parameters
     + challenge: (number, optional) - Get insights from challenge ID.
     + phase: (number, optional) - Get insights from specific phase
-    + include: (enum[enum[string]], optional) - Relations to include
+    + include: (enum[string], optional) - Relations to include
         + Members
             + `insights` - 
             + `challenge` - 
@@ -463,7 +463,7 @@ Discussion Questions
 
 + Parameters
     + id: (integer, required) - ID of Question
-    + include: (enum[enum[string]], optional) - Relations to include
+    + include: (enum[string], optional) - Relations to include
         + Members
             + `insights` - 
             + `challenge` - 
