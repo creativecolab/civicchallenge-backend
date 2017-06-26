@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use App\Challenge;
 use App\Http\Requests\Api\GetInsightRequest;
 use App\Insight;
+use App\Transformers\InsightTransformer;
 use DB;
+use Dingo\Api\Routing\Helpers;
 use Illuminate\Http\Request;
 
 /**
@@ -14,7 +16,7 @@ use Illuminate\Http\Request;
  * @resource("Insights", uri="/insights")
  */
 class InsightController extends Controller {
-	use CreatesInsights;
+	use CreatesInsights, Helpers;
 
 	/**
 	 * Display a listing of the resource.
@@ -40,7 +42,7 @@ class InsightController extends Controller {
 		$challenge = $request->get('challenge');
 		$phase = $request->get('phase');
 
-		$insights = DB::table('insights');
+		$insights = new Insight();
 
 		if (!empty($types)) {
 			$insights = $insights->whereIn('type', $types);
