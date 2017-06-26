@@ -3,10 +3,10 @@
 namespace App\Transformers;
 
 use App\Challenge;
+use League\Fractal\ParamBag;
 use League\Fractal\TransformerAbstract;
 
 class ChallengeTransformer extends TransformerAbstract {
-
 	/**
 	 * List of resources possible to include
 	 *
@@ -39,20 +39,51 @@ class ChallengeTransformer extends TransformerAbstract {
 		];
 	}
 
-	public function includeResources( Challenge $challenge ) {
-		return $this->collection( $challenge->resources, new ResourceTransformer );
+	public function includeResources( Challenge $challenge, ParamBag $params = null ) {
+		$resources = $this->processAllPhases( $challenge, 'resources', $params );
+
+		return $this->collection( $resources, new ResourceTransformer );
 	}
 
 	public function includeCategory( Challenge $challenge ) {
 		return $this->item( $challenge->category, new CategoryTransformer );
 	}
 
-	public function includeQuestions( Challenge $challenge ) {
-		return $this->collection( $challenge->questions, new QuestionTransformer );
+	public function includeQuestions( Challenge $challenge, ParamBag $params = null ) {
+		$questions = $this->processAllPhases( $challenge, 'questions', $params );
+
+		return $this->collection( $questions, new QuestionTransformer );
 	}
 
-	public function includeInsights( Challenge $challenge ) {
-		return $this->collection( $challenge->insights, new InsightTransformer );
+	public function includeInsights( Challenge $challenge, ParamBag $params = null ) {
+		$insights = $this->processAllPhases( $challenge, 'insights', $params );
+
+		return $this->collection( $insights, new InsightTransformer );
+	}
+
+	/**
+	 * Processes the allPhase parameter. Checks if it is set and returns resources from all phases if requested.
+	 * Otherwise defaults to current phase only.
+	 *
+	 * @param Challenge $challenge
+	 * @param $resourceKey
+	 * @param ParamBag $params
+	 *
+	 * @return mixed
+	 */
+	protected function processAllPhases( Challenge $challenge, $resourceKey, ParamBag $params ) {
+		$allPhases = (bool) $params->get( 'allPhases' );
+
+		if ( ! $allPhases ) {
+			$phase = $challenge->phase;
+			$challenge->load( [
+				$resourceKey => function ( $query ) use ( $phase ) {
+					$query->where( 'phase', '=', $phase );
+				}
+			] );
+		}
+
+		return $challenge->$resourceKey;
 	}
 
 }
