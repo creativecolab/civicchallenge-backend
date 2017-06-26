@@ -7,6 +7,8 @@ use League\Fractal\ParamBag;
 use League\Fractal\TransformerAbstract;
 
 class ChallengeTransformer extends TransformerAbstract {
+	protected $params;
+
 	/**
 	 * List of resources possible to include
 	 *
@@ -14,10 +16,13 @@ class ChallengeTransformer extends TransformerAbstract {
 	 */
 	protected $availableIncludes = [
 		'resources',
-		'category',
 		'questions',
 		'insights',
 	];
+
+	function __construct( $params = [] ) {
+		$this->params = $params;
+	}
 
 	/**
 	 * Turn this item object into a generic array
@@ -40,7 +45,7 @@ class ChallengeTransformer extends TransformerAbstract {
 	}
 
 	public function includeResources( Challenge $challenge, ParamBag $params = null ) {
-		$resources = $this->processAllPhases( $challenge, 'resources', $params );
+		$resources = $this->processPhases( $challenge, 'resources', $params );
 
 		return $this->collection( $resources, new ResourceTransformer );
 	}
@@ -50,19 +55,19 @@ class ChallengeTransformer extends TransformerAbstract {
 	}
 
 	public function includeQuestions( Challenge $challenge, ParamBag $params = null ) {
-		$questions = $this->processAllPhases( $challenge, 'questions', $params );
+		$questions = $this->processPhases( $challenge, 'questions', $params );
 
 		return $this->collection( $questions, new QuestionTransformer );
 	}
 
 	public function includeInsights( Challenge $challenge, ParamBag $params = null ) {
-		$insights = $this->processAllPhases( $challenge, 'insights', $params );
+		$insights = $this->processPhases( $challenge, 'insights', $params );
 
 		return $this->collection( $insights, new InsightTransformer );
 	}
 
 	/**
-	 * Processes the allPhase parameter. Checks if it is set and returns resources from all phases if requested.
+	 * Processes phase parameters (allPhase, phase). Checks if it is set and returns resources from all phases OR specific phase if requested.
 	 * Otherwise defaults to current phase only.
 	 *
 	 * @param Challenge $challenge
@@ -71,11 +76,16 @@ class ChallengeTransformer extends TransformerAbstract {
 	 *
 	 * @return mixed
 	 */
-	protected function processAllPhases( Challenge $challenge, $resourceKey, ParamBag $params ) {
+	protected function processPhases( Challenge $challenge, $resourceKey, ParamBag $params ) {
 		$allPhases = (bool) $params->get( 'allPhases' );
 
 		if ( ! $allPhases ) {
-			$phase = $challenge->phase;
+			// Default to current phase if specific phase is not requested
+			if ( isset( $this->params['phase'] ) ) {
+				$phase = $this->params['phase'];
+			} else {
+				$phase = $challenge->phase;
+			}
 			$challenge->load( [
 				$resourceKey => function ( $query ) use ( $phase ) {
 					$query->where( 'phase', '=', $phase );
