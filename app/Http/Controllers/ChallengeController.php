@@ -23,7 +23,7 @@ class ChallengeController extends Controller {
 	 * @param GetChallengeRequest $request
 	 *
 	 * @return \Dingo\Api\Http\Response
-	 * @get("/{?phase,allPhases,resources,questions,insights,insightTypes,groupInsightsByQuestion,include}")
+	 * @get("/{?phase,allPhases,include}")
 	 * @parameters({
 	 *     @parameter("phase", type="number", description="Get challenges from specific phase."),
 	 *     @parameter("allPhases", type="boolean", description="Get relations for each challenge from all phases.", default=0),
@@ -59,7 +59,7 @@ class ChallengeController extends Controller {
 	 *
 	 * @post("/")
 	 * @request({"name": "Name", "summary": "This is a challenge.", "description": "Challenge description"})
-	 * @response(200, body={"challenge":{"id":1,"name":"Consequatur voluptatem atque blanditiis.","summary":"In vel eaque ut reprehenderit voluptates.","thumbnail":"http://thumbnail.com/img.jpg","phase":2,"created_at":"2017-05-31 05:06:00","updated_at":"2017-05-31 05:06:00"}})
+	 * @response(200, body={"data":{"id":1,"name":"Consequatur voluptatem atque blanditiis.","summary":"In vel eaque ut reprehenderit voluptates.","thumbnail":"http://thumbnail.com/img.jpg","phase":2,"created_at":"2017-05-31 05:06:00","updated_at":"2017-05-31 05:06:00"}})
 	 */
 	public function store( Request $request ) {
 		return Challenge::create( $request->all() );
@@ -73,7 +73,7 @@ class ChallengeController extends Controller {
 	 *
 	 * @return Challenge|\Illuminate\Http\Response
 	 * @get("/{id}{?phase,allPhases,include}")
-	 * @response(200, body={"challenge":{"id":1,"name":"Consequatur voluptatem atque blanditiis.","summary":"In vel eaque ut reprehenderit voluptates.","thumbnail":"http://thumbnail.com/img.jpg","phase":2,"created_at":"2017-05-31 05:06:00","updated_at":"2017-05-31 05:06:00"}})
+	 * @response(200, body={"data":{"id":1,"name":"Consequatur voluptatem atque blanditiis.","summary":"In vel eaque ut reprehenderit voluptates.","thumbnail":"http://thumbnail.com/img.jpg","phase":2,"created_at":"2017-05-31 05:06:00","updated_at":"2017-05-31 05:06:00"}})
 	 * @parameters({
 	 *     @parameter("id", description="ID of Challenge", required=true, type="integer"),
 	 *     @parameter("phase", type="number", description="Get relations from specific phase."),
@@ -112,7 +112,7 @@ class ChallengeController extends Controller {
 	 * @put("/{id}")
 	 * @patch("/{id}")
 	 * @request({"name": "Name", "summary": "This is a challenge.", "description": "Challenge description"})
-	 * @response(200, body={"challenge":{"id":1,"name":"Consequatur voluptatem atque blanditiis.","summary":"In vel eaque ut reprehenderit voluptates.","thumbnail":"http://thumbnail.com/img.jpg","phase":2,"created_at":"2017-05-31 05:06:00","updated_at":"2017-05-31 05:06:00"}})
+	 * @response(200, body={"data":{"id":1,"name":"Consequatur voluptatem atque blanditiis.","summary":"In vel eaque ut reprehenderit voluptates.","thumbnail":"http://thumbnail.com/img.jpg","phase":2,"created_at":"2017-05-31 05:06:00","updated_at":"2017-05-31 05:06:00"}})
 	 * @parameters({
 	 *     @parameter("id", description="ID of Challenge", required=true, type="integer")
 	 * })
@@ -156,7 +156,7 @@ class ChallengeController extends Controller {
 	 * @return mixed
 	 *
 	 * @get("/{id}/resources")
-	 * @response(200, body={"resource":{"name":"Test","url":"http:\/\/test.com","description":"Test description","type":"PDF","phase":2,"challenge_id":1,"updated_at":"2017-05-31 06:33:25","created_at":"2017-05-31 06:33:25","id":23}})
+	 * @response(200, body={"data":{"name":"Test","url":"http:\/\/test.com","description":"Test description","type":"PDF","phase":2,"challenge_id":1,"updated_at":"2017-05-31 06:33:25","created_at":"2017-05-31 06:33:25","id":23}})
 	 * @parameters({
 	 *     @parameter("id", description="ID of Challenge", required=true, type="integer")
 	 * })
@@ -175,7 +175,7 @@ class ChallengeController extends Controller {
 	 *
 	 * @post("/{id}/resources")
 	 * @request({"name": "Test","url": "http://test.com","description": "Test description","type": "PDF"})
-	 * @response(200, body={"resource":{"name":"Test","url":"http:\/\/test.com","description":"Test description","type":"PDF","phase":2,"challenge_id":1,"updated_at":"2017-05-31 06:33:25","created_at":"2017-05-31 06:33:25","id":23}})
+	 * @response(200, body={"data":{"name":"Test","url":"http:\/\/test.com","description":"Test description","type":"PDF","phase":2,"challenge_id":1,"updated_at":"2017-05-31 06:33:25","created_at":"2017-05-31 06:33:25","id":23}})
 	 * @parameters({
 	 *     @parameter("id", description="ID of Challenge", required=true, type="integer")
 	 * })
@@ -218,7 +218,7 @@ class ChallengeController extends Controller {
 	 *
 	 * @post("/{id}/questions")
 	 * @request({"text": "What?"})
-	 * @response(200, body={"question":{"id":1,"text":"What?","challenge_id":1,"phase":1,"created_at":"2017-05-31 17:00:27","updated_at":"2017-05-31 17:18:28"}})
+	 * @response(200, body={"data":{"id":1,"text":"What?","challenge_id":1,"phase":1,"created_at":"2017-05-31 17:00:27","updated_at":"2017-05-31 17:18:28"}})
 	 * @parameters({
 	 *     @parameter("id", description="ID of Challenge", required=true, type="integer")
 	 * })
@@ -236,7 +236,7 @@ class ChallengeController extends Controller {
 	 * @return mixed
 	 *
 	 * @get("/{id}/insights")
-	 * @response(200, body={"insights": {}})
+	 * @response(200, body={"data": {}})
 	 * @parameters({
 	 *     @parameter("id", description="ID of Challenge", required=true, type="integer")
 	 * })

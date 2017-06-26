@@ -37,7 +37,7 @@ class ResourceController extends Controller {
 	 *
 	 * @post("/")
 	 * @request({"name": "Test","url": "http://test.com","description": "Test description","type": "PDF","challenge_id": 1})
-	 * @response(200, body={"resource":{"name":"Test","url":"http:\/\/test.com","description":"Test description","type":"PDF","phase":2,"challenge_id":1,"updated_at":"2017-05-31 06:33:25","created_at":"2017-05-31 06:33:25","id":23}})
+	 * @response(200, body={"data":{"name":"Test","url":"http:\/\/test.com","description":"Test description","type":"PDF","phase":2,"challenge_id":1,"updated_at":"2017-05-31 06:33:25","created_at":"2017-05-31 06:33:25","id":23}})
 	 */
 	public function store( Request $request ) {
 		$challenge = Challenge::findOrFail( $request->get( 'challenge_id' ) );
@@ -53,7 +53,7 @@ class ResourceController extends Controller {
 	 * @return Resource
 	 *
 	 * @get("/{id}{?include}")
-	 * @response(200, body={"resource":{"name":"Test","url":"http:\/\/test.com","description":"Test description","type":"PDF","phase":2,"challenge_id":1,"updated_at":"2017-05-31 06:33:25","created_at":"2017-05-31 06:33:25","id":23}})
+	 * @response(200, body={"data":{"name":"Test","url":"http:\/\/test.com","description":"Test description","type":"PDF","phase":2,"challenge_id":1,"updated_at":"2017-05-31 06:33:25","created_at":"2017-05-31 06:33:25","id":23}})
 	 * @parameters({
 	 *     @parameter("id", description="ID of Resource", required=true, type="integer"),
 	 *     @parameter("include", type="string", description="Relations to include", members={
@@ -76,7 +76,7 @@ class ResourceController extends Controller {
 	 * @put("/{id}")
 	 * @patch("/{id}")
 	 * @request({"name": "Test","url": "http://test.com","description": "Test description","type": "PDF","challenge_id": 1})
-	 * @response(200, body={"resource":{"name":"Test","url":"http:\/\/test.com","description":"Test description","type":"PDF","phase":2,"challenge_id":1,"updated_at":"2017-05-31 06:33:25","created_at":"2017-05-31 06:33:25","id":23}})
+	 * @response(200, body={"data":{"name":"Test","url":"http:\/\/test.com","description":"Test description","type":"PDF","phase":2,"challenge_id":1,"updated_at":"2017-05-31 06:33:25","created_at":"2017-05-31 06:33:25","id":23}})
 	 * @parameters({
 	 *     @parameter("id", description="ID of Resource", required=true, type="integer")
 	 * })

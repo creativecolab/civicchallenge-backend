@@ -7,7 +7,7 @@
   "<span class="hljs-attribute">summary</span>": <span class="hljs-value"><span class="hljs-string">"This is a challenge."</span></span>,
   "<span class="hljs-attribute">description</span>": <span class="hljs-value"><span class="hljs-string">"Challenge description"</span>
 </span>}</code></pre><div style="height: 1px;"></div></div></div><div class="tabs"><div class="example-names"><span>Responses</span><span class="tab-button">200</span></div><div class="tab"><div><div class="inner"><h5>Headers</h5><pre><code><span class="hljs-attribute">Content-Type</span>: <span class="hljs-string">application/json</span></code></pre><div style="height: 1px;"></div><h5>Body</h5><pre><code>{
-  "<span class="hljs-attribute">challenge</span>": <span class="hljs-value">{
+  "<span class="hljs-attribute">data</span>": <span class="hljs-value">{
     "<span class="hljs-attribute">id</span>": <span class="hljs-value"><span class="hljs-number">1</span></span>,
     "<span class="hljs-attribute">name</span>": <span class="hljs-value"><span class="hljs-string">"Consequatur voluptatem atque blanditiis."</span></span>,
     "<span class="hljs-attribute">summary</span>": <span class="hljs-value"><span class="hljs-string">"In vel eaque ut reprehenderit voluptates."</span></span>,
@@ -17,7 +17,7 @@
     "<span class="hljs-attribute">updated_at</span>": <span class="hljs-value"><span class="hljs-string">"2017-05-31 05:06:00"</span>
   </span>}
 </span>}</code></pre><div style="height: 1px;"></div></div></div></div></div></div></div></div><div class="middle"><div id="challenges-post" class="action post"><h4 class="action-heading"><div class="name">Store a newly created resource in storage.</div><a href="#challenges-post" class="method post">POST</a><code class="uri">/challenges</code></h4></div></div><hr class="split"><div class="right"><div class="definition"><span class="method get">GET</span>&nbsp;<span class="uri"><span class="hostname"></span>/challenges/<span class="hljs-attribute" title="id">id</span>?<span class="hljs-attribute">phase=</span><span class="hljs-literal"></span>&<span class="hljs-attribute">allPhases=</span><span class="hljs-literal"></span>&<span class="hljs-attribute">include=</span><span class="hljs-literal"></span></span></div><div class="tabs"><div class="tabs"><div class="example-names"><span>Responses</span><span class="tab-button">200</span></div><div class="tab"><div><div class="inner"><h5>Headers</h5><pre><code><span class="hljs-attribute">Content-Type</span>: <span class="hljs-string">application/json</span></code></pre><div style="height: 1px;"></div><h5>Body</h5><pre><code>{
-  "<span class="hljs-attribute">challenge</span>": <span class="hljs-value">{
+  "<span class="hljs-attribute">data</span>": <span class="hljs-value">{
     "<span class="hljs-attribute">id</span>": <span class="hljs-value"><span class="hljs-number">1</span></span>,
     "<span class="hljs-attribute">name</span>": <span class="hljs-value"><span class="hljs-string">"Consequatur voluptatem atque blanditiis."</span></span>,
     "<span class="hljs-attribute">summary</span>": <span class="hljs-value"><span class="hljs-string">"In vel eaque ut reprehenderit voluptates."</span></span>,
@@ -35,7 +35,7 @@
   "<span class="hljs-attribute">summary</span>": <span class="hljs-value"><span class="hljs-string">"This is a challenge."</span></span>,
   "<span class="hljs-attribute">description</span>": <span class="hljs-value"><span class="hljs-string">"Challenge description"</span>
 </span>}</code></pre><div style="height: 1px;"></div></div></div><div class="tabs"><div class="example-names"><span>Responses</span><span class="tab-button">200</span></div><div class="tab"><div><div class="inner"><h5>Headers</h5><pre><code><span class="hljs-attribute">Content-Type</span>: <span class="hljs-string">application/json</span></code></pre><div style="height: 1px;"></div><h5>Body</h5><pre><code>{
-  "<span class="hljs-attribute">challenge</span>": <span class="hljs-value">{
+  "<span class="hljs-attribute">data</span>": <span class="hljs-value">{
     "<span class="hljs-attribute">id</span>": <span class="hljs-value"><span class="hljs-number">1</span></span>,
     "<span class="hljs-attribute">name</span>": <span class="hljs-value"><span class="hljs-string">"Consequatur voluptatem atque blanditiis."</span></span>,
     "<span class="hljs-attribute">summary</span>": <span class="hljs-value"><span class="hljs-string">"In vel eaque ut reprehenderit voluptates."</span></span>,
@@ -47,7 +47,7 @@
 </span>}</code></pre><div style="height: 1px;"></div></div></div></div></div></div></div></div><div class="middle"><div id="challenges-put" class="action put"><h4 class="action-heading"><div class="name">Update the specified resource in storage.</div><a href="#challenges-put" class="method put">PUT</a><code class="uri">/challenges/{id}</code></h4><div class="title"><strong>URI Parameters</strong><div class="collapse-button show"><span class="close">Hide</span><span class="open">Show</span></div></div><div class="collapse-content"><dl class="inner"><dt>id</dt><dd><code>integer</code>&nbsp;<span class="required">(required)</span>&nbsp;<p>ID of Challenge</p>
 </dd></dl></div></div></div><hr class="split"><div class="right"><div class="definition"><span class="method delete">DELETE</span>&nbsp;<span class="uri"><span class="hostname"></span>/challenges/<span class="hljs-attribute" title="id">id</span></span></div><div class="tabs"><div class="tabs"><div class="example-names"><span>Responses</span><span class="tab-button">204</span></div><div class="tab"><div><div class="inner"><h5>Headers</h5><pre><code><span class="hljs-attribute">Content-Type</span>: <span class="hljs-string">application/json</span></code></pre><div style="height: 1px;"></div></div></div></div></div></div></div><div class="middle"><div id="challenges-delete" class="action delete"><h4 class="action-heading"><div class="name">Remove the specified resource from storage.</div><a href="#challenges-delete" class="method delete">DELETE</a><code class="uri">/challenges/{id}</code></h4><div class="title"><strong>URI Parameters</strong><div class="collapse-button show"><span class="close">Hide</span><span class="open">Show</span></div></div><div class="collapse-content"><dl class="inner"><dt>id</dt><dd><code>integer</code>&nbsp;<span class="required">(required)</span>&nbsp;<p>ID of Challenge</p>
 </dd></dl></div></div></div><hr class="split"><div class="right"><div class="definition"><span class="method get">GET</span>&nbsp;<span class="uri"><span class="hostname"></span>/challenges/<span class="hljs-attribute" title="id">id</span>/resources</span></div><div class="tabs"><div class="tabs"><div class="example-names"><span>Responses</span><span class="tab-button">200</span></div><div class="tab"><div><div class="inner"><h5>Headers</h5><pre><code><span class="hljs-attribute">Content-Type</span>: <span class="hljs-string">application/json</span></code></pre><div style="height: 1px;"></div><h5>Body</h5><pre><code>{
-  "<span class="hljs-attribute">resource</span>": <span class="hljs-value">{
+  "<span class="hljs-attribute">data</span>": <span class="hljs-value">{
     "<span class="hljs-attribute">name</span>": <span class="hljs-value"><span class="hljs-string">"Test"</span></span>,
     "<span class="hljs-attribute">url</span>": <span class="hljs-value"><span class="hljs-string">"http://test.com"</span></span>,
     "<span class="hljs-attribute">description</span>": <span class="hljs-value"><span class="hljs-string">"Test description"</span></span>,
@@ -65,7 +65,7 @@
   "<span class="hljs-attribute">description</span>": <span class="hljs-value"><span class="hljs-string">"Test description"</span></span>,
   "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"PDF"</span>
 </span>}</code></pre><div style="height: 1px;"></div></div></div><div class="tabs"><div class="example-names"><span>Responses</span><span class="tab-button">200</span></div><div class="tab"><div><div class="inner"><h5>Headers</h5><pre><code><span class="hljs-attribute">Content-Type</span>: <span class="hljs-string">application/json</span></code></pre><div style="height: 1px;"></div><h5>Body</h5><pre><code>{
-  "<span class="hljs-attribute">resource</span>": <span class="hljs-value">{
+  "<span class="hljs-attribute">data</span>": <span class="hljs-value">{
     "<span class="hljs-attribute">name</span>": <span class="hljs-value"><span class="hljs-string">"Test"</span></span>,
     "<span class="hljs-attribute">url</span>": <span class="hljs-value"><span class="hljs-string">"http://test.com"</span></span>,
     "<span class="hljs-attribute">description</span>": <span class="hljs-value"><span class="hljs-string">"Test description"</span></span>,
@@ -82,7 +82,7 @@
 </dd></dl></div></div></div><hr class="split"><div class="right"><div class="definition"><span class="method post">POST</span>&nbsp;<span class="uri"><span class="hostname"></span>/challenges/<span class="hljs-attribute" title="id">id</span>/questions</span></div><div class="tabs"><div class="example-names"><span>Requests</span><span class="tab-button">example 1</span></div><div class="tab"><div><div class="inner"><h5>Headers</h5><pre><code><span class="hljs-attribute">Content-Type</span>: <span class="hljs-string">application/json</span></code></pre><div style="height: 1px;"></div><h5>Body</h5><pre><code>{
   "<span class="hljs-attribute">text</span>": <span class="hljs-value"><span class="hljs-string">"What?"</span>
 </span>}</code></pre><div style="height: 1px;"></div></div></div><div class="tabs"><div class="example-names"><span>Responses</span><span class="tab-button">200</span></div><div class="tab"><div><div class="inner"><h5>Headers</h5><pre><code><span class="hljs-attribute">Content-Type</span>: <span class="hljs-string">application/json</span></code></pre><div style="height: 1px;"></div><h5>Body</h5><pre><code>{
-  "<span class="hljs-attribute">question</span>": <span class="hljs-value">{
+  "<span class="hljs-attribute">data</span>": <span class="hljs-value">{
     "<span class="hljs-attribute">id</span>": <span class="hljs-value"><span class="hljs-number">1</span></span>,
     "<span class="hljs-attribute">text</span>": <span class="hljs-value"><span class="hljs-string">"What?"</span></span>,
     "<span class="hljs-attribute">challenge_id</span>": <span class="hljs-value"><span class="hljs-number">1</span></span>,
@@ -92,7 +92,7 @@
   </span>}
 </span>}</code></pre><div style="height: 1px;"></div></div></div></div></div></div></div></div><div class="middle"><div id="challenges-post-2" class="action post"><h4 class="action-heading"><div class="name">Store new Question for Challenge</div><a href="#challenges-post-2" class="method post">POST</a><code class="uri">/challenges/{id}/questions</code></h4><div class="title"><strong>URI Parameters</strong><div class="collapse-button show"><span class="close">Hide</span><span class="open">Show</span></div></div><div class="collapse-content"><dl class="inner"><dt>id</dt><dd><code>integer</code>&nbsp;<span class="required">(required)</span>&nbsp;<p>ID of Challenge</p>
 </dd></dl></div></div></div><hr class="split"><div class="right"><div class="definition"><span class="method get">GET</span>&nbsp;<span class="uri"><span class="hostname"></span>/challenges/<span class="hljs-attribute" title="id">id</span>/insights</span></div><div class="tabs"><div class="tabs"><div class="example-names"><span>Responses</span><span class="tab-button">200</span></div><div class="tab"><div><div class="inner"><h5>Headers</h5><pre><code><span class="hljs-attribute">Content-Type</span>: <span class="hljs-string">application/json</span></code></pre><div style="height: 1px;"></div><h5>Body</h5><pre><code>{
-  "<span class="hljs-attribute">insights</span>": <span class="hljs-value">[]
+  "<span class="hljs-attribute">data</span>": <span class="hljs-value">[]
 </span>}</code></pre><div style="height: 1px;"></div></div></div></div></div></div></div><div class="middle"><div id="challenges-get-4" class="action get"><h4 class="action-heading"><div class="name">Get Insights for Challenge</div><a href="#challenges-get-4" class="method get">GET</a><code class="uri">/challenges/{id}/insights</code></h4><div class="title"><strong>URI Parameters</strong><div class="collapse-button show"><span class="close">Hide</span><span class="open">Show</span></div></div><div class="collapse-content"><dl class="inner"><dt>id</dt><dd><code>integer</code>&nbsp;<span class="required">(required)</span>&nbsp;<p>ID of Challenge</p>
 </dd></dl></div></div></div><hr class="split"><div class="middle"><div id="challenge-resources" class="resource"><h3 class="resource-heading">Challenge Resources <a href="#challenge-resources" class="permalink">&para;</a></h3><p>Resources for Challenges. i.e. Student work, external resources</p>
 </div></div><div class="right"><div class="definition"><span class="method get">GET</span>&nbsp;<span class="uri"><span class="hostname"></span>/resources</span></div><div class="tabs"></div></div><div class="middle"><div id="challenge-resources-get" class="action get"><h4 class="action-heading"><div class="name">Display a listing of the resource.</div><a href="#challenge-resources-get" class="method get">GET</a><code class="uri">/resources</code></h4></div></div><hr class="split"><div class="right"><div class="definition"><span class="method post">POST</span>&nbsp;<span class="uri"><span class="hostname"></span>/resources</span></div><div class="tabs"><div class="example-names"><span>Requests</span><span class="tab-button">example 1</span></div><div class="tab"><div><div class="inner"><h5>Headers</h5><pre><code><span class="hljs-attribute">Content-Type</span>: <span class="hljs-string">application/json</span></code></pre><div style="height: 1px;"></div><h5>Body</h5><pre><code>{
@@ -102,7 +102,7 @@
   "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"PDF"</span></span>,
   "<span class="hljs-attribute">challenge_id</span>": <span class="hljs-value"><span class="hljs-number">1</span>
 </span>}</code></pre><div style="height: 1px;"></div></div></div><div class="tabs"><div class="example-names"><span>Responses</span><span class="tab-button">200</span></div><div class="tab"><div><div class="inner"><h5>Headers</h5><pre><code><span class="hljs-attribute">Content-Type</span>: <span class="hljs-string">application/json</span></code></pre><div style="height: 1px;"></div><h5>Body</h5><pre><code>{
-  "<span class="hljs-attribute">resource</span>": <span class="hljs-value">{
+  "<span class="hljs-attribute">data</span>": <span class="hljs-value">{
     "<span class="hljs-attribute">name</span>": <span class="hljs-value"><span class="hljs-string">"Test"</span></span>,
     "<span class="hljs-attribute">url</span>": <span class="hljs-value"><span class="hljs-string">"http://test.com"</span></span>,
     "<span class="hljs-attribute">description</span>": <span class="hljs-value"><span class="hljs-string">"Test description"</span></span>,
@@ -114,7 +114,7 @@
     "<span class="hljs-attribute">id</span>": <span class="hljs-value"><span class="hljs-number">23</span>
   </span>}
 </span>}</code></pre><div style="height: 1px;"></div></div></div></div></div></div></div></div><div class="middle"><div id="challenge-resources-post" class="action post"><h4 class="action-heading"><div class="name">Store a newly created resource in storage.</div><a href="#challenge-resources-post" class="method post">POST</a><code class="uri">/resources</code></h4></div></div><hr class="split"><div class="right"><div class="definition"><span class="method get">GET</span>&nbsp;<span class="uri"><span class="hostname"></span>/resources/<span class="hljs-attribute" title="id">id</span>?<span class="hljs-attribute">include=</span><span class="hljs-literal"></span></span></div><div class="tabs"><div class="tabs"><div class="example-names"><span>Responses</span><span class="tab-button">200</span></div><div class="tab"><div><div class="inner"><h5>Headers</h5><pre><code><span class="hljs-attribute">Content-Type</span>: <span class="hljs-string">application/json</span></code></pre><div style="height: 1px;"></div><h5>Body</h5><pre><code>{
-  "<span class="hljs-attribute">resource</span>": <span class="hljs-value">{
+  "<span class="hljs-attribute">data</span>": <span class="hljs-value">{
     "<span class="hljs-attribute">name</span>": <span class="hljs-value"><span class="hljs-string">"Test"</span></span>,
     "<span class="hljs-attribute">url</span>": <span class="hljs-value"><span class="hljs-string">"http://test.com"</span></span>,
     "<span class="hljs-attribute">description</span>": <span class="hljs-value"><span class="hljs-string">"Test description"</span></span>,
@@ -134,7 +134,7 @@
   "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"PDF"</span></span>,
   "<span class="hljs-attribute">challenge_id</span>": <span class="hljs-value"><span class="hljs-number">1</span>
 </span>}</code></pre><div style="height: 1px;"></div></div></div><div class="tabs"><div class="example-names"><span>Responses</span><span class="tab-button">200</span></div><div class="tab"><div><div class="inner"><h5>Headers</h5><pre><code><span class="hljs-attribute">Content-Type</span>: <span class="hljs-string">application/json</span></code></pre><div style="height: 1px;"></div><h5>Body</h5><pre><code>{
-  "<span class="hljs-attribute">resource</span>": <span class="hljs-value">{
+  "<span class="hljs-attribute">data</span>": <span class="hljs-value">{
     "<span class="hljs-attribute">name</span>": <span class="hljs-value"><span class="hljs-string">"Test"</span></span>,
     "<span class="hljs-attribute">url</span>": <span class="hljs-value"><span class="hljs-string">"http://test.com"</span></span>,
     "<span class="hljs-attribute">description</span>": <span class="hljs-value"><span class="hljs-string">"Test description"</span></span>,
@@ -154,7 +154,7 @@
   "<span class="hljs-attribute">name</span>": <span class="hljs-value"><span class="hljs-string">"Name"</span></span>,
   "<span class="hljs-attribute">description</span>": <span class="hljs-value"><span class="hljs-string">"Category description"</span>
 </span>}</code></pre><div style="height: 1px;"></div></div></div><div class="tabs"><div class="example-names"><span>Responses</span><span class="tab-button">200</span></div><div class="tab"><div><div class="inner"><h5>Headers</h5><pre><code><span class="hljs-attribute">Content-Type</span>: <span class="hljs-string">application/json</span></code></pre><div style="height: 1px;"></div><h5>Body</h5><pre><code>{
-  "<span class="hljs-attribute">category</span>": <span class="hljs-value">{
+  "<span class="hljs-attribute">data</span>": <span class="hljs-value">{
     "<span class="hljs-attribute">id</span>": <span class="hljs-value"><span class="hljs-number">1</span></span>,
     "<span class="hljs-attribute">name</span>": <span class="hljs-value"><span class="hljs-string">"Name"</span></span>,
     "<span class="hljs-attribute">description</span>": <span class="hljs-value"><span class="hljs-string">"Category description"</span></span>,
@@ -162,7 +162,7 @@
     "<span class="hljs-attribute">updated_at</span>": <span class="hljs-value"><span class="hljs-string">"2017-05-31 07:35:50"</span>
   </span>}
 </span>}</code></pre><div style="height: 1px;"></div></div></div></div></div></div></div></div><div class="middle"><div id="categories-post" class="action post"><h4 class="action-heading"><div class="name">Store a newly created resource in storage.</div><a href="#categories-post" class="method post">POST</a><code class="uri">/categories</code></h4></div></div><hr class="split"><div class="right"><div class="definition"><span class="method get">GET</span>&nbsp;<span class="uri"><span class="hostname"></span>/categories/<span class="hljs-attribute" title="id">id</span>?<span class="hljs-attribute">include=</span><span class="hljs-literal"></span></span></div><div class="tabs"><div class="tabs"><div class="example-names"><span>Responses</span><span class="tab-button">200</span></div><div class="tab"><div><div class="inner"><h5>Headers</h5><pre><code><span class="hljs-attribute">Content-Type</span>: <span class="hljs-string">application/json</span></code></pre><div style="height: 1px;"></div><h5>Body</h5><pre><code>{
-  "<span class="hljs-attribute">category</span>": <span class="hljs-value">{
+  "<span class="hljs-attribute">data</span>": <span class="hljs-value">{
     "<span class="hljs-attribute">id</span>": <span class="hljs-value"><span class="hljs-number">1</span></span>,
     "<span class="hljs-attribute">name</span>": <span class="hljs-value"><span class="hljs-string">"Explicabo doloribus distinctio nulla."</span></span>,
     "<span class="hljs-attribute">description</span>": <span class="hljs-value"><span class="hljs-string">"Quas ad officia alias asperiores laborum hic aut ex."</span></span>,
@@ -175,7 +175,7 @@
 <p class="choices"><strong>Choices:&nbsp;</strong><code>challenges</code> <code>challenges.questions</code> </p></dd></dl></div></div></div><hr class="split"><div class="right"><div class="definition"><span class="method post">POST</span>&nbsp;<span class="uri"><span class="hostname"></span>/categories/<span class="hljs-attribute" title="id">id</span></span></div><div class="tabs"><div class="example-names"><span>Requests</span><span class="tab-button">example 1</span></div><div class="tab"><div><div class="inner"><h5>Headers</h5><pre><code><span class="hljs-attribute">Content-Type</span>: <span class="hljs-string">application/json</span></code></pre><div style="height: 1px;"></div><h5>Body</h5><pre><code>{
   "<span class="hljs-attribute">name</span>": <span class="hljs-value"><span class="hljs-string">"Name"</span>
 </span>}</code></pre><div style="height: 1px;"></div></div></div><div class="tabs"><div class="example-names"><span>Responses</span><span class="tab-button">200</span></div><div class="tab"><div><div class="inner"><h5>Headers</h5><pre><code><span class="hljs-attribute">Content-Type</span>: <span class="hljs-string">application/json</span></code></pre><div style="height: 1px;"></div><h5>Body</h5><pre><code>{
-  "<span class="hljs-attribute">category</span>": <span class="hljs-value">{
+  "<span class="hljs-attribute">data</span>": <span class="hljs-value">{
     "<span class="hljs-attribute">id</span>": <span class="hljs-value"><span class="hljs-number">1</span></span>,
     "<span class="hljs-attribute">name</span>": <span class="hljs-value"><span class="hljs-string">"Name"</span></span>,
     "<span class="hljs-attribute">description</span>": <span class="hljs-value"><span class="hljs-string">"Quas ad officia alias asperiores laborum hic aut ex."</span></span>,
@@ -192,7 +192,7 @@
   "<span class="hljs-attribute">text</span>": <span class="hljs-value"><span class="hljs-string">"What?"</span></span>,
   "<span class="hljs-attribute">challenge_id</span>": <span class="hljs-value"><span class="hljs-number">1</span>
 </span>}</code></pre><div style="height: 1px;"></div></div></div><div class="tabs"><div class="example-names"><span>Responses</span><span class="tab-button">200</span></div><div class="tab"><div><div class="inner"><h5>Headers</h5><pre><code><span class="hljs-attribute">Content-Type</span>: <span class="hljs-string">application/json</span></code></pre><div style="height: 1px;"></div><h5>Body</h5><pre><code>{
-  "<span class="hljs-attribute">question</span>": <span class="hljs-value">{
+  "<span class="hljs-attribute">data</span>": <span class="hljs-value">{
     "<span class="hljs-attribute">id</span>": <span class="hljs-value"><span class="hljs-number">1</span></span>,
     "<span class="hljs-attribute">text</span>": <span class="hljs-value"><span class="hljs-string">"What?"</span></span>,
     "<span class="hljs-attribute">challenge_id</span>": <span class="hljs-value"><span class="hljs-number">1</span></span>,
@@ -201,7 +201,7 @@
     "<span class="hljs-attribute">updated_at</span>": <span class="hljs-value"><span class="hljs-string">"2017-05-31 17:18:28"</span>
   </span>}
 </span>}</code></pre><div style="height: 1px;"></div></div></div></div></div></div></div></div><div class="middle"><div id="discussion-questions-post" class="action post"><h4 class="action-heading"><div class="name">Store a newly created resource in storage.</div><a href="#discussion-questions-post" class="method post">POST</a><code class="uri">/questions</code></h4></div></div><hr class="split"><div class="right"><div class="definition"><span class="method get">GET</span>&nbsp;<span class="uri"><span class="hostname"></span>/questions/<span class="hljs-attribute" title="id">id</span>?<span class="hljs-attribute">include=</span><span class="hljs-literal"></span></span></div><div class="tabs"><div class="tabs"><div class="example-names"><span>Responses</span><span class="tab-button">200</span></div><div class="tab"><div><div class="inner"><h5>Headers</h5><pre><code><span class="hljs-attribute">Content-Type</span>: <span class="hljs-string">application/json</span></code></pre><div style="height: 1px;"></div><h5>Body</h5><pre><code>{
-  "<span class="hljs-attribute">question</span>": <span class="hljs-value">{
+  "<span class="hljs-attribute">data</span>": <span class="hljs-value">{
     "<span class="hljs-attribute">id</span>": <span class="hljs-value"><span class="hljs-number">1</span></span>,
     "<span class="hljs-attribute">text</span>": <span class="hljs-value"><span class="hljs-string">"What?"</span></span>,
     "<span class="hljs-attribute">challenge_id</span>": <span class="hljs-value"><span class="hljs-number">1</span></span>,
@@ -214,7 +214,7 @@
 <p class="choices"><strong>Choices:&nbsp;</strong><code>insights</code> <code>challenge</code> </p></dd></dl></div></div></div><hr class="split"><div class="right"><div class="definition"><span class="method put">PUT</span>&nbsp;<span class="uri"><span class="hostname"></span>/questions/<span class="hljs-attribute" title="id">id</span></span></div><div class="tabs"><div class="example-names"><span>Requests</span><span class="tab-button">example 1</span></div><div class="tab"><div><div class="inner"><h5>Headers</h5><pre><code><span class="hljs-attribute">Content-Type</span>: <span class="hljs-string">application/json</span></code></pre><div style="height: 1px;"></div><h5>Body</h5><pre><code>{
   "<span class="hljs-attribute">text</span>": <span class="hljs-value"><span class="hljs-string">"What?"</span>
 </span>}</code></pre><div style="height: 1px;"></div></div></div><div class="tabs"><div class="example-names"><span>Responses</span><span class="tab-button">200</span></div><div class="tab"><div><div class="inner"><h5>Headers</h5><pre><code><span class="hljs-attribute">Content-Type</span>: <span class="hljs-string">application/json</span></code></pre><div style="height: 1px;"></div><h5>Body</h5><pre><code>{
-  "<span class="hljs-attribute">question</span>": <span class="hljs-value">{
+  "<span class="hljs-attribute">data</span>": <span class="hljs-value">{
     "<span class="hljs-attribute">id</span>": <span class="hljs-value"><span class="hljs-number">1</span></span>,
     "<span class="hljs-attribute">text</span>": <span class="hljs-value"><span class="hljs-string">"What?"</span></span>,
     "<span class="hljs-attribute">challenge_id</span>": <span class="hljs-value"><span class="hljs-number">1</span></span>,
@@ -241,7 +241,7 @@
     "<span class="hljs-attribute">var1</span>": <span class="hljs-value"><span class="hljs-string">"content"</span>
   </span>}
 </span>}</code></pre><div style="height: 1px;"></div></div></div><div class="tabs"><div class="example-names"><span>Responses</span><span class="tab-button">200</span><span class="tab-button">204</span></div><div class="tab"><div><div class="inner"><h5>Headers</h5><pre><code><span class="hljs-attribute">Content-Type</span>: <span class="hljs-string">application/json</span></code></pre><div style="height: 1px;"></div><h5>Body</h5><pre><code>{
-  "<span class="hljs-attribute">insight</span>": <span class="hljs-value">{
+  "<span class="hljs-attribute">data</span>": <span class="hljs-value">{
     "<span class="hljs-attribute">text</span>": <span class="hljs-value"><span class="hljs-string">"Eos ipsa possimus nemo voluptas facilis in."</span></span>,
     "<span class="hljs-attribute">user_id</span>": <span class="hljs-value"><span class="hljs-number">1</span></span>,
     "<span class="hljs-attribute">timestamp</span>": <span class="hljs-value"><span class="hljs-string">"1999-01-31 00:00:00"</span></span>,
@@ -258,7 +258,7 @@
 </span>}</code></pre><div style="height: 1px;"></div></div></div></div><div class="tab"><div><div class="inner"><h5>Headers</h5><pre><code><span class="hljs-attribute">Content-Type</span>: <span class="hljs-string">application/json</span></code></pre><div style="height: 1px;"></div></div></div></div></div></div><div class="tab"><div><div class="inner"><h5>Headers</h5><pre><code><span class="hljs-attribute">Content-Type</span>: <span class="hljs-string">application/json</span></code></pre><div style="height: 1px;"></div><h5>Body</h5><pre><code>{
   "<span class="hljs-attribute">insights</span>": <span class="hljs-value">[]
 </span>}</code></pre><div style="height: 1px;"></div></div></div><div class="tabs"><div class="example-names"><span>Responses</span><span class="tab-button">200</span><span class="tab-button">204</span></div><div class="tab"><div><div class="inner"><h5>Headers</h5><pre><code><span class="hljs-attribute">Content-Type</span>: <span class="hljs-string">application/json</span></code></pre><div style="height: 1px;"></div><h5>Body</h5><pre><code>{
-  "<span class="hljs-attribute">insight</span>": <span class="hljs-value">{
+  "<span class="hljs-attribute">data</span>": <span class="hljs-value">{
     "<span class="hljs-attribute">text</span>": <span class="hljs-value"><span class="hljs-string">"Eos ipsa possimus nemo voluptas facilis in."</span></span>,
     "<span class="hljs-attribute">user_id</span>": <span class="hljs-value"><span class="hljs-number">1</span></span>,
     "<span class="hljs-attribute">timestamp</span>": <span class="hljs-value"><span class="hljs-string">"1999-01-31 00:00:00"</span></span>,
@@ -273,7 +273,7 @@
     "<span class="hljs-attribute">id</span>": <span class="hljs-value"><span class="hljs-number">1261</span>
   </span>}
 </span>}</code></pre><div style="height: 1px;"></div></div></div></div><div class="tab"><div><div class="inner"><h5>Headers</h5><pre><code><span class="hljs-attribute">Content-Type</span>: <span class="hljs-string">application/json</span></code></pre><div style="height: 1px;"></div></div></div></div></div></div></div></div><div class="middle"><div id="insights-post" class="action post"><h4 class="action-heading"><div class="name">Store a newly created resource in storage.</div><a href="#insights-post" class="method post">POST</a><code class="uri">/insights</code></h4></div></div><hr class="split"><div class="right"><div class="definition"><span class="method get">GET</span>&nbsp;<span class="uri"><span class="hostname"></span>/insights/<span class="hljs-attribute" title="id">id</span>?<span class="hljs-attribute">include=</span><span class="hljs-literal"></span></span></div><div class="tabs"><div class="tabs"><div class="example-names"><span>Responses</span><span class="tab-button">200</span></div><div class="tab"><div><div class="inner"><h5>Headers</h5><pre><code><span class="hljs-attribute">Content-Type</span>: <span class="hljs-string">application/json</span></code></pre><div style="height: 1px;"></div><h5>Body</h5><pre><code>{
-  "<span class="hljs-attribute">insight</span>": <span class="hljs-value">{
+  "<span class="hljs-attribute">data</span>": <span class="hljs-value">{
     "<span class="hljs-attribute">text</span>": <span class="hljs-value"><span class="hljs-string">"Eos ipsa possimus nemo voluptas facilis in."</span></span>,
     "<span class="hljs-attribute">user_id</span>": <span class="hljs-value"><span class="hljs-number">1</span></span>,
     "<span class="hljs-attribute">timestamp</span>": <span class="hljs-value"><span class="hljs-string">"1999-01-31 00:00:00"</span></span>,
@@ -292,7 +292,7 @@
 <p class="choices"><strong>Choices:&nbsp;</strong><code>user</code> <code>question</code> <code>challenge</code> </p></dd></dl></div></div></div><hr class="split"><div class="right"><div class="definition"><span class="method put">PUT</span>&nbsp;<span class="uri"><span class="hostname"></span>/insights/<span class="hljs-attribute" title="id">id</span></span></div><div class="tabs"><div class="example-names"><span>Requests</span><span class="tab-button">example 1</span></div><div class="tab"><div><div class="inner"><h5>Headers</h5><pre><code><span class="hljs-attribute">Content-Type</span>: <span class="hljs-string">application/json</span></code></pre><div style="height: 1px;"></div><h5>Body</h5><pre><code>{
   "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-number">1</span>
 </span>}</code></pre><div style="height: 1px;"></div></div></div><div class="tabs"><div class="example-names"><span>Responses</span><span class="tab-button">200</span></div><div class="tab"><div><div class="inner"><h5>Headers</h5><pre><code><span class="hljs-attribute">Content-Type</span>: <span class="hljs-string">application/json</span></code></pre><div style="height: 1px;"></div><h5>Body</h5><pre><code>{
-  "<span class="hljs-attribute">insight</span>": <span class="hljs-value">{
+  "<span class="hljs-attribute">data</span>": <span class="hljs-value">{
     "<span class="hljs-attribute">text</span>": <span class="hljs-value"><span class="hljs-string">"Eos ipsa possimus nemo voluptas facilis in."</span></span>,
     "<span class="hljs-attribute">user_id</span>": <span class="hljs-value"><span class="hljs-number">1</span></span>,
     "<span class="hljs-attribute">timestamp</span>": <span class="hljs-value"><span class="hljs-string">"1999-01-31 00:00:00"</span></span>,
@@ -310,7 +310,7 @@
 </dd></dl></div></div></div><hr class="split"><div class="right"><div class="definition"><span class="method delete">DELETE</span>&nbsp;<span class="uri"><span class="hostname"></span>/insights/<span class="hljs-attribute" title="id">id</span></span></div><div class="tabs"><div class="tabs"><div class="example-names"><span>Responses</span><span class="tab-button">204</span></div><div class="tab"><div><div class="inner"><h5>Headers</h5><pre><code><span class="hljs-attribute">Content-Type</span>: <span class="hljs-string">application/json</span></code></pre><div style="height: 1px;"></div></div></div></div></div></div></div><div class="middle"><div id="insights-delete" class="action delete"><h4 class="action-heading"><div class="name">Remove the specified resource from storage.</div><a href="#insights-delete" class="method delete">DELETE</a><code class="uri">/insights/{id}</code></h4><div class="title"><strong>URI Parameters</strong><div class="collapse-button show"><span class="close">Hide</span><span class="open">Show</span></div></div><div class="collapse-content"><dl class="inner"><dt>id</dt><dd><code>integer</code>&nbsp;<span class="required">(required)</span>&nbsp;<p>ID of Insight</p>
 </dd></dl></div></div></div><hr class="split"><div class="middle"><div id="events" class="resource"><h3 class="resource-heading">Events <a href="#events" class="permalink">&para;</a></h3><p>Events</p>
 </div></div><div class="right"><div class="definition"><span class="method get">GET</span>&nbsp;<span class="uri"><span class="hostname"></span>/events</span></div><div class="tabs"><div class="tabs"><div class="example-names"><span>Responses</span><span class="tab-button">200</span></div><div class="tab"><div><div class="inner"><h5>Headers</h5><pre><code><span class="hljs-attribute">Content-Type</span>: <span class="hljs-string">application/json</span></code></pre><div style="height: 1px;"></div><h5>Body</h5><pre><code>{
-  "<span class="hljs-attribute">events</span>": <span class="hljs-value">[
+  "<span class="hljs-attribute">data</span>": <span class="hljs-value">[
     {
       "<span class="hljs-attribute">id</span>": <span class="hljs-value"><span class="hljs-number">1</span></span>,
       "<span class="hljs-attribute">name</span>": <span class="hljs-value"><span class="hljs-string">"Name"</span></span>,
@@ -325,7 +325,7 @@
     </span>}
   ]
 </span>}</code></pre><div style="height: 1px;"></div></div></div></div></div></div></div><div class="middle"><div id="events-get" class="action get"><h4 class="action-heading"><div class="name">Display a listing of the resource.</div><a href="#events-get" class="method get">GET</a><code class="uri">/events</code></h4></div></div><hr class="split"><div class="right"><div class="definition"><span class="method get">GET</span>&nbsp;<span class="uri"><span class="hostname"></span>/events/<span class="hljs-attribute" title="id">id</span></span></div><div class="tabs"><div class="tabs"><div class="example-names"><span>Responses</span><span class="tab-button">200</span></div><div class="tab"><div><div class="inner"><h5>Headers</h5><pre><code><span class="hljs-attribute">Content-Type</span>: <span class="hljs-string">application/json</span></code></pre><div style="height: 1px;"></div><h5>Body</h5><pre><code>{
-  "<span class="hljs-attribute">event</span>": <span class="hljs-value">{
+  "<span class="hljs-attribute">data</span>": <span class="hljs-value">{
     "<span class="hljs-attribute">id</span>": <span class="hljs-value"><span class="hljs-number">1</span></span>,
     "<span class="hljs-attribute">name”:”Event Name”,”date</span>": <span class="hljs-value"><span class="hljs-string">"2018-12-03 11:33:37"</span></span>,
     "<span class="hljs-attribute">description”:”Description,”created_at</span>": <span class="hljs-value"><span class="hljs-string">"2017-06-13 16:35:34"</span></span>,
@@ -334,7 +334,7 @@
 </span>}</code></pre><div style="height: 1px;"></div></div></div></div></div></div></div><div class="middle"><div id="events-get-1" class="action get"><h4 class="action-heading"><div class="name">Display the specified resource.</div><a href="#events-get-1" class="method get">GET</a><code class="uri">/events/{id}</code></h4><div class="title"><strong>URI Parameters</strong><div class="collapse-button show"><span class="close">Hide</span><span class="open">Show</span></div></div><div class="collapse-content"><dl class="inner"><dt>id</dt><dd><code>integer</code>&nbsp;<span class="required">(required)</span>&nbsp;<p>ID of Challenge</p>
 </dd></dl></div></div></div><hr class="split"><div class="middle"><div id="users" class="resource"><h3 class="resource-heading">Users <a href="#users" class="permalink">&para;</a></h3><p>Users</p>
 </div></div><div class="right"><div class="definition"><span class="method get">GET</span>&nbsp;<span class="uri"><span class="hostname"></span>/users</span></div><div class="tabs"><div class="tabs"><div class="example-names"><span>Responses</span><span class="tab-button">200</span></div><div class="tab"><div><div class="inner"><h5>Headers</h5><pre><code><span class="hljs-attribute">Content-Type</span>: <span class="hljs-string">application/json</span></code></pre><div style="height: 1px;"></div><h5>Body</h5><pre><code>{
-  "<span class="hljs-attribute">users</span>": <span class="hljs-value">[
+  "<span class="hljs-attribute">data</span>": <span class="hljs-value">[
     {
       "<span class="hljs-attribute">id</span>": <span class="hljs-value"><span class="hljs-number">1</span></span>,
       "<span class="hljs-attribute">slack_id</span>": <span class="hljs-value"><span class="hljs-string">"UrH6vj8"</span></span>,
@@ -347,7 +347,7 @@
     </span>}
   ]
 </span>}</code></pre><div style="height: 1px;"></div></div></div></div></div></div></div><div class="middle"><div id="users-get" class="action get"><h4 class="action-heading"><div class="name">Display a listing of the resource.</div><a href="#users-get" class="method get">GET</a><code class="uri">/users</code></h4></div></div><hr class="split"><div class="right"><div class="definition"><span class="method get">GET</span>&nbsp;<span class="uri"><span class="hostname"></span>/users/<span class="hljs-attribute" title="id">id</span></span></div><div class="tabs"><div class="tabs"><div class="example-names"><span>Responses</span><span class="tab-button">200</span></div><div class="tab"><div><div class="inner"><h5>Headers</h5><pre><code><span class="hljs-attribute">Content-Type</span>: <span class="hljs-string">application/json</span></code></pre><div style="height: 1px;"></div><h5>Body</h5><pre><code>{
-  "<span class="hljs-attribute">user</span>": <span class="hljs-value">{
+  "<span class="hljs-attribute">data</span>": <span class="hljs-value">{
     "<span class="hljs-attribute">id</span>": <span class="hljs-value"><span class="hljs-number">1</span></span>,
     "<span class="hljs-attribute">slack_id</span>": <span class="hljs-value"><span class="hljs-string">"UuwXqgS"</span></span>,
     "<span class="hljs-attribute">name</span>": <span class="hljs-value"><span class="hljs-string">"Lambert Feest"</span></span>,
@@ -363,7 +363,7 @@
 <p class="choices"><strong>Choices:&nbsp;</strong><code>challenge</code> </p></dd></dl></div></div></div><hr class="split"><div class="right"><div class="definition"><span class="method put">PUT</span>&nbsp;<span class="uri"><span class="hostname"></span>/users/<span class="hljs-attribute" title="id">id</span></span></div><div class="tabs"><div class="example-names"><span>Requests</span><span class="tab-button">example 1</span></div><div class="tab"><div><div class="inner"><h5>Headers</h5><pre><code><span class="hljs-attribute">Content-Type</span>: <span class="hljs-string">application/json</span></code></pre><div style="height: 1px;"></div><h5>Body</h5><pre><code>{
   "<span class="hljs-attribute">survey</span>": <span class="hljs-value"><span class="hljs-string">""</span>
 </span>}</code></pre><div style="height: 1px;"></div></div></div><div class="tabs"><div class="example-names"><span>Responses</span><span class="tab-button">200</span></div><div class="tab"><div><div class="inner"><h5>Headers</h5><pre><code><span class="hljs-attribute">Content-Type</span>: <span class="hljs-string">application/json</span></code></pre><div style="height: 1px;"></div><h5>Body</h5><pre><code>{
-  "<span class="hljs-attribute">user</span>": <span class="hljs-value">{
+  "<span class="hljs-attribute">data</span>": <span class="hljs-value">{
     "<span class="hljs-attribute">id</span>": <span class="hljs-value"><span class="hljs-number">1</span></span>,
     "<span class="hljs-attribute">slack_id</span>": <span class="hljs-value"><span class="hljs-string">"UuwXqgS"</span></span>,
     "<span class="hljs-attribute">name</span>": <span class="hljs-value"><span class="hljs-string">"Lambert Feest"</span></span>,

@@ -61,7 +61,7 @@ class QuestionController extends Controller {
 	 *
 	 * @post("/")
 	 * @request({"text": "What?", "challenge_id": 1})
-	 * @response(200, body={"question":{"id":1,"text":"What?","challenge_id":1,"phase":1,"created_at":"2017-05-31 17:00:27","updated_at":"2017-05-31 17:18:28"}})
+	 * @response(200, body={"data":{"id":1,"text":"What?","challenge_id":1,"phase":1,"created_at":"2017-05-31 17:00:27","updated_at":"2017-05-31 17:18:28"}})
 	 */
 	public function store( Request $request ) {
 		$challenge = Challenge::findOrFail( $request->get( 'challenge_id' ) );
@@ -77,7 +77,7 @@ class QuestionController extends Controller {
 	 * @return Question
 	 *
 	 * @get("/{id}{?include}")
-	 * @response(200, body={"question":{"id":1,"text":"What?","challenge_id":1,"phase":1,"created_at":"2017-05-31 17:00:27","updated_at":"2017-05-31 17:18:28"}})
+	 * @response(200, body={"data":{"id":1,"text":"What?","challenge_id":1,"phase":1,"created_at":"2017-05-31 17:00:27","updated_at":"2017-05-31 17:18:28"}})
 	 * @parameters({
 	 *     @parameter("id", description="ID of Question", required=true, type="integer"),
 	 *     @parameter("include", type="string", description="Relations to include", members={
@@ -101,7 +101,7 @@ class QuestionController extends Controller {
 	 * @put("/{id}")
 	 * @patch("/{id}")
 	 * @request({"text": "What?"})
-	 * @response(200, body={"question":{"id":1,"text":"What?","challenge_id":1,"phase":1,"created_at":"2017-05-31 17:00:27","updated_at":"2017-05-31 17:18:28"}})
+	 * @response(200, body={"data":{"id":1,"text":"What?","challenge_id":1,"phase":1,"created_at":"2017-05-31 17:00:27","updated_at":"2017-05-31 17:18:28"}})
 	 * @parameters({
 	 *     @parameter("id", description="ID of Question", required=true, type="integer")
 	 * })

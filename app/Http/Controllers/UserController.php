@@ -20,7 +20,7 @@ class UserController extends Controller {
 	 * @return \Illuminate\Database\Eloquent\Collection|static[]
 	 *
 	 * @get("/")
-	 * @response(200, body={"users":{{"id":1,"slack_id":"UrH6vj8","name":"Wilma Hickle","email":"kallie68@example.org","thumbnail":null,"admin":0,"created_at":"2017-06-13 17:57:56","updated_at":"2017-06-13 17:57:56"}}})
+	 * @response(200, body={"data":{{"id":1,"slack_id":"UrH6vj8","name":"Wilma Hickle","email":"kallie68@example.org","thumbnail":null,"admin":0,"created_at":"2017-06-13 17:57:56","updated_at":"2017-06-13 17:57:56"}}})
 	 * @parameter("include", type="string", description="Relations to include", members={
 	 *      @member(value="challenge"),
 	 * }),
@@ -36,7 +36,7 @@ class UserController extends Controller {
 	 *
 	 * @return User
 	 * @get("/{id}")
-	 * @response(200, body={"user":{"id":1,"slack_id":"UuwXqgS","name":"Lambert Feest","email":"uwintheiser@example.com","thumbnail":null,"admin":0,"survey":"","created_at":"2017-06-19 20:06:49","updated_at":"2017-06-19 20:13:45"}})
+	 * @response(200, body={"data":{"id":1,"slack_id":"UuwXqgS","name":"Lambert Feest","email":"uwintheiser@example.com","thumbnail":null,"admin":0,"survey":"","created_at":"2017-06-19 20:06:49","updated_at":"2017-06-19 20:13:45"}})
 	 * @parameters({
 	 *      @parameter("id", description="ID of User OR Slack ID of user", required=true, type="integer|string"),
 	 *      @parameter("include", type="string", description="Relations to include", members={
@@ -59,7 +59,7 @@ class UserController extends Controller {
 	 * @put("/{id}")
 	 * @post("/{id}")
 	 * @request({"survey": ""})
-	 * @response(200, body={"user":{"id":1,"slack_id":"UuwXqgS","name":"Lambert Feest","email":"uwintheiser@example.com","thumbnail":null,"admin":0,"survey":"","created_at":"2017-06-19 20:06:49","updated_at":"2017-06-19 20:13:45"}})
+	 * @response(200, body={"data":{"id":1,"slack_id":"UuwXqgS","name":"Lambert Feest","email":"uwintheiser@example.com","thumbnail":null,"admin":0,"survey":"","created_at":"2017-06-19 20:06:49","updated_at":"2017-06-19 20:13:45"}})
 	 * @parameters({
 	 *      @parameter("id", description="ID of User OR Slack ID of user", required=true, type="integer|string"),
 	 * })

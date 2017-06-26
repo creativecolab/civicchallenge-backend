@@ -38,7 +38,7 @@ class CategoryController extends Controller {
 	 *
 	 * @post("/")
 	 * @request({"name": "Name", "description": "Category description"})
-	 * @response(200, body={"category":{"id":1,"name":"Name","description":"Category description","created_at":"2017-05-31 07:35:50","updated_at":"2017-05-31 07:35:50"}})
+	 * @response(200, body={"data":{"id":1,"name":"Name","description":"Category description","created_at":"2017-05-31 07:35:50","updated_at":"2017-05-31 07:35:50"}})
 	 */
 	public function store( Request $request ) {
 		return Category::create( $request->all() );
@@ -52,7 +52,7 @@ class CategoryController extends Controller {
 	 *
 	 * @return Category
 	 * @get("/{id}{?challenges,questions,allPhases,include}")
-	 * @response(200, body={"category":{"id":1,"name":"Explicabo doloribus distinctio nulla.","description":"Quas ad officia alias asperiores laborum hic aut ex.","created_at":"2017-05-31 07:35:50","updated_at":"2017-05-31 07:35:50"}})
+	 * @response(200, body={"data":{"id":1,"name":"Explicabo doloribus distinctio nulla.","description":"Quas ad officia alias asperiores laborum hic aut ex.","created_at":"2017-05-31 07:35:50","updated_at":"2017-05-31 07:35:50"}})
 	 * @parameters({
 	 *     @parameter("id", description="ID of Category", required=true, type="integer"),
 	 *     @parameter("include", type="string", description="Relations to include", members={
@@ -75,7 +75,7 @@ class CategoryController extends Controller {
 	 *
 	 * @post("/{id}")
 	 * @request({"name": "Name"})
-	 * @response(200, body={"category":{"id":1,"name":"Name","description":"Quas ad officia alias asperiores laborum hic aut ex.","created_at":"2017-05-31 07:35:50","updated_at":"2017-05-31 07:35:50"}})
+	 * @response(200, body={"data":{"id":1,"name":"Name","description":"Quas ad officia alias asperiores laborum hic aut ex.","created_at":"2017-05-31 07:35:50","updated_at":"2017-05-31 07:35:50"}})
 	 * @parameters({
 	 *     @parameter("id", description="ID of Category", required=true, type="integer")
 	 * })

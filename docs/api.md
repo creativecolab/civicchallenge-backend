@@ -5,7 +5,7 @@ FORMAT: 1A
 # Challenges [/challenges]
 Microchallenges
 
-## Display a listing of the resource. [GET /challenges{?phase,allPhases,resources,questions,insights,insightTypes,groupInsightsByQuestion,include}]
+## Display a listing of the resource. [GET /challenges{?phase,allPhases,include}]
 
 
 + Parameters
@@ -35,7 +35,7 @@ Microchallenges
     + Body
 
             {
-                "challenge": {
+                "data": {
                     "id": 1,
                     "name": "Consequatur voluptatem atque blanditiis.",
                     "summary": "In vel eaque ut reprehenderit voluptates.",
@@ -65,7 +65,7 @@ Microchallenges
     + Body
 
             {
-                "challenge": {
+                "data": {
                     "id": 1,
                     "name": "Consequatur voluptatem atque blanditiis.",
                     "summary": "In vel eaque ut reprehenderit voluptates.",
@@ -95,7 +95,7 @@ Microchallenges
     + Body
 
             {
-                "challenge": {
+                "data": {
                     "id": 1,
                     "name": "Consequatur voluptatem atque blanditiis.",
                     "summary": "In vel eaque ut reprehenderit voluptates.",
@@ -124,7 +124,7 @@ Microchallenges
     + Body
 
             {
-                "resource": {
+                "data": {
                     "name": "Test",
                     "url": "http:\/\/test.com",
                     "description": "Test description",
@@ -157,7 +157,7 @@ Microchallenges
     + Body
 
             {
-                "resource": {
+                "data": {
                     "name": "Test",
                     "url": "http:\/\/test.com",
                     "description": "Test description",
@@ -196,7 +196,7 @@ Microchallenges
     + Body
 
             {
-                "question": {
+                "data": {
                     "id": 1,
                     "text": "What?",
                     "challenge_id": 1,
@@ -216,7 +216,7 @@ Microchallenges
     + Body
 
             {
-                "insights": []
+                "data": []
             }
 
 # Challenge Resources [/resources]
@@ -243,7 +243,7 @@ Resources for Challenges. i.e. Student work, external resources
     + Body
 
             {
-                "resource": {
+                "data": {
                     "name": "Test",
                     "url": "http:\/\/test.com",
                     "description": "Test description",
@@ -269,7 +269,7 @@ Resources for Challenges. i.e. Student work, external resources
     + Body
 
             {
-                "resource": {
+                "data": {
                     "name": "Test",
                     "url": "http:\/\/test.com",
                     "description": "Test description",
@@ -303,7 +303,7 @@ Resources for Challenges. i.e. Student work, external resources
     + Body
 
             {
-                "resource": {
+                "data": {
                     "name": "Test",
                     "url": "http:\/\/test.com",
                     "description": "Test description",
@@ -351,7 +351,7 @@ Option to include challenges as well as resources. Resources default to current 
     + Body
 
             {
-                "category": {
+                "data": {
                     "id": 1,
                     "name": "Name",
                     "description": "Category description",
@@ -374,7 +374,7 @@ Option to include challenges as well as resources. Resources default to current 
     + Body
 
             {
-                "category": {
+                "data": {
                     "id": 1,
                     "name": "Explicabo doloribus distinctio nulla.",
                     "description": "Quas ad officia alias asperiores laborum hic aut ex.",
@@ -400,7 +400,7 @@ Option to include challenges as well as resources. Resources default to current 
     + Body
 
             {
-                "category": {
+                "data": {
                     "id": 1,
                     "name": "Name",
                     "description": "Quas ad officia alias asperiores laborum hic aut ex.",
@@ -448,7 +448,7 @@ Discussion Questions
     + Body
 
             {
-                "question": {
+                "data": {
                     "id": 1,
                     "text": "What?",
                     "challenge_id": 1,
@@ -472,7 +472,7 @@ Discussion Questions
     + Body
 
             {
-                "question": {
+                "data": {
                     "id": 1,
                     "text": "What?",
                     "challenge_id": 1,
@@ -499,7 +499,7 @@ Discussion Questions
     + Body
 
             {
-                "question": {
+                "data": {
                     "id": 1,
                     "text": "What?",
                     "challenge_id": 1,
@@ -565,7 +565,7 @@ Insights i.e. Discussion, comments, prototypes, ideas
     + Body
 
             {
-                "insight": {
+                "data": {
                     "text": "Eos ipsa possimus nemo voluptas facilis in.",
                     "user_id": 1,
                     "timestamp": "1999-01-31 00:00:00",
@@ -598,7 +598,7 @@ Insights i.e. Discussion, comments, prototypes, ideas
     + Body
 
             {
-                "insight": {
+                "data": {
                     "text": "Eos ipsa possimus nemo voluptas facilis in.",
                     "user_id": 1,
                     "timestamp": "1999-01-31 00:00:00",
@@ -631,7 +631,7 @@ Insights i.e. Discussion, comments, prototypes, ideas
     + Body
 
             {
-                "insight": {
+                "data": {
                     "text": "Eos ipsa possimus nemo voluptas facilis in.",
                     "user_id": 1,
                     "timestamp": "1999-01-31 00:00:00",
@@ -665,7 +665,7 @@ Events
     + Body
 
             {
-                "events": [
+                "data": [
                     {
                         "id": 1,
                         "name": "Name",
@@ -691,7 +691,7 @@ Events
     + Body
 
             {
-                "event": {
+                "data": {
                     "id": 1,
                     "name”:”Event Name”,”date": "2018-12-03 11:33:37",
                     "description”:”Description,”created_at": "2017-06-13 16:35:34",
@@ -709,7 +709,7 @@ Users
     + Body
 
             {
-                "users": [
+                "data": [
                     {
                         "id": 1,
                         "slack_id": "UrH6vj8",
@@ -736,7 +736,7 @@ Users
     + Body
 
             {
-                "user": {
+                "data": {
                     "id": 1,
                     "slack_id": "UuwXqgS",
                     "name": "Lambert Feest",
@@ -766,7 +766,7 @@ Users
     + Body
 
             {
-                "user": {
+                "data": {
                     "id": 1,
                     "slack_id": "UuwXqgS",
                     "name": "Lambert Feest",
