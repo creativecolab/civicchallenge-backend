@@ -20,7 +20,7 @@ class ResourceController extends Controller {
 	 * @return \Illuminate\Database\Eloquent\Collection|static[]
 	 *
 	 * @get("/{?include}")
-	 * @parameter("include", type="enum[string]", description="Relations to include", members={
+	 * @parameter("include", type="string", description="Relations to include", members={
 	 *      @member(value="challenge"),
 	 * }),
 	 */
@@ -56,7 +56,7 @@ class ResourceController extends Controller {
 	 * @response(200, body={"resource":{"name":"Test","url":"http:\/\/test.com","description":"Test description","type":"PDF","phase":2,"challenge_id":1,"updated_at":"2017-05-31 06:33:25","created_at":"2017-05-31 06:33:25","id":23}})
 	 * @parameters({
 	 *     @parameter("id", description="ID of Resource", required=true, type="integer"),
-	 *     @parameter("include", type="enum[string]", description="Relations to include", members={
+	 *     @parameter("include", type="string", description="Relations to include", members={
 	 *          @member(value="challenge"),
 	 *     }),
 	 * })

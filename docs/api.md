@@ -261,7 +261,7 @@ Resources for Challenges. i.e. Student work, external resources
 
 + Parameters
     + id: (integer, required) - ID of Resource
-    + include: (enum[enum[string]], optional) - Relations to include
+    + include: (enum[string], optional) - Relations to include
         + Members
             + `challenge` - 
 
