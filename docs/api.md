@@ -5,7 +5,7 @@ FORMAT: 1A
 # Challenges [/challenges]
 Microchallenges
 
-## Display a listing of the resource. [GET /challenges{?phase,allPhases,resources,questions,insights,insightTypes,groupInsightsByQuestion}]
+## Display a listing of the resource. [GET /challenges{?phase,allPhases,resources,questions,insights,insightTypes,groupInsightsByQuestion,include}]
 
 
 + Parameters
@@ -56,7 +56,7 @@ Microchallenges
                 }
             }
 
-## Display the specified resource. [GET /challenges/{id}{?phase,allPhases,resources,questions,insights,insightTypes,groupInsightsByQuestion}]
+## Display the specified resource. [GET /challenges/{id}{?phase,allPhases,resources,questions,insights,insightTypes,groupInsightsByQuestion,include}]
 
 
 + Parameters
@@ -216,7 +216,7 @@ Microchallenges
     + Body
 
             {
-                "data": {
+                "question": {
                     "id": 1,
                     "text": "What?",
                     "challenge_id": 1,
@@ -242,7 +242,7 @@ Microchallenges
 # Challenge Resources [/resources]
 Resources for Challenges. i.e. Student work, external resources
 
-## Display a listing of the resource. [GET /resources]
+## Display a listing of the resource. [GET /resources{?include}]
 
 
 ## Store a newly created resource in storage. [POST /resources]
@@ -276,7 +276,7 @@ Resources for Challenges. i.e. Student work, external resources
                 }
             }
 
-## Display the specified resource. [GET /resources/{id}]
+## Display the specified resource. [GET /resources/{id}{?include}]
 
 
 + Parameters
@@ -347,20 +347,14 @@ Resources for Challenges. i.e. Student work, external resources
 # Categories [/categories]
 Categories of Microchallenges
 
-## Display a listing of the resource. [GET /categories{?include}]
-
+## List categories. [GET /categories{?include}]
+Option to include challenges as well as resources. Resources default to current phase only.
 
 + Parameters
-    + challenges: (boolean, optional) - Include challenges under each category
-        + Default: false
-    + questions: (boolean, optional) - Include associated questions at current phase.
-        + Default: false
-    + allPhases: (boolean, optional) - Get relations from all phases.
-        + Default: false
-    + include: (enum[enum[string]], optional) - Relations to include
+    + include: (enum[string], optional) - Relations to include
         + Members
             + `challenges` - 
-            + `challenges.questions` - 
+            + `challenges.questions{?:allPhases(true)}` - Get relations from all phases (default is current phase only)
 
 ## Store a newly created resource in storage. [POST /categories]
 
@@ -386,21 +380,15 @@ Categories of Microchallenges
                 }
             }
 
-## Display the specified resource. [GET /categories/{id}{?challenges,questions,allPhases}]
-
+## Get Category by ID. [GET /categories/{id}{?challenges,questions,allPhases,include}]
+Option to include challenges as well as resources. Resources default to current phase only.
 
 + Parameters
     + id: (integer, required) - ID of Category
-    + challenges: (boolean, optional) - Include challenges under category
-        + Default: false
-    + questions: (boolean, optional) - Include associated questions at current phase.
-        + Default: false
-    + allPhases: (boolean, optional) - Get relations from all phases.
-        + Default: false
-    + include: (enum[enum[string]], optional) - Relations to include
+    + include: (enum[string], optional) - Relations to include
         + Members
             + `challenges` - 
-            + `challenges.questions` - 
+            + `challenges.questions` - Get relations from all phases (default is current phase only)
 
 + Response 200 (application/json)
     + Body
@@ -452,7 +440,7 @@ Categories of Microchallenges
 # Discussion Questions [/questions]
 Discussion Questions
 
-## Display a listing of the resource. [GET /questions]
+## Display a listing of the resource. [GET /questions{?challenge,phase,include}]
 
 
 + Parameters
@@ -490,7 +478,7 @@ Discussion Questions
                 }
             }
 
-## Display the specified resource. [GET /questions/{id}]
+## Display the specified resource. [GET /questions/{id}{?include}]
 
 
 + Parameters
@@ -552,7 +540,7 @@ Discussion Questions
 # Insights [/insights]
 Insights i.e. Discussion, comments, prototypes, ideas
 
-## Display a listing of the resource. [GET /insights{?types,challenge,phase}]
+## Display a listing of the resource. [GET /insights{?types,challenge,phase,include}]
 
 
 + Parameters
@@ -615,7 +603,7 @@ Insights i.e. Discussion, comments, prototypes, ideas
 
 + Response 204 (application/json)
 
-## Display the specified resource. [GET /insights/{id}]
+## Display the specified resource. [GET /insights/{id}{?include}]
 
 
 + Parameters

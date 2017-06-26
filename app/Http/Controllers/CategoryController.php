@@ -12,58 +12,21 @@ use Illuminate\Http\Request;
  */
 class CategoryController extends Controller {
 	/**
-	 * Display a listing of the resource.
-	 *
-	 * @param Request $request
+	 * List categories.
+	 * Option to include challenges as well as resources. Resources default to current phase only.
 	 *
 	 * @return \Illuminate\Database\Eloquent\Collection|static[]
 	 *
 	 * @get("/{?include}")
 	 * @parameters({
-	 *     @parameter("challenges", type="boolean", description="Include challenges under each category", default="false"),
-	 *     @parameter("questions", type="boolean", description="Include associated questions at current phase.", default="false"),
-	 *     @parameter("allPhases", type="boolean", description="Get relations from all phases.", default="false"),
-	 *     @parameter("include", type="enum[string]", description="Relations to include", members={
-	 *          @member(value="challenges"),
-	 *          @member(value="challenges.questions")
+	 *     @parameter("include", type="string", description="Relations to include", members={
+	 *          @Member(value="challenges"),
+	 *          @Member(value="challenges.questions{?:allPhases(true)}", description="Get relations from all phases (default is current phase only)"),
 	 *     }),
 	 * })
 	 */
-	public function index( Request $request ) {
-		$withChallenges = filter_var( $request->query( 'challenges' ), FILTER_VALIDATE_BOOLEAN );
-		$withQuestions  = filter_var( $request->query( 'questions' ), FILTER_VALIDATE_BOOLEAN );
-		$allPhases      = filter_var( $request->query( 'allPhases' ), FILTER_VALIDATE_BOOLEAN );
-
-		$loadRelations = [];
-
-		if ( $withChallenges ) {
-			$loadRelations[] = 'challenges';
-		}
-
-		if ( $allPhases ) {
-			if ( $withQuestions ) {
-				$loadRelations[] = 'challenges.questions';
-			}
-
-			return Category::with( $loadRelations )->get();
-		} else {
-			$categories = Category::with( $loadRelations )->get();
-
-			if ( $withChallenges && $withQuestions ) {
-				foreach ( $categories as $category ) {
-					foreach ( $category->challenges as $key => $challenge ) {
-						$phase = $challenge->phase;
-						$challenge->load( [
-							'questions' => function ( $query ) use ( $phase ) {
-								$query->where( 'phase', '=', $phase );
-							}
-						] );
-					}
-				}
-			}
-
-			return $categories;
-		}
+	public function index() {
+		return Category::all();
 	}
 
 	/**
@@ -82,9 +45,9 @@ class CategoryController extends Controller {
 	}
 
 	/**
-	 * Display the specified resource.
+	 * Get Category by ID.
+	 * Option to include challenges as well as resources. Resources default to current phase only.
 	 *
-	 * @param Request $request
 	 * @param  \App\Category $category
 	 *
 	 * @return Category
@@ -92,48 +55,14 @@ class CategoryController extends Controller {
 	 * @response(200, body={"category":{"id":1,"name":"Explicabo doloribus distinctio nulla.","description":"Quas ad officia alias asperiores laborum hic aut ex.","created_at":"2017-05-31 07:35:50","updated_at":"2017-05-31 07:35:50"}})
 	 * @parameters({
 	 *     @parameter("id", description="ID of Category", required=true, type="integer"),
-	 *     @parameter("challenges", type="boolean", description="Include challenges under category", default="false"),
-	 *     @parameter("questions", type="boolean", description="Include associated questions at current phase.", default="false"),
-	 *     @parameter("allPhases", type="boolean", description="Get relations from all phases.", default="false"),
-	 *     @parameter("include", type="enum[string]", description="Relations to include", members={
+	 *     @parameter("include", type="string", description="Relations to include", members={
 	 *          @member(value="challenges"),
-	 *          @member(value="challenges.questions")
+	 *          @member(value="challenges.questions", description="Get relations from all phases (default is current phase only)")
 	 *     }),
 	 * })
 	 */
-	public function show( Request $request, Category $category ) {
-		$withChallenges = filter_var( $request->query( 'challenges' ), FILTER_VALIDATE_BOOLEAN );
-		$withQuestions  = filter_var( $request->query( 'questions' ), FILTER_VALIDATE_BOOLEAN );
-		$allPhases      = filter_var( $request->query( 'allPhases' ), FILTER_VALIDATE_BOOLEAN );
-
-		$loadRelations = [];
-
-		if ( $withChallenges ) {
-			$loadRelations[] = 'challenges';
-		}
-
-		if ( $allPhases ) {
-			if ( $withQuestions ) {
-				$loadRelations[] = 'challenges.questions';
-			}
-		} else {
-			if ( $withChallenges && $withQuestions ) {
-				$category->load($loadRelations);
-
-				$loadRelations = []; // Reset because we've loaded
-
-				foreach ( $category->challenges as $key => $challenge ) {
-					$phase = $challenge->phase;
-					$challenge->load( [
-						'questions' => function ( $query ) use ( $phase ) {
-							$query->where( 'phase', '=', $phase );
-						}
-					] );
-				}
-			}
-		}
-
-		return $category->load( $loadRelations );
+	public function show( Category $category ) {
+		return $category;
 	}
 
 	/**
