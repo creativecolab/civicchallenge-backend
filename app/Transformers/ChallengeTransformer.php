@@ -77,7 +77,7 @@ class ChallengeTransformer extends TransformerAbstract {
 	 * @return mixed
 	 */
 	protected function processPhases( Challenge $challenge, $resourceKey, ParamBag $params ) {
-		$allPhases = (bool) $params->get( 'allPhases' );
+		$allPhases = ((bool) $params->get( 'allPhases' )) || $this->params['allPhases'];
 
 		if ( ! $allPhases ) {
 			// Default to current phase if specific phase is not requested
