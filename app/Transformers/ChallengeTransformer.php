@@ -45,7 +45,7 @@ class ChallengeTransformer extends TransformerAbstract {
 	}
 
 	public function includeResources( Challenge $challenge, ParamBag $params = null ) {
-		$resources = $this->processPhases( $challenge, 'resources', $params );
+		$resources = $this->processParams( $challenge, 'resources', $params );
 
 		return $this->collection( $resources, new ResourceTransformer );
 	}
@@ -55,19 +55,19 @@ class ChallengeTransformer extends TransformerAbstract {
 	}
 
 	public function includeQuestions( Challenge $challenge, ParamBag $params = null ) {
-		$questions = $this->processPhases( $challenge, 'questions', $params );
+		$questions = $this->processParams( $challenge, 'questions', $params );
 
 		return $this->collection( $questions, new QuestionTransformer );
 	}
 
 	public function includeInsights( Challenge $challenge, ParamBag $params = null ) {
-		$insights = $this->processPhases( $challenge, 'insights', $params );
+		$insights = $this->processParams( $challenge, 'insights', $params );
 
 		return $this->collection( $insights, new InsightTransformer );
 	}
 
 	/**
-	 * Processes phase parameters (allPhase, phase). Checks if it is set and returns resources from all phases OR specific phase if requested.
+	 * Processes parameters (allPhase, phase, insightTypes). Checks if it is set and returns resources from all phases OR specific phase if requested.
 	 * Otherwise defaults to current phase only.
 	 *
 	 * @param Challenge $challenge
@@ -76,8 +76,18 @@ class ChallengeTransformer extends TransformerAbstract {
 	 *
 	 * @return mixed
 	 */
-	protected function processPhases( Challenge $challenge, $resourceKey, ParamBag $params ) {
-		$allPhases = ((bool) $params->get( 'allPhases' )) || $this->params['allPhases'];
+	protected function processParams( Challenge $challenge, $resourceKey, ParamBag $params ) {
+		if (isset($this->params['allPhases'])) {
+			$allPhases = $this->params['allPhases'];
+		} else {
+			$allPhases    = (bool) $params->get('allPhases');
+		}
+		$insightTypes = $params->get('types');
+
+		// Set default insight types
+		if ($resourceKey === 'insights' && empty($insightTypes)) {
+			$insightTypes = [1,2];
+		}
 
 		if ( ! $allPhases ) {
 			// Default to current phase if specific phase is not requested
@@ -86,11 +96,33 @@ class ChallengeTransformer extends TransformerAbstract {
 			} else {
 				$phase = $challenge->phase;
 			}
-			$challenge->load( [
-				$resourceKey => function ( $query ) use ( $phase ) {
-					$query->where( 'phase', '=', $phase );
-				}
-			] );
+
+			// Define phase function for later use
+			$phaseFunction = function ( $query ) use ( $phase ) {
+				$query->where( 'phase', '=', $phase );
+			};
+
+			// Query for insights only (better performance if we do a query all at once)
+			if ( $resourceKey === 'insights' && !empty($insightTypes) ) {
+				$challenge->load( [
+					$resourceKey => function ( $query ) use ( $phase, $phaseFunction, $insightTypes ) {
+						$query->whereIn( 'type', $insightTypes );
+						return $phaseFunction($query);
+					}
+				] );
+			} else {
+				$challenge->load( [
+					$resourceKey => $phaseFunction
+				] );
+			}
+		} else {
+			if ( $resourceKey === 'insights' && !empty($insightTypes) ) {
+				$challenge->load( [
+					$resourceKey => function ( $query ) use ( $insightTypes ) {
+						$query->whereIn( 'type', $insightTypes );
+					}
+				] );
+			}
 		}
 
 		return $challenge->$resourceKey;
