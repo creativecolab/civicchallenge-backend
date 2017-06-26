@@ -5,29 +5,19 @@ FORMAT: 1A
 # Challenges [/challenges]
 Microchallenges
 
-## Display a listing of the resource. [GET /challenges{?phase,allPhases,resources,questions,insights,insightTypes,groupInsightsByQuestion}]
+## Display a listing of the resource. [GET /challenges{?phase,allPhases,include}]
 
 
 + Parameters
     + phase: (number, optional) - Get challenges from specific phase.
     + allPhases: (boolean, optional) - Get relations for each challenge from all phases.
         + Default: 0
-    + resources: (boolean, optional) - Include associated resources.
-        + Default: 0
-    + questions: (boolean, optional) - Include associated questions.
-        + Default: 0
-    + insights: (boolean, optional) - Include associated insights.
-        + Default: 0
-    + insightTypes: (array|number, optional) - Filter by type (0 = NORMAL, 1 = CURATED, 2 = HIGHLIGHT)
-        + Default: 1,2
-    + groupInsightsByQuestion: (boolean, optional) - Group associated insights by questions
-        + Default: 0
-    + include: (enum[enum[string]], optional) - Relations to include
+    + include: (enum[string], optional) - Relations to include
         + Members
             + `category` - 
             + `resources` - 
             + `questions` - 
-            + `insights` - 
+            + `insights{?:type()}` - Filter by type (0 = NORMAL, 1 = CURATED, 2 = HIGHLIGHT). Default is 1 and 2
 
 ## Store a newly created resource in storage. [POST /challenges]
 
@@ -45,7 +35,7 @@ Microchallenges
     + Body
 
             {
-                "challenge": {
+                "data": {
                     "id": 1,
                     "name": "Consequatur voluptatem atque blanditiis.",
                     "summary": "In vel eaque ut reprehenderit voluptates.",
@@ -56,7 +46,7 @@ Microchallenges
                 }
             }
 
-## Display the specified resource. [GET /challenges/{id}{?phase,allPhases,resources,questions,insights,insightTypes,groupInsightsByQuestion}]
+## Display the specified resource. [GET /challenges/{id}{?phase,allPhases,include}]
 
 
 + Parameters
@@ -64,28 +54,18 @@ Microchallenges
     + phase: (number, optional) - Get relations from specific phase.
     + allPhases: (boolean, optional) - Get relations from all phases.
         + Default: 0
-    + resources: (boolean, optional) - Include associated resources.
-        + Default: 0
-    + questions: (boolean, optional) - Include associated questions.
-        + Default: 0
-    + insights: (boolean, optional) - Include associated insights.
-        + Default: 0
-    + insightTypes: (array|number, optional) - Filter by type (0 = NORMAL, 1 = CURATED, 2 = HIGHLIGHT)
-        + Default: 1,2
-    + groupInsightsByQuestion: (boolean, optional) - Group associated insights by questions
-        + Default: 0
-    + include: (enum[enum[string]], optional) - Relations to include
+    + include: (enum[string], optional) - Relations to include
         + Members
             + `category` - 
             + `resources` - 
             + `questions` - 
-            + `insights` - 
+            + `insights{?:type()}` - Filter by type (0 = NORMAL, 1 = CURATED, 2 = HIGHLIGHT). Default is 1 and 2.
 
 + Response 200 (application/json)
     + Body
 
             {
-                "challenge": {
+                "data": {
                     "id": 1,
                     "name": "Consequatur voluptatem atque blanditiis.",
                     "summary": "In vel eaque ut reprehenderit voluptates.",
@@ -115,7 +95,7 @@ Microchallenges
     + Body
 
             {
-                "challenge": {
+                "data": {
                     "id": 1,
                     "name": "Consequatur voluptatem atque blanditiis.",
                     "summary": "In vel eaque ut reprehenderit voluptates.",
@@ -144,7 +124,7 @@ Microchallenges
     + Body
 
             {
-                "resource": {
+                "data": {
                     "name": "Test",
                     "url": "http:\/\/test.com",
                     "description": "Test description",
@@ -177,7 +157,7 @@ Microchallenges
     + Body
 
             {
-                "resource": {
+                "data": {
                     "name": "Test",
                     "url": "http:\/\/test.com",
                     "description": "Test description",
@@ -236,13 +216,13 @@ Microchallenges
     + Body
 
             {
-                "insights": []
+                "data": []
             }
 
 # Challenge Resources [/resources]
 Resources for Challenges. i.e. Student work, external resources
 
-## Display a listing of the resource. [GET /resources]
+## Display a listing of the resource. [GET /resources{?include}]
 
 
 ## Store a newly created resource in storage. [POST /resources]
@@ -263,7 +243,7 @@ Resources for Challenges. i.e. Student work, external resources
     + Body
 
             {
-                "resource": {
+                "data": {
                     "name": "Test",
                     "url": "http:\/\/test.com",
                     "description": "Test description",
@@ -276,12 +256,12 @@ Resources for Challenges. i.e. Student work, external resources
                 }
             }
 
-## Display the specified resource. [GET /resources/{id}]
+## Display the specified resource. [GET /resources/{id}{?include}]
 
 
 + Parameters
     + id: (integer, required) - ID of Resource
-    + include: (enum[enum[string]], optional) - Relations to include
+    + include: (enum[string], optional) - Relations to include
         + Members
             + `challenge` - 
 
@@ -289,7 +269,7 @@ Resources for Challenges. i.e. Student work, external resources
     + Body
 
             {
-                "resource": {
+                "data": {
                     "name": "Test",
                     "url": "http:\/\/test.com",
                     "description": "Test description",
@@ -323,7 +303,7 @@ Resources for Challenges. i.e. Student work, external resources
     + Body
 
             {
-                "resource": {
+                "data": {
                     "name": "Test",
                     "url": "http:\/\/test.com",
                     "description": "Test description",
@@ -347,20 +327,14 @@ Resources for Challenges. i.e. Student work, external resources
 # Categories [/categories]
 Categories of Microchallenges
 
-## Display a listing of the resource. [GET /categories{?include}]
-
+## List categories. [GET /categories{?include}]
+Option to include challenges as well as resources. Resources default to current phase only.
 
 + Parameters
-    + challenges: (boolean, optional) - Include challenges under each category
-        + Default: false
-    + questions: (boolean, optional) - Include associated questions at current phase.
-        + Default: false
-    + allPhases: (boolean, optional) - Get relations from all phases.
-        + Default: false
-    + include: (enum[enum[string]], optional) - Relations to include
+    + include: (enum[string], optional) - Relations to include
         + Members
             + `challenges` - 
-            + `challenges.questions` - 
+            + `challenges.questions{?:allPhases(true)}` - Get relations from all phases (default is current phase only)
 
 ## Store a newly created resource in storage. [POST /categories]
 
@@ -377,7 +351,7 @@ Categories of Microchallenges
     + Body
 
             {
-                "category": {
+                "data": {
                     "id": 1,
                     "name": "Name",
                     "description": "Category description",
@@ -386,27 +360,21 @@ Categories of Microchallenges
                 }
             }
 
-## Display the specified resource. [GET /categories/{id}{?challenges,questions,allPhases}]
-
+## Get Category by ID. [GET /categories/{id}{?challenges,questions,allPhases,include}]
+Option to include challenges as well as resources. Resources default to current phase only.
 
 + Parameters
     + id: (integer, required) - ID of Category
-    + challenges: (boolean, optional) - Include challenges under category
-        + Default: false
-    + questions: (boolean, optional) - Include associated questions at current phase.
-        + Default: false
-    + allPhases: (boolean, optional) - Get relations from all phases.
-        + Default: false
-    + include: (enum[enum[string]], optional) - Relations to include
+    + include: (enum[string], optional) - Relations to include
         + Members
             + `challenges` - 
-            + `challenges.questions` - 
+            + `challenges.questions` - Get relations from all phases (default is current phase only)
 
 + Response 200 (application/json)
     + Body
 
             {
-                "category": {
+                "data": {
                     "id": 1,
                     "name": "Explicabo doloribus distinctio nulla.",
                     "description": "Quas ad officia alias asperiores laborum hic aut ex.",
@@ -432,7 +400,7 @@ Categories of Microchallenges
     + Body
 
             {
-                "category": {
+                "data": {
                     "id": 1,
                     "name": "Name",
                     "description": "Quas ad officia alias asperiores laborum hic aut ex.",
@@ -452,13 +420,13 @@ Categories of Microchallenges
 # Discussion Questions [/questions]
 Discussion Questions
 
-## Display a listing of the resource. [GET /questions]
+## Display a listing of the resource. [GET /questions{?challenge,phase,include}]
 
 
 + Parameters
     + challenge: (number, optional) - Get insights from challenge ID.
     + phase: (number, optional) - Get insights from specific phase
-    + include: (enum[enum[string]], optional) - Relations to include
+    + include: (enum[string], optional) - Relations to include
         + Members
             + `insights` - 
             + `challenge` - 
@@ -480,7 +448,7 @@ Discussion Questions
     + Body
 
             {
-                "question": {
+                "data": {
                     "id": 1,
                     "text": "What?",
                     "challenge_id": 1,
@@ -490,12 +458,12 @@ Discussion Questions
                 }
             }
 
-## Display the specified resource. [GET /questions/{id}]
+## Display the specified resource. [GET /questions/{id}{?include}]
 
 
 + Parameters
     + id: (integer, required) - ID of Question
-    + include: (enum[enum[string]], optional) - Relations to include
+    + include: (enum[string], optional) - Relations to include
         + Members
             + `insights` - 
             + `challenge` - 
@@ -504,7 +472,7 @@ Discussion Questions
     + Body
 
             {
-                "question": {
+                "data": {
                     "id": 1,
                     "text": "What?",
                     "challenge_id": 1,
@@ -531,7 +499,7 @@ Discussion Questions
     + Body
 
             {
-                "question": {
+                "data": {
                     "id": 1,
                     "text": "What?",
                     "challenge_id": 1,
@@ -552,14 +520,14 @@ Discussion Questions
 # Insights [/insights]
 Insights i.e. Discussion, comments, prototypes, ideas
 
-## Display a listing of the resource. [GET /insights{?types,challenge,phase}]
+## Display a listing of the resource. [GET /insights{?types,challenge,phase,include}]
 
 
 + Parameters
     + types: (array|number, optional) - Filter by type (0 = NORMAL, 1 = CURATED, 2 = HIGHLIGHT)
     + challenge: (number, optional) - Get insights from challenge ID.
     + phase: (number, optional) - Get insights from specific phase
-    + include: (enum[enum[string]], optional) - Relations to include
+    + include: (enum[string], optional) - Relations to include
         + Members
             + `user` - 
             + `question` - 
@@ -597,7 +565,7 @@ Insights i.e. Discussion, comments, prototypes, ideas
     + Body
 
             {
-                "insight": {
+                "data": {
                     "text": "Eos ipsa possimus nemo voluptas facilis in.",
                     "user_id": 1,
                     "timestamp": "1999-01-31 00:00:00",
@@ -615,12 +583,12 @@ Insights i.e. Discussion, comments, prototypes, ideas
 
 + Response 204 (application/json)
 
-## Display the specified resource. [GET /insights/{id}]
+## Display the specified resource. [GET /insights/{id}{?include}]
 
 
 + Parameters
     + id: (integer, required) - ID of Insight
-    + include: (enum[enum[string]], optional) - Relations to include
+    + include: (enum[string], optional) - Relations to include
         + Members
             + `user` - 
             + `question` - 
@@ -630,7 +598,7 @@ Insights i.e. Discussion, comments, prototypes, ideas
     + Body
 
             {
-                "insight": {
+                "data": {
                     "text": "Eos ipsa possimus nemo voluptas facilis in.",
                     "user_id": 1,
                     "timestamp": "1999-01-31 00:00:00",
@@ -663,7 +631,7 @@ Insights i.e. Discussion, comments, prototypes, ideas
     + Body
 
             {
-                "insight": {
+                "data": {
                     "text": "Eos ipsa possimus nemo voluptas facilis in.",
                     "user_id": 1,
                     "timestamp": "1999-01-31 00:00:00",
@@ -697,7 +665,7 @@ Events
     + Body
 
             {
-                "events": [
+                "data": [
                     {
                         "id": 1,
                         "name": "Name",
@@ -723,7 +691,7 @@ Events
     + Body
 
             {
-                "event": {
+                "data": {
                     "id": 1,
                     "name”:”Event Name”,”date": "2018-12-03 11:33:37",
                     "description”:”Description,”created_at": "2017-06-13 16:35:34",
@@ -741,7 +709,7 @@ Users
     + Body
 
             {
-                "users": [
+                "data": [
                     {
                         "id": 1,
                         "slack_id": "UrH6vj8",
@@ -760,12 +728,15 @@ Users
 
 + Parameters
     + id: (integer|string, required) - ID of User OR Slack ID of user
+    + include: (enum[string], optional) - Relations to include
+        + Members
+            + `challenge` - 
 
 + Response 200 (application/json)
     + Body
 
             {
-                "user": {
+                "data": {
                     "id": 1,
                     "slack_id": "UuwXqgS",
                     "name": "Lambert Feest",
@@ -795,7 +766,7 @@ Users
     + Body
 
             {
-                "user": {
+                "data": {
                     "id": 1,
                     "slack_id": "UuwXqgS",
                     "name": "Lambert Feest",

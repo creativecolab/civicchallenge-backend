@@ -29,7 +29,7 @@ class QuestionController extends Controller {
 	 * @parameters({
 	 *     @parameter("challenge", type="number", description="Get insights from challenge ID."),
 	 *     @parameter("phase", type="number", description="Get insights from specific phase"),
-	 *     @parameter("include", type="enum[string]", description="Relations to include", members={
+	 *     @parameter("include", type="string", description="Relations to include", members={
 	 *          @member(value="insights"),
 	 *          @member(value="challenge"),
 	 *     }),
@@ -39,11 +39,7 @@ class QuestionController extends Controller {
 		$challenge = $request->get('challenge');
 		$phase = $request->get('phase');
 
-		if (!$challenge && !$phase) {
-			return Question::all();
-		}
-
-		$questions = DB::table('questions');
+		$questions = new Question();
 
 		if ($challenge) {
 			$questions = $questions->where('challenge_id', '=', $challenge);
@@ -65,7 +61,7 @@ class QuestionController extends Controller {
 	 *
 	 * @post("/")
 	 * @request({"text": "What?", "challenge_id": 1})
-	 * @response(200, body={"question":{"id":1,"text":"What?","challenge_id":1,"phase":1,"created_at":"2017-05-31 17:00:27","updated_at":"2017-05-31 17:18:28"}})
+	 * @response(200, body={"data":{"id":1,"text":"What?","challenge_id":1,"phase":1,"created_at":"2017-05-31 17:00:27","updated_at":"2017-05-31 17:18:28"}})
 	 */
 	public function store( Request $request ) {
 		$challenge = Challenge::findOrFail( $request->get( 'challenge_id' ) );
@@ -81,10 +77,10 @@ class QuestionController extends Controller {
 	 * @return Question
 	 *
 	 * @get("/{id}{?include}")
-	 * @response(200, body={"question":{"id":1,"text":"What?","challenge_id":1,"phase":1,"created_at":"2017-05-31 17:00:27","updated_at":"2017-05-31 17:18:28"}})
+	 * @response(200, body={"data":{"id":1,"text":"What?","challenge_id":1,"phase":1,"created_at":"2017-05-31 17:00:27","updated_at":"2017-05-31 17:18:28"}})
 	 * @parameters({
 	 *     @parameter("id", description="ID of Question", required=true, type="integer"),
-	 *     @parameter("include", type="enum[string]", description="Relations to include", members={
+	 *     @parameter("include", type="string", description="Relations to include", members={
 	 *          @member(value="insights"),
 	 *          @member(value="challenge"),
 	 *     }),
@@ -105,7 +101,7 @@ class QuestionController extends Controller {
 	 * @put("/{id}")
 	 * @patch("/{id}")
 	 * @request({"text": "What?"})
-	 * @response(200, body={"question":{"id":1,"text":"What?","challenge_id":1,"phase":1,"created_at":"2017-05-31 17:00:27","updated_at":"2017-05-31 17:18:28"}})
+	 * @response(200, body={"data":{"id":1,"text":"What?","challenge_id":1,"phase":1,"created_at":"2017-05-31 17:00:27","updated_at":"2017-05-31 17:18:28"}})
 	 * @parameters({
 	 *     @parameter("id", description="ID of Question", required=true, type="integer")
 	 * })

@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Challenge;
 use App\Http\Requests\Api\GetChallengeRequest;
+use App\Transformers\ChallengeTransformer;
 use DB;
+use Dingo\Api\Routing\Helpers;
 use Illuminate\Http\Request;
 
 /**
@@ -13,130 +15,39 @@ use Illuminate\Http\Request;
  * @resource("Challenges", uri="/challenges")
  */
 class ChallengeController extends Controller {
-	use CreatesResources, CreatesQuestions;
+	use CreatesResources, CreatesQuestions, Helpers;
 
 	/**
 	 * Display a listing of the resource.
 	 *
 	 * @param GetChallengeRequest $request
 	 *
-	 * @return \Illuminate\Database\Eloquent\Collection|static[]
-	 * @get("/{?phase,allPhases,resources,questions,insights,insightTypes,groupInsightsByQuestion,include}")
+	 * @return \Dingo\Api\Http\Response
+	 * @get("/{?phase,allPhases,include}")
 	 * @parameters({
 	 *     @parameter("phase", type="number", description="Get challenges from specific phase."),
 	 *     @parameter("allPhases", type="boolean", description="Get relations for each challenge from all phases.", default=0),
-	 *     @parameter("resources", type="boolean", description="Include associated resources.", default=0),
-	 *     @parameter("questions", type="boolean", description="Include associated questions.", default=0),
-	 *     @parameter("insights", type="boolean", description="Include associated insights.", default=0),
-	 *     @parameter("insightTypes", type="array|number", description="Filter by type (0 = NORMAL, 1 = CURATED, 2 = HIGHLIGHT)", default="1,2"),
-	 *     @parameter("groupInsightsByQuestion", type="boolean", description="Group associated insights by questions", default=0),
-	 *     @parameter("include", type="enum[string]", description="Relations to include", members={
+	 *     @parameter("include", type="string", description="Relations to include", members={
 	 *          @member(value="category"),
 	 *          @member(value="resources"),
 	 *          @member(value="questions"),
-	 *          @member(value="insights"),
+	 *          @member(value="insights{?:type()}", description="Filter by type (0 = NORMAL, 1 = CURATED, 2 = HIGHLIGHT). Default is 1 and 2"),
 	 *     }),
 	 * })
 	 */
 	public function index( GetChallengeRequest $request ) {
-		$withResources           = $request->get( 'resources' );
-		$withQuestions           = $request->get( 'questions' );
-		$withInsights            = $request->get( 'insights' );
-		$groupInsightsByQuestion = $request->get( 'groupInsightsByQuestion' );
-		$allPhases               = $request->get( 'allPhases' );
-		$phase                   = $request->get( 'phase' );
-		$insightTypes            = explode( ',', $request->get( 'insightTypes', '1,2' ) );
+		$allPhases = $request->get( 'allPhases' );
+		$phase     = $request->get( 'phase', null );
 
-		$loadRelations = [];
-
+		// Build transformer parameters
+		$params = [];
 		if ( ! $allPhases ) {
-			$challenges = Challenge::with('category');
-
-			if ($phase) {
-				$challenges->where('phase', '=', $phase);
-			}
-
-			$challenges = $challenges->get();
-
-			foreach ( $challenges as $key => $challenge ) {
-				$phase = isset($phase) ? $phase : $challenge->phase;
-
-				$phaseFunction = function ( $query ) use ( $phase ) {
-					$query->where( 'phase', '=', $phase );
-				};
-
-				if ( $withResources ) {
-					$loadRelations['resources'] = $phaseFunction;
-				}
-
-				if ( $withQuestions ) {
-					if ( $withInsights && $groupInsightsByQuestion ) {
-						$loadRelations['questions'] = function ( $query ) use ( $phase, $phaseFunction, $insightTypes ) {
-							$query->where( 'phase', '=', $phase );
-							$query->with( [
-								'insights' => function ( $query ) use ( $phase, $phaseFunction, $insightTypes ) {
-									if ( ! empty( $insightTypes ) ) {
-										$query->whereIn( 'type', $insightTypes );
-									}
-									return $phaseFunction($query);
-								}
-							] );
-						};
-					} else {
-						$loadRelations['questions'] = $phaseFunction;
-					}
-				}
-
-				if ( $withInsights && ! $groupInsightsByQuestion ) {
-					if (!empty($insightTypes)) {
-						$loadRelations['insights'] = function ($query) use ($phaseFunction, $insightTypes) {
-							if ( ! empty( $insightTypes ) ) {
-								$query->whereIn( 'type', $insightTypes );
-							}
-							return $phaseFunction($query);
-						};
-					}
-					else {
-						$loadRelations['insights'] = $phaseFunction;
-					}
-				}
-
-				$challenge->load( $loadRelations );
-
-				$challenges[ $key ] = $challenge;
-			}
-
-			return $challenges;
-
+			$params['phase'] = $phase;
 		} else {
-			$loadRelations[] = 'category';
-
-			if ( $withResources ) {
-				$loadRelations[] = 'resources';
-			}
-
-			if ( $withQuestions ) {
-				$loadRelations[] = 'questions';
-			}
-
-			if ( $withInsights ) {
-				if ( $groupInsightsByQuestion ) {
-					$insightRelation = 'questions.insights';
-				} else {
-					$insightRelation = 'insights';
-				}
-
-				if ( ! empty( $insightTypes ) ) {
-					$loadRelations[ $insightRelation ] = function ( $query ) use ( $insightTypes ) {
-						$query->whereIn( 'type', $insightTypes );
-					};
-				} else {
-					$loadRelations[] = $insightRelation;
-				}
-			}
-
-			return Challenge::with( $loadRelations )->get();
+			$params['allPhases'] = $allPhases;
 		}
+
+		return $this->response->collection( Challenge::all(), new ChallengeTransformer( $params ) );
 	}
 
 	/**
@@ -148,7 +59,7 @@ class ChallengeController extends Controller {
 	 *
 	 * @post("/")
 	 * @request({"name": "Name", "summary": "This is a challenge.", "description": "Challenge description"})
-	 * @response(200, body={"challenge":{"id":1,"name":"Consequatur voluptatem atque blanditiis.","summary":"In vel eaque ut reprehenderit voluptates.","thumbnail":"http://thumbnail.com/img.jpg","phase":2,"created_at":"2017-05-31 05:06:00","updated_at":"2017-05-31 05:06:00"}})
+	 * @response(200, body={"data":{"id":1,"name":"Consequatur voluptatem atque blanditiis.","summary":"In vel eaque ut reprehenderit voluptates.","thumbnail":"http://thumbnail.com/img.jpg","phase":2,"created_at":"2017-05-31 05:06:00","updated_at":"2017-05-31 05:06:00"}})
 	 */
 	public function store( Request $request ) {
 		return Challenge::create( $request->all() );
@@ -161,106 +72,33 @@ class ChallengeController extends Controller {
 	 * @param  \App\Challenge $challenge
 	 *
 	 * @return Challenge|\Illuminate\Http\Response
-	 * @get("/{id}{?phase,allPhases,resources,questions,insights,insightTypes,groupInsightsByQuestion,include}")
-	 * @response(200, body={"challenge":{"id":1,"name":"Consequatur voluptatem atque blanditiis.","summary":"In vel eaque ut reprehenderit voluptates.","thumbnail":"http://thumbnail.com/img.jpg","phase":2,"created_at":"2017-05-31 05:06:00","updated_at":"2017-05-31 05:06:00"}})
+	 * @get("/{id}{?phase,allPhases,include}")
+	 * @response(200, body={"data":{"id":1,"name":"Consequatur voluptatem atque blanditiis.","summary":"In vel eaque ut reprehenderit voluptates.","thumbnail":"http://thumbnail.com/img.jpg","phase":2,"created_at":"2017-05-31 05:06:00","updated_at":"2017-05-31 05:06:00"}})
 	 * @parameters({
 	 *     @parameter("id", description="ID of Challenge", required=true, type="integer"),
 	 *     @parameter("phase", type="number", description="Get relations from specific phase."),
 	 *     @parameter("allPhases", type="boolean", description="Get relations from all phases.", default=0),
-	 * 	   @parameter("resources", type="boolean", description="Include associated resources.", default=0),
-	 *     @parameter("questions", type="boolean", description="Include associated questions.", default=0),
-	 *     @parameter("insights", type="boolean", description="Include associated insights.", default=0),
-	 *     @parameter("insightTypes", type="array|number", description="Filter by type (0 = NORMAL, 1 = CURATED, 2 = HIGHLIGHT)", default="1,2"),
-	 *     @parameter("groupInsightsByQuestion", type="boolean", description="Group associated insights by questions", default=0),
-	 *     @parameter("include", type="enum[string]", description="Relations to include", members={
+	 *     @parameter("include", type="string", description="Relations to include", members={
 	 *          @member(value="category"),
 	 *          @member(value="resources"),
 	 *          @member(value="questions"),
-	 *          @member(value="insights"),
+	 *          @member(value="insights{?:type()}", description="Filter by type (0 = NORMAL, 1 = CURATED, 2 = HIGHLIGHT). Default is 1 and 2."),
 	 *     }),
 	 * })
 	 */
 	public function show( GetChallengeRequest $request, Challenge $challenge ) {
-		$withResources           = $request->get( 'resources' );
-		$withQuestions           = $request->get( 'questions' );
-		$withInsights            = $request->get( 'insights' );
-		$groupInsightsByQuestion = $request->get( 'groupInsightsByQuestion' );
-		$allPhases               = $request->get( 'allPhases' );
-		$phase                   = $request->get( 'phase' );
-		$insightTypes            = explode( ',', $request->get( 'insightTypes', '1,2' ) );
+		$allPhases    = $request->get( 'allPhases' );
+		$phase        = $request->get( 'phase' );
 
-		$loadRelations = [ 'category' ];
-
+		// Build transformer parameters
+		$params = [];
 		if ( ! $allPhases ) {
-			$phase = isset($phase) ? $phase : $challenge->phase;
-
-			$phaseFunction = function ( $query ) use ( $phase ) {
-				$query->where( 'phase', '=', $phase );
-			};
-
-			if ( $withResources ) {
-				$loadRelations['resources'] = $phaseFunction;
-			}
-
-			if ( $withQuestions ) {
-				if ( $withInsights && $groupInsightsByQuestion ) {
-					$loadRelations['questions'] = function ( $query ) use ( $phase, $phaseFunction, $insightTypes ) {
-						$query->where( 'phase', '=', $phase );
-						$query->with( [
-							'insights' => function ( $query ) use ( $phase, $phaseFunction, $insightTypes ) {
-								if ( ! empty( $insightTypes ) ) {
-									$query->whereIn( 'type', $insightTypes );
-								}
-								return $phaseFunction($query);
-							}
-						] );
-					};
-				} else {
-					$loadRelations['questions'] = $phaseFunction;
-				}
-			}
-
-			if ( $withInsights && ! $groupInsightsByQuestion ) {
-				if (!empty($insightTypes)) {
-					$loadRelations['insights'] = function ($query) use ($phaseFunction, $insightTypes) {
-						if ( ! empty( $insightTypes ) ) {
-							$query->whereIn( 'type', $insightTypes );
-						}
-						return $phaseFunction($query);
-					};
-				}
-				else {
-					$loadRelations['insights'] = $phaseFunction;
-				}
-			}
-
+			$params['phase'] = $phase;
 		} else {
-			if ( $withResources ) {
-				$loadRelations[] = 'resources';
-			}
-
-			if ( $withQuestions ) {
-				$loadRelations[] = 'questions';
-			}
-
-			if ( $withInsights ) {
-				if ( $groupInsightsByQuestion ) {
-					$insightRelation = 'questions.insights';
-				} else {
-					$insightRelation = 'insights';
-				}
-
-				if ( ! empty( $insightTypes ) ) {
-					$loadRelations[ $insightRelation ] = function ( $query ) use ( $insightTypes ) {
-						$query->whereIn( 'type', $insightTypes );
-					};
-				} else {
-					$loadRelations[] = $insightRelation;
-				}
-			}
+			$params['allPhases'] = $allPhases;
 		}
 
-		return $challenge->load( $loadRelations );
+		return $this->response->item( $challenge, new ChallengeTransformer( $params ) );
 	}
 
 	/**
@@ -274,7 +112,7 @@ class ChallengeController extends Controller {
 	 * @put("/{id}")
 	 * @patch("/{id}")
 	 * @request({"name": "Name", "summary": "This is a challenge.", "description": "Challenge description"})
-	 * @response(200, body={"challenge":{"id":1,"name":"Consequatur voluptatem atque blanditiis.","summary":"In vel eaque ut reprehenderit voluptates.","thumbnail":"http://thumbnail.com/img.jpg","phase":2,"created_at":"2017-05-31 05:06:00","updated_at":"2017-05-31 05:06:00"}})
+	 * @response(200, body={"data":{"id":1,"name":"Consequatur voluptatem atque blanditiis.","summary":"In vel eaque ut reprehenderit voluptates.","thumbnail":"http://thumbnail.com/img.jpg","phase":2,"created_at":"2017-05-31 05:06:00","updated_at":"2017-05-31 05:06:00"}})
 	 * @parameters({
 	 *     @parameter("id", description="ID of Challenge", required=true, type="integer")
 	 * })
@@ -318,7 +156,7 @@ class ChallengeController extends Controller {
 	 * @return mixed
 	 *
 	 * @get("/{id}/resources")
-	 * @response(200, body={"resource":{"name":"Test","url":"http:\/\/test.com","description":"Test description","type":"PDF","phase":2,"challenge_id":1,"updated_at":"2017-05-31 06:33:25","created_at":"2017-05-31 06:33:25","id":23}})
+	 * @response(200, body={"data":{"name":"Test","url":"http:\/\/test.com","description":"Test description","type":"PDF","phase":2,"challenge_id":1,"updated_at":"2017-05-31 06:33:25","created_at":"2017-05-31 06:33:25","id":23}})
 	 * @parameters({
 	 *     @parameter("id", description="ID of Challenge", required=true, type="integer")
 	 * })
@@ -337,7 +175,7 @@ class ChallengeController extends Controller {
 	 *
 	 * @post("/{id}/resources")
 	 * @request({"name": "Test","url": "http://test.com","description": "Test description","type": "PDF"})
-	 * @response(200, body={"resource":{"name":"Test","url":"http:\/\/test.com","description":"Test description","type":"PDF","phase":2,"challenge_id":1,"updated_at":"2017-05-31 06:33:25","created_at":"2017-05-31 06:33:25","id":23}})
+	 * @response(200, body={"data":{"name":"Test","url":"http:\/\/test.com","description":"Test description","type":"PDF","phase":2,"challenge_id":1,"updated_at":"2017-05-31 06:33:25","created_at":"2017-05-31 06:33:25","id":23}})
 	 * @parameters({
 	 *     @parameter("id", description="ID of Challenge", required=true, type="integer")
 	 * })
@@ -380,7 +218,7 @@ class ChallengeController extends Controller {
 	 *
 	 * @post("/{id}/questions")
 	 * @request({"text": "What?"})
-	 * @response(200, body={"question":{"id":1,"text":"What?","challenge_id":1,"phase":1,"created_at":"2017-05-31 17:00:27","updated_at":"2017-05-31 17:18:28"}})
+	 * @response(200, body={"data":{"id":1,"text":"What?","challenge_id":1,"phase":1,"created_at":"2017-05-31 17:00:27","updated_at":"2017-05-31 17:18:28"}})
 	 * @parameters({
 	 *     @parameter("id", description="ID of Challenge", required=true, type="integer")
 	 * })
@@ -398,7 +236,7 @@ class ChallengeController extends Controller {
 	 * @return mixed
 	 *
 	 * @get("/{id}/insights")
-	 * @response(200, body={"insights": {}})
+	 * @response(200, body={"data": {}})
 	 * @parameters({
 	 *     @parameter("id", description="ID of Challenge", required=true, type="integer")
 	 * })
