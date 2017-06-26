@@ -21,6 +21,9 @@ class UserController extends Controller {
 	 *
 	 * @get("/")
 	 * @response(200, body={"users":{{"id":1,"slack_id":"UrH6vj8","name":"Wilma Hickle","email":"kallie68@example.org","thumbnail":null,"admin":0,"created_at":"2017-06-13 17:57:56","updated_at":"2017-06-13 17:57:56"}}})
+	 * @parameter("include", type="string", description="Relations to include", members={
+	 *      @member(value="challenge"),
+	 * }),
 	 */
 	public function index() {
 		return User::all();
@@ -36,6 +39,9 @@ class UserController extends Controller {
 	 * @response(200, body={"user":{"id":1,"slack_id":"UuwXqgS","name":"Lambert Feest","email":"uwintheiser@example.com","thumbnail":null,"admin":0,"survey":"","created_at":"2017-06-19 20:06:49","updated_at":"2017-06-19 20:13:45"}})
 	 * @parameters({
 	 *      @parameter("id", description="ID of User OR Slack ID of user", required=true, type="integer|string"),
+	 *      @parameter("include", type="string", description="Relations to include", members={
+	 *          @member(value="challenge"),
+	 *      }),
 	 * })
 	 */
 	public function show( $id ) {

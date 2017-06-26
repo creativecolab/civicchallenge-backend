@@ -728,6 +728,9 @@ Users
 
 + Parameters
     + id: (integer|string, required) - ID of User OR Slack ID of user
+    + include: (enum[string], optional) - Relations to include
+        + Members
+            + `challenge` - 
 
 + Response 200 (application/json)
     + Body

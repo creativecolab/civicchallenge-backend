@@ -8,6 +8,10 @@ use Storage;
 
 class UserTransformer extends TransformerAbstract {
 
+	protected $availableIncludes = [
+		'insights'
+	];
+
 	/**
 	 * Turn this item object into a generic array
 	 *
@@ -23,6 +27,10 @@ class UserTransformer extends TransformerAbstract {
 			'email'     => $user->email,
 			'thumbnail' => Storage::disk('public')->url($user->thumbnail),
 		];
+	}
+
+	public function includeInsights( User $user ) {
+		return $this->collection($user->insights, new InsightTransformer);
 	}
 
 }
