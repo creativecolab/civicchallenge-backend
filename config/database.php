@@ -54,6 +54,21 @@ return [
             'engine' => null,
         ],
 
+        'rds' => [
+	        'driver' => 'mysql',
+	        'host' => env('RDS_HOSTNAME'),
+	        'port' => env('RDS_PORT', '3306'),
+	        'database' => env('RDS_DATABASE'),
+	        'username' => env('RDS_USERNAME'),
+	        'password' => env('RDS_PASSWORD'),
+	        'unix_socket' => env('RDS_SOCKET', ''),
+	        'charset' => 'utf8mb4',
+	        'collation' => 'utf8mb4_unicode_ci',
+	        'prefix' => '',
+	        'strict' => true,
+	        'engine' => null,
+        ],
+
         'pgsql' => [
             'driver' => 'pgsql',
             'host' => env('DB_HOST', '127.0.0.1'),
