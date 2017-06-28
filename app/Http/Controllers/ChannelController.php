@@ -34,24 +34,25 @@ class ChannelController extends Controller
         return Channel::all();
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Channel  $channel
-     *
-     * @return Channel
-     *
-     * @get("/{id}{?include}")
-     * @parameters({
-     *     @parameter("id", description="ID of Channel", required=true, type="integer"),
-     *     @parameter("include", type="string", description="Relations to include", members={
-     *          @member(value="challenge"),
-     *          @member(value="questions"),
-     *     }),
-     * })
-     */
-    public function show(Channel $channel)
+	/**
+	 * Display the specified resource.
+	 *
+	 * @param $id
+	 *
+	 * @return Channel
+	 * @internal param Channel $channel
+	 *
+	 * @get("/{id}{?include}")
+	 * @parameters({
+	 *     @parameter("id", description="ID of Channel", required=true, type="integer"),
+	 *     @parameter("include", type="string", description="Relations to include", members={
+	 *          @member(value="challenge"),
+	 *          @member(value="questions"),
+	 *     }),
+	 * })
+	 */
+    public function show($id)
     {
-        return $channel;
+	    return Channel::findWithFallback( $id );
     }
 }
