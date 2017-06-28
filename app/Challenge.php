@@ -41,4 +41,8 @@ class Challenge extends Model {
 	public function insights() {
 		return $this->hasMany('App\Insight');
 	}
+
+	public function channels() {
+		return $this->hasMany('App\Channel');
+	}
 }
