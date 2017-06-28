@@ -219,6 +219,29 @@ Microchallenges
                 "data": []
             }
 
+# Slack Channels [/channels]
+Class ChannelController
+
+## Display a listing of the resource. [GET /channels{?include}]
+
+
++ Parameters
+    + id: (integer, required) - ID of Channel
+    + include: (enum[string], optional) - Relations to include
+        + Members
+            + `challenge` - 
+            + `questions` - 
+
+## Display the specified resource. [GET /channels/{id}{?include}]
+
+
++ Parameters
+    + id: (integer, required) - ID of Channel
+    + include: (enum[string], optional) - Relations to include
+        + Members
+            + `challenge` - 
+            + `questions` - 
+
 # Challenge Resources [/resources]
 Resources for Challenges. i.e. Student work, external resources
 
