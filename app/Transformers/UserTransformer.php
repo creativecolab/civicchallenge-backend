@@ -6,7 +6,8 @@ use App\User;
 use League\Fractal\TransformerAbstract;
 use Storage;
 
-class UserTransformer extends TransformerAbstract {
+class UserTransformer extends TransformerAbstract
+{
 
 	protected $availableIncludes = [
 		'insights'
@@ -19,18 +20,20 @@ class UserTransformer extends TransformerAbstract {
 	 *
 	 * @return array
 	 */
-	public function transform( User $user ) {
+	public function transform( User $user )
+	{
 		return [
 			'id'        => (int) $user->id,
-			'slack_id'  => $user->slack_id,
+			'slackId'   => $user->slack_id,
 			'name'      => $user->name,
 			'email'     => $user->email,
-			'thumbnail' => Storage::disk('public')->url($user->thumbnail),
+			'thumbnail' => Storage::disk( 'public' )->url( $user->thumbnail ),
 		];
 	}
 
-	public function includeInsights( User $user ) {
-		return $this->collection($user->insights, new InsightTransformer);
+	public function includeInsights( User $user )
+	{
+		return $this->collection( $user->insights, new InsightTransformer );
 	}
 
 }

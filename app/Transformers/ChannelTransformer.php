@@ -27,12 +27,12 @@ class ChannelTransformer extends TransformerAbstract
 	public function transform( Channel $channel )
 	{
 		return [
-			'id'           => (int) $channel->id,
-			'name'         => $channel->name,
-			'slack_id'     => $channel->slack_id,
-			'challenge_id' => $channel->challenge_id,
-			'createdAt'    => $channel->created_at->timestamp,
-			'updatedAt'    => $channel->updated_at->timestamp,
+			'id'          => (int) $channel->id,
+			'name'        => $channel->name,
+			'slackId'     => $channel->slack_id,
+			'challengeId' => $channel->challenge_id,
+			'createdAt'   => $channel->created_at->timestamp,
+			'updatedAt'   => $channel->updated_at->timestamp,
 		];
 	}
 

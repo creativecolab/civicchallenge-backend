@@ -27,7 +27,7 @@ class QuestionTransformer extends TransformerAbstract {
 		return [
 			'id'           => (int) $question->id,
 			'text'         => $question->text,
-			'challenge_id' => $question->challenge_id,
+			'challengeId' => $question->challenge_id,
 			'phase'        => (int) $question->phase,
 			'createdAt'    => $question->created_at->timestamp,
 			'updatedAt'    => $question->updated_at->timestamp,

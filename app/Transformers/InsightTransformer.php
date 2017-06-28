@@ -5,7 +5,8 @@ namespace App\Transformers;
 use App\Insight;
 use League\Fractal\TransformerAbstract;
 
-class InsightTransformer extends TransformerAbstract {
+class InsightTransformer extends TransformerAbstract
+{
 	/**
 	 * List of resources possible to include
 	 *
@@ -24,33 +25,37 @@ class InsightTransformer extends TransformerAbstract {
 	 *
 	 * @return array
 	 */
-	public function transform( Insight $insight ) {
+	public function transform( Insight $insight )
+	{
 		return [
-			'id'           => (int) $insight->id,
-			'text'         => $insight->text,
-			'user_id'      => (int) $insight->user_id,
-			'channel_id'   => $insight->channel_id,
-			'timestamp'    => $insight->timestamp->timestamp,
-			'thumbnail'    => $insight->thumbnail,
-			'type'         => (int) $insight->type,
-			'question_id'  => (int) $insight->question_id,
-			'challenge_id' => (int) $insight->challenge_id,
-			'phase'        => (int) $insight->phase,
-			'slack_meta'   => (int) $insight->slack_meta,
-			'createdAt'    => $insight->created_at->timestamp,
-			'updatedAt'    => $insight->updated_at->timestamp,
+			'id'          => (int) $insight->id,
+			'text'        => $insight->text,
+			'userId'      => (int) $insight->user_id,
+			'channelId'   => $insight->channel_id,
+			'timestamp'   => $insight->timestamp->timestamp,
+			'thumbnail'   => $insight->thumbnail,
+			'type'        => (int) $insight->type,
+			'questionId'  => (int) $insight->question_id,
+			'challengeId' => (int) $insight->challenge_id,
+			'phase'       => (int) $insight->phase,
+			'slack_meta'  => (int) $insight->slack_meta,
+			'createdAt'   => $insight->created_at->timestamp,
+			'updatedAt'   => $insight->updated_at->timestamp,
 		];
 	}
 
-	public function includeUser( Insight $insight ) {
+	public function includeUser( Insight $insight )
+	{
 		$this->item( $insight->user, new UserTransformer );
 	}
 
-	public function includeQuestion( Insight $insight ) {
+	public function includeQuestion( Insight $insight )
+	{
 		$this->item( $insight->question, new QuestionTransformer );
 	}
 
-	public function includeChallenge( Insight $insight ) {
+	public function includeChallenge( Insight $insight )
+	{
 		$this->item( $insight->challenge, new ChallengeTransformer );
 	}
 }
