@@ -16,4 +16,13 @@ class Channel extends Model
 	{
     	return $this->belongsTo('App\Challenge');
 	}
+
+	/**
+	 * Get questions belonging to a channel's challenge
+	 * @return mixed
+	 */
+	public function questions()
+	{
+		return $this->challenge->questions();
+	}
 }

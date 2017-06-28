@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Channel;
+use Dingo\Api\Routing\Helpers;
 use Illuminate\Http\Request;
 
 /**
@@ -12,6 +13,8 @@ use Illuminate\Http\Request;
  */
 class ChannelController extends Controller
 {
+	use Helpers;
+
     /**
      * Display a listing of the resource.
      *
@@ -22,6 +25,7 @@ class ChannelController extends Controller
      *     @parameter("id", description="ID of Channel", required=true, type="integer"),
      *     @parameter("include", type="string", description="Relations to include", members={
      *          @member(value="challenge"),
+     *          @member(value="questions"),
      *     }),
      * })
      */
@@ -42,6 +46,7 @@ class ChannelController extends Controller
      *     @parameter("id", description="ID of Channel", required=true, type="integer"),
      *     @parameter("include", type="string", description="Relations to include", members={
      *          @member(value="challenge"),
+     *          @member(value="questions"),
      *     }),
      * })
      */

@@ -13,6 +13,7 @@ class ChannelTransformer extends TransformerAbstract {
 	 */
 	protected $availableIncludes = [
 		'challenge',
+		'questions',
 	];
 
 	/**
@@ -36,6 +37,10 @@ class ChannelTransformer extends TransformerAbstract {
 		$challenge = $channel->challenge;
 
 		return $this->item($challenge, new ChallengeTransformer);
+	}
+
+	public function includeQuestions( Channel $channel ) {
+		return $this->collection($channel->questions, new QuestionTransformer);
 	}
 
 }
