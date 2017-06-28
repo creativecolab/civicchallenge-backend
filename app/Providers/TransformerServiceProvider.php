@@ -4,11 +4,14 @@ namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
 
-class TransformerServiceProvider extends ServiceProvider {
-	public function register() {
+class TransformerServiceProvider extends ServiceProvider
+{
+	public function register()
+	{
 		$transformers = [
 			'App\Category'  => 'App\Transformers\CategoryTransformer',
 			'App\Challenge' => 'App\Transformers\ChallengeTransformer',
+			'App\Channel'   => 'App\Transformers\ChannelTransformer',
 			'App\Event'     => 'App\Transformers\EventTransformer',
 			'App\Insight'   => 'App\Transformers\InsightTransformer',
 			'App\Question'  => 'App\Transformers\QuestionTransformer',
