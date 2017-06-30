@@ -87,6 +87,7 @@ $factory->define(App\Channel::class, function (Faker\Generator $faker) {
 	return [
 		'name' => $faker->word(),
 		'slack_id' => 'C' . str_random(8),
-		'challenge_id' => 1
+		'challenge_id' => 1,
+		'condition' => rand(0,3)
 	];
 });

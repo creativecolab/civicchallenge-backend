@@ -11,6 +11,7 @@ class Channel extends Model
 		'name',
 		'slack_id',
 		'challenge_id',
+		'condition',
 	];
 
 	public function challenge()

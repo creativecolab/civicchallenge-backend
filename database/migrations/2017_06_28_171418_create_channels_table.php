@@ -19,6 +19,7 @@ class CreateChannelsTable extends Migration
 	        $table->string('slack_id');
 	        $table->unsignedInteger('challenge_id');
 	        $table->foreign('challenge_id')->references('id')->on('challenges');
+	        $table->unsignedTinyInteger('condition')->nullable();
 	        $table->timestamps();
         });
     }
