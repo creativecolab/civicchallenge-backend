@@ -5,28 +5,25 @@ use Illuminate\Database\Seeder;
 class CategoriesSeeder extends Seeder {
 	const STAGING_DATA = [
 		[
+			'name' => 'Accessibility',
+		],
+		[
+			'name' => 'Elderly',
+		],
+		[
+			'name' => 'Autonomous Vehicles',
+		],
+		[
 			'name' => 'Public Transit',
-		],
-		[
-			'name' => 'Urban Planning',
-		],
-		[
-			'name' => 'Crossing the Border',
 		],
 		[
 			'name' => 'Parking',
 		],
 		[
-			'name' => 'Ageing',
-		],
-		[
-			'name' => 'Accessibility',
+			'name' => 'Urban Planning',
 		],
 		[
 			'name' => 'Traffic',
-		],
-		[
-			'name' => 'Autonomous Vehicles',
 		],
 	];
 

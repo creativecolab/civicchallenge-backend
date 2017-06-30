@@ -5,55 +5,40 @@ use Illuminate\Database\Seeder;
 class ChallengesSeeder extends Seeder {
 	const STAGING_DATA = [
 		[
-			'name'        => 'Enhancing Rider Feedback Systems',
+			'name'        => 'Accessibility',
 			'category_id' => 1,
 			'phase'       => App\Challenge::PHASE_START
 		],
 		[
-			'name'        => 'Cultural Spaces',
+			'name'        => 'Expanding Elder Rider Services',
 			'category_id' => 2,
-			'phase'       => App\Challenge::PHASE_START
-		],
-		[
-			'name'        => 'Homelessness',
-			'category_id' => 2,
-			'phase'       => App\Challenge::PHASE_START
-		],
-		[
-			'name'        => 'Walking and Biking Safely',
-			'category_id' => 2,
-			'phase'       => App\Challenge::PHASE_START
-		],
-		[
-			'name'        => 'Crossing the Border',
-			'category_id' => 3,
-			'phase'       => App\Challenge::PHASE_START
-		],
-		[
-			'name'        => 'Parking and Population Growth',
-			'category_id' => 4,
-			'phase'       => App\Challenge::PHASE_START
-		],
-		[
-			'name'        => 'Ageing and Mobility',
-			'category_id' => 5,
-			'phase'       => App\Challenge::PHASE_START
-		],
-		[
-			'name'        => 'Accessibility',
-			'category_id' => 6,
-			'phase'       => App\Challenge::PHASE_START
-		],
-		[
-			'name'        => 'Experiencing Traffic',
-			'category_id' => 7,
 			'phase'       => App\Challenge::PHASE_START
 		],
 		[
 			'name'        => 'Autonomous Vehicles',
-			'category_id' => 8,
+			'category_id' => 3,
 			'phase'       => App\Challenge::PHASE_START
-		]
+		],
+		[
+			'name'        => 'Public Transit Feedback',
+			'category_id' => 4,
+			'phase'       => App\Challenge::PHASE_START
+		],
+		[
+			'name'        => 'Smarter Parking',
+			'category_id' => 5,
+			'phase'       => App\Challenge::PHASE_START
+		],
+		[
+			'name'        => 'Bicycling and Pedestrian Safety',
+			'category_id' => 6,
+			'phase'       => App\Challenge::PHASE_START
+		],
+		[
+			'name'        => 'Making Traffic Tolerable',
+			'category_id' => 7,
+			'phase'       => App\Challenge::PHASE_START
+		],
 	];
 
 	/**
