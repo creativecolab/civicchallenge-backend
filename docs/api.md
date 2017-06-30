@@ -222,11 +222,11 @@ Microchallenges
 # Slack Channels [/channels]
 Class ChannelController
 
-## Display a listing of the resource. [GET /channels{?include}]
+## Display a listing of the resource. [GET /channels{?condition,include}]
 
 
 + Parameters
-    + id: (integer, required) - ID of Channel
+    + condition: (integer, optional) - Condition ID
     + include: (enum[string], optional) - Relations to include
         + Members
             + `challenge` - 
